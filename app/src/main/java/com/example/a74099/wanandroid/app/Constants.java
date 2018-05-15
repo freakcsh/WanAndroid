@@ -1,0 +1,43 @@
+package com.example.a74099.wanandroid.app;
+
+/**
+ * Created by Administrator on 2018/2/4.
+ */
+
+public class Constants {
+
+    public static final String BMOB_APP_ID = "f295f9e9f67d597d3da824d3d6e55dd6";
+    public static final String NEW_KET="d78b502268f7456b79fbe7228cecdd46";
+    /**
+     * 新闻数据接口
+     */
+    public static final String NEWS_DATA_URL = "http://v.juhe.cn/toutiao/index?key=d78b502268f7456b79fbe7228cecdd46";
+    public static final String TYPE = "type";
+    public static final String USERNAME = "username";
+    public static final String REAL_M_HELPER_USERNAME = "realmhelper";
+
+    /**
+     * 服务器地址
+     */
+    public static final String BASE_URL = "http://192.168.1.117/201804/szkz_app/";
+//    public static final String BASE_URL = "http://v.juhe.cn/";
+
+
+
+
+
+
+
+
+
+
+//    public static final String BASE_URL = "http://120.79.82.252";//远程
+    //公用对话框的提示
+    public static final String TIPS_TITLE = "tipsTitle";
+    public static final String TIPS_TEXT = "tipsText";
+    public static final String TIPS_HINT = "tipsHint";
+    public static final String TIPS_CANCEL = "tipsCancel";
+    public static final String TIPS_SUCCEED = "tipsSucceed";
+    public static final String TIPS_RIGHT = "text_right";
+    public static final String TIPS_TYPE = "text_type";
+}
