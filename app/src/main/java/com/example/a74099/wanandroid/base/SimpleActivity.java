@@ -19,7 +19,6 @@ import me.yokeyword.fragmentation.SupportActivity;
 public abstract class SimpleActivity extends SupportActivity {
 
     protected Activity mContext;
-//    private Unbinder mUnBinder;
 
 
     @Override
@@ -30,7 +29,6 @@ public abstract class SimpleActivity extends SupportActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(getLayout());
-//        mUnBinder = ButterKnife.bind(this);
         mContext = this;
         App.getInstance().addActivity(this);
         initEventAndData();
@@ -40,7 +38,6 @@ public abstract class SimpleActivity extends SupportActivity {
     protected void onDestroy() {
         super.onDestroy();
         App.getInstance().removeActivity(this);
-//        mUnBinder.unbind();
     }
 
     @Override

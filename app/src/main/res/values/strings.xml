@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WanAndroid</string>
+
+    <!-- mainActivity-->
+    <string name="main_myself">我的</string>
+    <string name="main_classify">项目分类</string>
+    <string name="main_navigation">导航</string>
+    <string name="main_system">体系</string>
+    <string name="main_homepage">首页</string>
 </resources>

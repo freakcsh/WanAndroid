@@ -41,10 +41,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         setContentView(getLayout());
 
         mActivity = this;
-//        App.getInstance().addActivity(this);
+        App.getInstance().addActivity(this);
 
         //活动控制器
-//        ActivityCollector.addActivity(this);
+        ActivityCollector.addActivity(this);
 
 
         if (mPresenter != null) {
