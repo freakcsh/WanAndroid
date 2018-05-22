@@ -2,17 +2,18 @@ package com.example.a74099.wanandroid.model.home;
 
 import android.view.View;
 
+import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 
-public class HomapageFragment extends BaseFragment<HomepagePresenter> implements HomePageContract.View {
+public class HomepageFragment extends BaseFragment<HomepagePresenter> implements HomePageContract.View {
     @Override
     protected HomepagePresenter createPresenter() {
-        return null;
+        return new HomepagePresenter();
     }
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_homepage;
     }
 
     @Override

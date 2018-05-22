@@ -2,17 +2,18 @@ package com.example.a74099.wanandroid.model.classify;
 
 import android.view.View;
 
+import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 
 public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements ClassifyContract.View{
     @Override
     protected ClassifyPresenter createPresenter() {
-        return null;
+        return new ClassifyPresenter();
     }
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_classify;
     }
 
     @Override

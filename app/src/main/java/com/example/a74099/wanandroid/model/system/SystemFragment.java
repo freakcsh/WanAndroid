@@ -2,6 +2,7 @@ package com.example.a74099.wanandroid.model.system;
 
 import android.view.View;
 
+import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 
 public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View {
@@ -12,7 +13,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_system;
     }
 
     @Override

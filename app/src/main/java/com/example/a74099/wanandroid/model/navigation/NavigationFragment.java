@@ -2,17 +2,18 @@ package com.example.a74099.wanandroid.model.navigation;
 
 import android.view.View;
 
+import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 
 public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View{
     @Override
     protected NavigationPresenter createPresenter() {
-        return null;
+        return new NavigationPresenter();
     }
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_navigation;
     }
 
     @Override

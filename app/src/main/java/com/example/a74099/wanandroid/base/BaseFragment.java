@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,14 @@ import android.view.ViewGroup;
 import com.example.a74099.wanandroid.net.BasePresenter;
 import com.example.a74099.wanandroid.net.BaseView;
 
-import me.yokeyword.fragmentation.SupportFragment;
+
 
 /**
  * Created by Administrator on 2018/2/4.
  * MVP Fragment基类
  */
 
-public abstract class BaseFragment<T extends BasePresenter> extends SupportFragment implements BaseView {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
     protected T mPresenter;
     protected View mView;
     protected Activity mActivity;
@@ -58,6 +59,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = createPresenter();
+
     }
 
 
@@ -68,14 +70,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
             mPresenter.attachView(this);
         }
         initEventAndData(view);
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
         initLazyData();
         showLoading();
     }
+
+
 
     @Override
     public void onDestroyView() {

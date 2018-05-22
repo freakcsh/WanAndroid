@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.SupportActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -19,7 +19,7 @@ import com.example.a74099.wanandroid.net.BaseView;
  * MVP activity基类
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends SupportActivity implements BaseView {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
     protected T mPresenter;
     protected Activity mActivity;
 
@@ -41,10 +41,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         setContentView(getLayout());
 
         mActivity = this;
-        App.getInstance().addActivity(this);
+//        App.getInstance().addActivity(this);
 
         //活动控制器
-        ActivityCollector.addActivity(this);
+//        ActivityCollector.addActivity(this);
 
 
         if (mPresenter != null) {
