@@ -19,7 +19,7 @@ public class Constants {
     /**
      * 服务器地址
      */
-    public static final String BASE_URL = "http://192.168.1.117/201804/szkz_app/";
+    public static final String BASE_URL = "http://www.wanandroid.com/";
 //    public static final String BASE_URL = "http://v.juhe.cn/";
 
 
