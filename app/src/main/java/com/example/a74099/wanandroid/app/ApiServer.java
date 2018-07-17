@@ -4,6 +4,7 @@ package com.example.a74099.wanandroid.app;
 import com.example.a74099.wanandroid.bean.ArticleListBean;
 import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
+import com.example.a74099.wanandroid.bean.SystemDetailBean;
 import com.example.a74099.wanandroid.net.HttpResult;
 
 import java.util.List;
@@ -37,4 +38,7 @@ public interface ApiServer {
 
     @GET("tree/json")
     Observable<HttpResult<List<SystemClassifyBean>>> getSystemClassify();
+
+    @GET
+    Observable<HttpResult<SystemDetailBean>> getClassifyDetail(@Url String url,@Query("cid") String cid);
 }

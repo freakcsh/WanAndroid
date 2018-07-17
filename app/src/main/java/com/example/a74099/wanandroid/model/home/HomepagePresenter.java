@@ -10,6 +10,7 @@ import com.example.a74099.wanandroid.net.HttpMethods;
 import com.example.a74099.wanandroid.net.HttpResultFunc;
 import com.example.a74099.wanandroid.net.RxPresenter;
 import com.example.a74099.wanandroid.net.SubscriberCallBack;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.List;
 
@@ -51,7 +52,8 @@ public class HomepagePresenter extends RxPresenter<HomePageContract.View> implem
     }
 
     public void getArticle(String curPage) {
-        Observable observable = apiServer.getArticle("article/list/" + curPage + "/json").map(new HttpResultFunc<ArticleListBean>());
+        String page= ToolUtils.subtract(curPage,"1");
+        Observable observable = apiServer.getArticle("article/list/" + page + "/json").map(new HttpResultFunc<ArticleListBean>());
         addSubscription(observable, new SubscriberCallBack(new ApiCallback<ArticleListBean>() {
             @Override
             public void onSuccess(ArticleListBean model) {

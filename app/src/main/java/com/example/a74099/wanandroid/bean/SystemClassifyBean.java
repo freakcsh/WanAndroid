@@ -1,12 +1,13 @@
 package com.example.a74099.wanandroid.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by 74099 on 2018/7/17.
  */
 
-public class SystemClassifyBean {
+public class SystemClassifyBean implements Serializable{
 
     private List<Children> children;
 
@@ -88,7 +89,7 @@ public class SystemClassifyBean {
         return this.visible;
     }
 
-    public class Children {
+    public class Children implements Serializable{
         private List<Children> children;
 
         private int courseId;

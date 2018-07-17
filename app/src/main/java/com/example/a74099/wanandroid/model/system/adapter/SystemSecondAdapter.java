@@ -34,12 +34,20 @@ public class SystemSecondAdapter extends MBaseAdapter<SystemSecondAdapter.System
     @NonNull
     @Override
     public SystemSecondViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SystemSecondViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_system, parent, false));
+        return new SystemSecondViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_system_second, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SystemSecondViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SystemSecondViewHolder holder, final int position) {
         holder.tv_system_classify.setText(mList.get(position).getName());
+        holder.tv_system_classify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClick!=null){
+                    onItemClick.onItemClick(position,mList.get(position));
+                }
+            }
+        });
     }
 
     @Override

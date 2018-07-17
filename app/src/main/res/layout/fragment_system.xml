@@ -4,50 +4,40 @@
     android:layout_height="match_parent"
     android:background="@color/c_132737"
     android:orientation="vertical">
-    <RelativeLayout
 
-        android:layout_width="match_parent"
+
+    <LinearLayout
+        android:id="@+id/ll_system_classify"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:background="@color/c_1b364d">
+        android:gravity="center_vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_system_classify"
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
-            <ImageView
-                android:id="@+id/iv_start_logo"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_start_logo"
+            android:text="一级分类"
+            android:textColor="@color/c_b9cf00"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/iv_start_logo"
-                android:text="选择一级分类"
-                android:textColor="@color/tab_text_s"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/ll_system_first_recycle"
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@color/c_1b364c"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/system_first_no_data"
@@ -64,15 +54,48 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_start_logo"
+            android:text="二级分类"
+            android:textColor="@color/c_b9cf00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_system_second_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/tab_text_s"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
-            android:id="@+id/ll_system_second_recycle"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginTop="5dp"
+            android:background="@color/c_1b364c"
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <LinearLayout
-                android:id="@+id/system_second_no_data"
+                android:id="@+id/system_detail_no_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone">
@@ -81,7 +104,7 @@
             </LinearLayout>
 
             <com.jcodecraeer.xrecyclerview.XRecyclerView
-                android:id="@+id/system_second_recycle"
+                android:id="@+id/system_detail_recycle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

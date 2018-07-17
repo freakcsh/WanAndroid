@@ -2,15 +2,19 @@ package com.example.a74099.wanandroid.model.system;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.base.MBaseAdapter;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
+import com.example.a74099.wanandroid.bean.SystemDetailBean;
+import com.example.a74099.wanandroid.dialog.SystemSecondDialogFragment;
 import com.example.a74099.wanandroid.model.system.adapter.SystemFirstAdapter;
-import com.example.a74099.wanandroid.model.system.adapter.SystemSecondAdapter;
+import com.example.a74099.wanandroid.util.DialogUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
@@ -18,14 +22,15 @@ import java.util.List;
 /**
  * 体系
  */
-public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View, View.OnClickListener {
-    private LinearLayout system_first_no_data, system_second_no_data;
-    private XRecyclerView system_first_recycle, system_second_recycle;
+public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View {
+    private LinearLayout system_first_no_data, system_detail_no_data;
+    private XRecyclerView system_first_recycle, system_detail_recycle;
     private SystemFirstAdapter mSystemFirstAdapter;
-    private SystemSecondAdapter mSystemSecondAdapter;
+
     private List<SystemClassifyBean> mClassifyBeanList;
     private List<SystemClassifyBean.Children> mChildrenList;
-    private LinearLayout ll_system_classify,ll_system_second_recycle,ll_system_first_recycle;
+    private TextView tv_system_second_name;
+    private int curPage=1;
 
     @Override
     protected SystemPresenter createPresenter() {
@@ -45,20 +50,16 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     }
 
     private void initRecycle() {
-        system_first_recycle.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        system_second_recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
+        system_first_recycle.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        system_detail_recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     private void initView(View view) {
-//        mChildrenList=new ArrayList<>();
         system_first_no_data = view.findViewById(R.id.system_first_no_data);
-        system_second_no_data = view.findViewById(R.id.system_second_no_data);
         system_first_recycle = view.findViewById(R.id.system_first_recycle);
-        system_second_recycle = view.findViewById(R.id.system_second_recycle);
-        ll_system_classify = view.findViewById(R.id.ll_system_classify);
-        ll_system_second_recycle = view.findViewById(R.id.ll_system_second_recycle);
-        ll_system_first_recycle = view.findViewById(R.id.ll_system_first_recycle);
-        ll_system_classify.setOnClickListener(this);
+        system_detail_recycle = view.findViewById(R.id.system_detail_recycle);
+        system_detail_no_data = view.findViewById(R.id.system_detail_no_data);
+        tv_system_second_name = view.findViewById(R.id.tv_system_second_name);
     }
 
     @Override
@@ -86,9 +87,6 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     public void getSystemSuccess(List<SystemClassifyBean> systemClassifyBeanList) {
         if (systemClassifyBeanList != null && systemClassifyBeanList.size() != 0) {
             mClassifyBeanList = systemClassifyBeanList;
-//            for (int i = 0; i < systemClassifyBeanList.size(); i++){
-//                mChildrenList.add(systemClassifyBeanList.get(i).getChildren());
-//            }
         }
         /**
          * 一级分类recycleView
@@ -106,27 +104,21 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
                         mSystemFirstAdapter.setData(mClassifyBeanList);
                         mSystemFirstAdapter.setSelect(position);
                         mSystemFirstAdapter.notifyDataSetChanged();
-                        ll_system_first_recycle.setVisibility(View.GONE);
-//                        ll_system_second_recycle.setVisibility(View.VISIBLE);
                         mChildrenList = (List<SystemClassifyBean.Children>) o;
+                        DialogUtil.showSystemSecond(getActivity(), "二级分类", mChildrenList, new SystemSecondDialogFragment.OnTipsListener() {
+                            @Override
+                            public void onCancel() {
 
-                        /**
-                         * 二级分类recycleView
-                         */
-                        if (mChildrenList != null && mChildrenList.size() != 0) {
-                            system_second_no_data.setVisibility(View.GONE);
-                            system_second_recycle.setVisibility(View.VISIBLE);
-                            if (mSystemSecondAdapter == null) {
-                                mSystemSecondAdapter = new SystemSecondAdapter(getActivity(), mChildrenList);
-                                system_second_recycle.setAdapter(mSystemSecondAdapter);
-                            } else {
-                                mSystemSecondAdapter.setData(mChildrenList);
-                                mSystemSecondAdapter.notifyDataSetChanged();
                             }
-                        } else {
-                            system_second_no_data.setVisibility(View.VISIBLE);
-                            system_second_recycle.setVisibility(View.GONE);
-                        }
+
+                            @Override
+                            public void onSuccess(String name, int id) {
+                                Log.e("freak", "name=" + name + "id=" + id);
+                                tv_system_second_name.setText(name);
+                                mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(id));
+                            }
+                        });
+
                     }
                 });
             } else {
@@ -139,25 +131,16 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
             system_first_recycle.setVisibility(View.GONE);
         }
 
+    }
 
-        /**
-         * 二级分类recycleView
-         */
-        mChildrenList = systemClassifyBeanList.get(0).getChildren();
-        if (mChildrenList != null && mChildrenList.size() != 0) {
-            system_second_no_data.setVisibility(View.GONE);
-            system_second_recycle.setVisibility(View.VISIBLE);
-            if (mSystemSecondAdapter == null) {
-                mSystemSecondAdapter = new SystemSecondAdapter(getActivity(), mChildrenList);
-                system_second_recycle.setAdapter(mSystemSecondAdapter);
-            } else {
-                mSystemSecondAdapter.setData(mChildrenList);
-                mSystemSecondAdapter.notifyDataSetChanged();
-            }
-        } else {
-            system_second_no_data.setVisibility(View.VISIBLE);
-            system_second_recycle.setVisibility(View.GONE);
-        }
+    /**
+     * 获取分类列表成功回调
+     *
+     * @param systemDetailBean
+     */
+    @Override
+    public void getClassifyDetailSuccess(SystemDetailBean systemDetailBean) {
+
     }
 
     @Override
@@ -165,15 +148,4 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_system_classify:
-                ll_system_first_recycle.setVisibility(View.VISIBLE);
-//                ll_system_second_recycle.setVisibility(View.GONE);
-                break;
-            default:
-                break;
-        }
-    }
 }

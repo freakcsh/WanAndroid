@@ -63,12 +63,17 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
             public void onRefresh() {
                 curPage = 1;
                 mPresenter.getArticle(String.valueOf(curPage));
+
             }
 
             @Override
             public void onLoadMore() {
                 curPage++;
-                mPresenter.getArticle(String.valueOf(curPage));
+                if (curPage == 0) {
+                    mPresenter.getArticle("0");
+                } else {
+                    mPresenter.getArticle(String.valueOf(curPage));
+                }
             }
         });
     }
@@ -107,9 +112,9 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
         home_banner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent=new Intent(getActivity(), BannerDetailAct.class);
-                intent.putExtra("url",list.get(position).getUrl());
-                intent.putExtra("title",list.get(position).getTitle());
+                Intent intent = new Intent(getActivity(), BannerDetailAct.class);
+                intent.putExtra("url", list.get(position).getUrl());
+                intent.putExtra("title", list.get(position).getTitle());
                 startActivity(intent);
             }
         });
