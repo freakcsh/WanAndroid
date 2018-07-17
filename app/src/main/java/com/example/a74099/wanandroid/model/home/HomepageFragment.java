@@ -22,7 +22,9 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 首页
+ */
 public class HomepageFragment extends BaseFragment<HomepagePresenter> implements HomePageContract.View {
     private ConvenientBanner home_banner;
     private XRecyclerView home_recycle;

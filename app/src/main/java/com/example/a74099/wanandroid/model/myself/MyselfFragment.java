@@ -5,6 +5,9 @@ import android.view.View;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 
+/**
+ * 我的
+ */
 public class MyselfFragment extends BaseFragment<MyselfPresenter> implements MyselfContract.View {
     @Override
     protected MyselfPresenter createPresenter() {
