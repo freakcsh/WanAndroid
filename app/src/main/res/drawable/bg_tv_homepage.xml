@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:color="@color/colorPrimary" android:state_selected="true" />
-    <item android:color="@color/c_bfbfbf" android:state_selected="false" />
+    <item android:color="@color/tab_text_s" android:state_selected="true" />
+    <item android:color="@color/tab_text_uns" android:state_selected="false" />
 </selector>
