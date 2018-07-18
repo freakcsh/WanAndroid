@@ -3,6 +3,7 @@ package com.example.a74099.wanandroid.app;
 
 import com.example.a74099.wanandroid.bean.ArticleListBean;
 import com.example.a74099.wanandroid.bean.BannerBean;
+import com.example.a74099.wanandroid.bean.NavigationBean;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
 import com.example.a74099.wanandroid.net.HttpResult;
@@ -40,5 +41,8 @@ public interface ApiServer {
     Observable<HttpResult<List<SystemClassifyBean>>> getSystemClassify();
 
     @GET
-    Observable<HttpResult<SystemDetailBean>> getClassifyDetail(@Url String url,@Query("cid") String cid);
+    Observable<HttpResult<SystemDetailBean>> getClassifyDetail(@Url String url, @Query("cid") String cid);
+
+    @GET("navi/json")
+    Observable<HttpResult<List<NavigationBean>>> getNavigation();
 }

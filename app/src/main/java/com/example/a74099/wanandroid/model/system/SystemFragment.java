@@ -1,9 +1,13 @@
 package com.example.a74099.wanandroid.model.system;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,10 +17,13 @@ import com.example.a74099.wanandroid.base.MBaseAdapter;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
 import com.example.a74099.wanandroid.dialog.SystemSecondDialogFragment;
+import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
+import com.example.a74099.wanandroid.model.system.adapter.SystemDetailAdapter;
 import com.example.a74099.wanandroid.model.system.adapter.SystemFirstAdapter;
 import com.example.a74099.wanandroid.util.DialogUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,13 +31,17 @@ import java.util.List;
  */
 public class SystemFragment extends BaseFragment<SystemPresenter> implements SystemContract.View {
     private LinearLayout system_first_no_data, system_detail_no_data;
-    private XRecyclerView system_first_recycle, system_detail_recycle;
+    private XRecyclerView system_detail_recycle;
+    private RecyclerView system_first_recycle;
     private SystemFirstAdapter mSystemFirstAdapter;
 
     private List<SystemClassifyBean> mClassifyBeanList;
     private List<SystemClassifyBean.Children> mChildrenList;
     private TextView tv_system_second_name;
-    private int curPage=1;
+    private int curPage = 1;
+    private List<SystemDetailBean.Datas> list;
+    private SystemDetailAdapter systemDetailAdapter;
+    private static int mId;
 
     @Override
     protected SystemPresenter createPresenter() {
@@ -52,9 +63,23 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     private void initRecycle() {
         system_first_recycle.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         system_detail_recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
+        system_detail_recycle.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                curPage = 1;
+                mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
+            }
+
+            @Override
+            public void onLoadMore() {
+                curPage++;
+                mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
+            }
+        });
     }
 
     private void initView(View view) {
+        list = new ArrayList<>();
         system_first_no_data = view.findViewById(R.id.system_first_no_data);
         system_first_recycle = view.findViewById(R.id.system_first_recycle);
         system_detail_recycle = view.findViewById(R.id.system_detail_recycle);
@@ -87,6 +112,8 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     public void getSystemSuccess(List<SystemClassifyBean> systemClassifyBeanList) {
         if (systemClassifyBeanList != null && systemClassifyBeanList.size() != 0) {
             mClassifyBeanList = systemClassifyBeanList;
+            mId = systemClassifyBeanList.get(0).getChildren().get(0).getId();
+            mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
         }
         /**
          * 一级分类recycleView
@@ -114,8 +141,10 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
                             @Override
                             public void onSuccess(String name, int id) {
                                 Log.e("freak", "name=" + name + "id=" + id);
+                                mId = id;
+                                curPage=1;
                                 tv_system_second_name.setText(name);
-                                mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(id));
+                                mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
                             }
                         });
 
@@ -140,7 +169,65 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
      */
     @Override
     public void getClassifyDetailSuccess(SystemDetailBean systemDetailBean) {
+        if (systemDetailBean != null) {
+            List<SystemDetailBean.Datas> dataList = systemDetailBean.getDatas();
+            if (curPage == 1) {
+                refresh(dataList);
+            } else {
+                loading(dataList);
+            }
+        }
+    }
 
+    private void loading(List<SystemDetailBean.Datas> mList) {
+        if (mList != null && mList.size() != 0) {
+            system_detail_recycle.loadMoreComplete();
+            list.addAll(mList);
+            systemDetailAdapter.setData(list);
+            systemDetailAdapter.notifyDataSetChanged();
+
+        } else {
+            system_detail_recycle.setNoMore(true);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    system_detail_recycle.setNoMore(true);
+                }
+            }, 1000);
+        }
+    }
+
+    private void refresh(List<SystemDetailBean.Datas> mList) {
+        if (mList != null && mList.size() != 0) {
+            list.clear();
+            list.addAll(mList);
+            if (systemDetailAdapter == null) {
+                systemDetailAdapter = new SystemDetailAdapter(getActivity(), list);
+                system_detail_recycle.setAdapter(systemDetailAdapter);
+                systemDetailAdapter.setOnItemClickListener(new SystemDetailAdapter.OnItemClickListener() {
+                    @Override
+                    public void doCollage(SystemDetailBean.Datas mData, ImageView imageView) {
+                        if (mData.getCollect()) {
+                            imageView.setSelected(false);
+                        } else {
+                            imageView.setSelected(true);
+                        }
+                    }
+
+                    @Override
+                    public void doIntern(SystemDetailBean.Datas mData) {
+                        Intent intent = new Intent(getActivity(), ArticleDetailAct.class);
+                        intent.putExtra("url", mData.getLink());
+                        intent.putExtra("title", mData.getTitle());
+                        startActivity(intent);
+                    }
+                });
+            } else {
+                systemDetailAdapter.setData(list);
+                systemDetailAdapter.notifyDataSetChanged();
+            }
+            system_detail_recycle.refreshComplete();
+        }
     }
 
     @Override
