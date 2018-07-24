@@ -9,6 +9,6 @@ public interface ClassifyContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getClassify();
+        void getClassify(String curPage);
     }
 }
