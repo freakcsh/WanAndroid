@@ -20,14 +20,16 @@ public class NavigationRightAdapter extends RecyclerView.Adapter {
     private final int MENU_TYPE = 0;
     private final int DISH_TYPE = 1;
     private int mItemCount;
+
     public NavigationRightAdapter(Context context, List<NavigationBean> list) {
         this.context = context;
         this.list = list;
         this.mItemCount = list.size();
-        for(NavigationBean menu:list){
-            mItemCount+=menu.getArticles().size();
+        for (NavigationBean menu : list) {
+            mItemCount += menu.getArticles().size();
         }
     }
+
     @Override
     public int getItemViewType(int position) {
         int sum = 0;
@@ -63,7 +65,7 @@ public class NavigationRightAdapter extends RecyclerView.Adapter {
             if (navigationLeftViewHolder != null) {
                 final NavigationBean.Articles articles = getDishByPosition(position);
                 navigationLeftViewHolder.tv_navigation_title_right.setText(articles.getTitle());
-                navigationLeftViewHolder.ll_right.setContentDescription(position+"");
+                navigationLeftViewHolder.ll_right.setContentDescription(position + "");
             }
         }
     }
@@ -81,13 +83,12 @@ public class NavigationRightAdapter extends RecyclerView.Adapter {
     }
 
 
-    public NavigationBean.Articles getDishByPosition(int position){
-        for(NavigationBean menu:list){
-            if(position>0 && position<=menu.getArticles().size()){
-                return menu.getArticles().get(position-1);
-            }
-            else{
-                position-=menu.getArticles().size()+1;
+    public NavigationBean.Articles getDishByPosition(int position) {
+        for (NavigationBean menu : list) {
+            if (position > 0 && position <= menu.getArticles().size()) {
+                return menu.getArticles().get(position - 1);
+            } else {
+                position -= menu.getArticles().size() + 1;
             }
         }
         return null;

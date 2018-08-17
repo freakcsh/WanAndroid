@@ -65,7 +65,6 @@ public class NavigationLeftAdapter extends MBaseAdapter<NavigationLeftAdapter.Na
         } else {
             holder.ll_left.setSelected(false);
         }
-
     }
     public void setSelectedNum(int selectedNum) {
         if (selectedNum < getItemCount() && selectedNum >= 0) {
