@@ -33,7 +33,7 @@
             android:src="@mipmap/catloading_eyes"
             android:visibility="gone" />
 
-        <com.jhtt.szqg.common.view.thirdview.catloading.EyelidView
+        <com.example.a74099.wanandroid.util.EyelidView
             android:id="@+id/eyelid_left"
             android:layout_width="14dp"
             android:layout_height="10dp"
@@ -51,7 +51,7 @@
             android:src="@mipmap/catloading_eyes"
             android:visibility="gone" />
 
-        <com.jhtt.szqg.common.view.thirdview.catloading.EyelidView
+        <com.example.a74099.wanandroid.util.EyelidView
             android:id="@+id/eyelid_right"
             android:layout_width="14dp"
             android:layout_height="10dp"
@@ -62,7 +62,7 @@
     </RelativeLayout>
 
 
-    <com.jhtt.szqg.common.view.thirdview.catloading.GraduallyTextView
+    <com.example.a74099.wanandroid.view.thirdview.catloading.GraduallyTextView
         android:id="@+id/graduallyTextView"
         android:layout_width="70dp"
         android:layout_height="wrap_content"

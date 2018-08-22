@@ -14,6 +14,7 @@ import com.example.a74099.wanandroid.bean.NavigationBean;
 import com.example.a74099.wanandroid.model.navigation.activity.NavigationActivity;
 import com.example.a74099.wanandroid.model.navigation.adapter.NavigationLeftAdapter;
 import com.example.a74099.wanandroid.model.navigation.adapter.NavigationRightAdapter;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +140,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
 
     @Override
     protected void showLoading() {
-
+        ToolUtils.showLoading(getActivity());
     }
 
     @Override
@@ -188,6 +189,7 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         }
         leftAdapter.addItemSelectedListener(this);
         initHeadView();
+        ToolUtils.dismissLoading(getActivity());
 //            }
 
     }

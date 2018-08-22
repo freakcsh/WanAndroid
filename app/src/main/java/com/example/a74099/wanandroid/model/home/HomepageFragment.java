@@ -16,6 +16,7 @@ import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
 import com.example.a74099.wanandroid.model.home.activity.BannerDetailAct;
 import com.example.a74099.wanandroid.model.home.adapter.HomePageAdapter;
+import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.view.NetworkImageHolderView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -85,7 +86,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
 
     @Override
     protected void showLoading() {
-
+        ToolUtils.showLoading(getActivity());
     }
 
     @Override
@@ -138,6 +139,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
         } else {
             loading(mList);
         }
+        ToolUtils.dismissLoading(getActivity());
     }
 
     private void loading(List<ArticleListBean.Datas> mList) {

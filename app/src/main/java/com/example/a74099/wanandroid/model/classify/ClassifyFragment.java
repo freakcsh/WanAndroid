@@ -3,7 +3,7 @@ package com.example.a74099.wanandroid.model.classify;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -27,10 +27,13 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     private List<Fragment> mFragmentList;
     private SlidingTabLayout sliding_tab_layout;
     private String[] mTitles_3 = {"首页", "消息", "联系人", "更多","我们","我们","我们","我们","我们","我们","我们","首页", "消息", "联系人", "更多","我们","我们","我们","我们","我们","我们","我们"};
+    private List<ClassifyTitleBean> classifyBeanList;
+
     @Override
     protected ClassifyPresenter createPresenter() {
         return new ClassifyPresenter();
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -40,64 +43,13 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     protected void initEventAndData(View view) {
         mList = new ArrayList<>();
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
-//        mList.add("我们");
         mFragmentList = new ArrayList<>();
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-//        mFragmentList.add(new DetailFragment());
-
-
-//        tab_layout = view.findViewById(R.id.tab_layout);
+        mPresenter.getClassifyTitle();
         class_view_pager = view.findViewById(R.id.class_view_pager);
         sliding_tab_layout = view.findViewById(R.id.sliding_tab_layout);
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.getClassifyTitle();
-    }
 
     @Override
     protected void initLazyData() {
@@ -116,12 +68,10 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
 
     @Override
     public void getClassifyTitleSuccess(List<ClassifyTitleBean> model) {
+        classifyBeanList = model;
        for (ClassifyTitleBean classifyTitleBean : model){
            mList.add(classifyTitleBean.getName());
        }
-        for (ClassifyTitleBean classifyTitleBean : model) {
-            mFragmentList.add(DetailFragment.newInstance(classifyTitleBean.getId()));
-        }
         class_view_pager.setAdapter(new BaseAdapter(getChildFragmentManager(), mList, mFragmentList));
         sliding_tab_layout.setViewPager(class_view_pager);
     }
@@ -131,7 +81,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
 
     }
 
-    class BaseAdapter extends FragmentPagerAdapter {
+    class BaseAdapter extends FragmentStatePagerAdapter {
 
 
         private List<String> list;
@@ -145,7 +95,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
 
         @Override
         public Fragment getItem(int position) {
-            return fragmentList.get(position);
+            return new DetailFragment(classifyBeanList.get(position).getId());
         }
 
         @Override

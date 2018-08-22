@@ -21,6 +21,7 @@ import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
 import com.example.a74099.wanandroid.model.system.adapter.SystemDetailAdapter;
 import com.example.a74099.wanandroid.model.system.adapter.SystemFirstAdapter;
 import com.example.a74099.wanandroid.util.DialogUtil;
+import com.example.a74099.wanandroid.util.ToolUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
 
     @Override
     protected void showLoading() {
-
+        ToolUtils.showLoading(getActivity());
     }
 
     /**
@@ -159,7 +160,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
             system_first_no_data.setVisibility(View.VISIBLE);
             system_first_recycle.setVisibility(View.GONE);
         }
-
+        ToolUtils.dismissLoading(getActivity());
     }
 
     /**

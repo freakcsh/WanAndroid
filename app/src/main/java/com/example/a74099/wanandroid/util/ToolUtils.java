@@ -54,6 +54,21 @@ import java.util.Date;
 
 public class ToolUtils {
 
+    /**
+     * 显示加载框
+     */
+    public static void showLoading(Context mContext) {
+
+        LoadingUtils.getLoadingUtils().showLoadingView(mContext);
+
+    }
+
+    /**
+     * 隐藏加载框
+     */
+    public static void dismissLoading(Context mContext) {
+        LoadingUtils.getLoadingUtils().hideLoadingView(mContext);
+    }
 
     /**
      * 判断网络是否连接
