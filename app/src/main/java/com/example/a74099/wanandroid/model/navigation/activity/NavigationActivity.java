@@ -1,4 +1,4 @@
-package com.example.a74099.wanandroid.model.home.activity;
+package com.example.a74099.wanandroid.model.navigation.activity;
 
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -10,10 +10,10 @@ import com.example.a74099.wanandroid.base.SimpleActivity;
 import com.example.a74099.wanandroid.util.WebViewUtil;
 
 /**
- * Created by 74099 on 2018/7/17.
+ * Created by 74099 on 2018/8/22.
  */
 
-public class ArticleDetailAct extends SimpleActivity {
+public class NavigationActivity extends SimpleActivity {
     private LinearLayout ll_article_detail;
     private WebView mWebView;
     private String url;
@@ -39,8 +39,6 @@ public class ArticleDetailAct extends SimpleActivity {
         ll_article_detail.addView(mWebView);
         WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
     }
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -42,6 +42,16 @@ public class NavigationRightAdapter extends RecyclerView.Adapter {
         return DISH_TYPE;
     }
 
+    private SelectInterface mSelectInterface;
+
+    public void setSelectInterface(SelectInterface selectInterface) {
+        mSelectInterface = selectInterface;
+    }
+
+    public interface SelectInterface {
+        void doSelect(NavigationBean.Articles articles);
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -66,6 +76,14 @@ public class NavigationRightAdapter extends RecyclerView.Adapter {
                 final NavigationBean.Articles articles = getDishByPosition(position);
                 navigationLeftViewHolder.tv_navigation_title_right.setText(articles.getTitle());
                 navigationLeftViewHolder.ll_right.setContentDescription(position + "");
+                navigationLeftViewHolder.tv_navigation_title_right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mSelectInterface!=null){
+                            mSelectInterface.doSelect(articles);
+                        }
+                    }
+                });
             }
         }
     }

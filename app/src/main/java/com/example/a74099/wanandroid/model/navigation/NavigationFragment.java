@@ -1,5 +1,6 @@
 package com.example.a74099.wanandroid.model.navigation;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.bean.NavigationBean;
+import com.example.a74099.wanandroid.model.navigation.activity.NavigationActivity;
 import com.example.a74099.wanandroid.model.navigation.adapter.NavigationLeftAdapter;
 import com.example.a74099.wanandroid.model.navigation.adapter.NavigationRightAdapter;
 
@@ -171,6 +173,15 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         if (rightAdapter == null) {
             rightAdapter = new NavigationRightAdapter(getActivity(), navigationBeanList);
             recycle_navigation_right.setAdapter(rightAdapter);
+            rightAdapter.setSelectInterface(new NavigationRightAdapter.SelectInterface() {
+                @Override
+                public void doSelect(NavigationBean.Articles articles) {
+                    Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                    intent.putExtra("url", articles.getLink());
+                    intent.putExtra("title", articles.getTitle());
+                    startActivity(intent);
+                }
+            });
         } else {
             rightAdapter.setData(navigationBeanList);
             rightAdapter.notifyDataSetChanged();

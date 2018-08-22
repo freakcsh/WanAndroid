@@ -23,6 +23,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -229,7 +230,7 @@ public class WebViewUtil {
     /**
      * 初始化webview  加载网页
      */
-    public void initWebView(final WebView webView, final Activity activity, String url) {
+    public void initWebView(final WebView webView, final Activity activity, String url, final ProgressBar progressBar) {
         code = 0;
         String userToken;
         String cookie;
@@ -356,17 +357,20 @@ public class WebViewUtil {
             public void onProgressChanged(WebView view, int newProgress) {
                 //获得网页的加载进度并显示
                 if (newProgress == 100) {
-                    if (code == 0) {
-                        webView.setVisibility(View.VISIBLE);
+//                    if (code == 0) {
+//                        webView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);//加载完网页进度条消失
 //                        imageView.setVisibility(View.GONE);
 //                        textView.setVisibility(View.GONE);
                     } else {
-                        webView.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                        progressBar.setProgress(newProgress);//设置进度值
+//                        webView.setVisibility(View.GONE);
 //                        imageView.setVisibility(View.VISIBLE);
 //                        textView.setVisibility(View.VISIBLE);
                     }
 
-                }
+//                }
             }
 
             @Override

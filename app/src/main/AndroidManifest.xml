@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".model.home.activity.ArticleDetailAct" />
         <activity android:name=".model.home.activity.BannerDetailAct" />
+        <activity android:name=".model.navigation.activity.NavigationActivity"/>
     </application>
 
 </manifest>
