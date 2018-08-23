@@ -5,39 +5,31 @@ package com.example.a74099.wanandroid.app;
  */
 
 public class Constants {
-
-    public static final String BMOB_APP_ID = "f295f9e9f67d597d3da824d3d6e55dd6";
-    public static final String NEW_KET="d78b502268f7456b79fbe7228cecdd46";
-    /**
-     * 新闻数据接口
-     */
-    public static final String NEWS_DATA_URL = "http://v.juhe.cn/toutiao/index?key=d78b502268f7456b79fbe7228cecdd46";
-    public static final String TYPE = "type";
-    public static final String USERNAME = "username";
-    public static final String REAL_M_HELPER_USERNAME = "realmhelper";
-
     /**
      * 服务器地址
      */
     public static final String BASE_URL = "http://www.wanandroid.com/";
-//    public static final String BASE_URL = "http://v.juhe.cn/";
+    /**
+     * 拍照
+     */
+    public static final int GETPICTURE_TAKEPHOTO = 10001;
+    /**
+     * 选择手机内的图片
+     */
+    public static final int GETPICTURE_SELECTPHOTO = 10002;
+    /**
+     * 裁剪图片
+     */
+    public static final int CUT_PHOTO = 10003;
 
 
+    /**
+     * 拍照时所需权限
+     */
+    public static final int TAKEPHOTO_PERMISSION_REQUESTCODE = 3001;
+    /**
+     * 选择相册照片所需权限
+     */
+    public static final int ALBUM_PERMISSION_REQUESTCODE = 3002;
 
-
-
-
-
-
-
-
-//    public static final String BASE_URL = "http://120.79.82.252";//远程
-    //公用对话框的提示
-    public static final String TIPS_TITLE = "tipsTitle";
-    public static final String TIPS_TEXT = "tipsText";
-    public static final String TIPS_HINT = "tipsHint";
-    public static final String TIPS_CANCEL = "tipsCancel";
-    public static final String TIPS_SUCCEED = "tipsSucceed";
-    public static final String TIPS_RIGHT = "text_right";
-    public static final String TIPS_TYPE = "text_type";
 }

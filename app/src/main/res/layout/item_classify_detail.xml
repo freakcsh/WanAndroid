@@ -17,7 +17,7 @@
             android:id="@+id/img_classify_bg"
             android:layout_width="100dp"
             android:layout_marginLeft="10dp"
-            android:layout_height="match_parent" />
+            android:layout_height="120dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,18 +32,20 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:ellipsize="end"
+                android:textSize="16sp"
                 android:paddingTop="10dp"
                 android:textColor="@color/c_b3b3b3" />
 
             <TextView
                 android:id="@+id/tv_classify_context"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:maxLines="5"
+                android:layout_height="50dp"
+                android:maxLines="2"
                 android:ellipsize="end"
+                android:textSize="14sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/c_b3b3b3" />
+                android:textColor="@color/c_ffffff" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +60,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:maxLength="30"
-                    android:textColor="@color/c_b3b3b3" />
+                    android:textSize="13sp"
+                    android:textColor="@color/c_bbbbbb" />
 
                 <TextView
                     android:id="@+id/tv_classify_author"
@@ -66,14 +69,15 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:textSize="13sp"
                     android:gravity="center_vertical"
                     android:maxLength="30"
-                    android:textColor="@color/c_b3b3b3" />
+                    android:textColor="@color/c_bbbbbb" />
 
                 <ImageView
                     android:id="@+id/img_classify_item_img"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/select_collage" />

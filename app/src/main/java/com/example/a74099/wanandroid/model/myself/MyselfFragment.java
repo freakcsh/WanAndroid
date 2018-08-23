@@ -1,23 +1,41 @@
 package com.example.a74099.wanandroid.model.myself;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.a74099.wanandroid.R;
+import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
+import com.example.a74099.wanandroid.util.PermissionUtils;
+import com.example.a74099.wanandroid.util.picture.BitmapUtil;
+import com.example.a74099.wanandroid.util.picture.GetPictureUtils;
+import com.example.a74099.wanandroid.util.picture.PopupGetPictureView;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 我的
  */
-public class MyselfFragment extends BaseFragment<MyselfPresenter> implements MyselfContract.View {
+public class MyselfFragment extends BaseFragment<MyselfPresenter> implements MyselfContract.View, View.OnClickListener {
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private LinearLayout headLayout;
     private Toolbar toolbar;
+    private File userImgFile;
+    private RelativeLayout rl_alter_photo;
+    private CircleImageView img_user;
 
     @Override
     protected MyselfPresenter createPresenter() {
@@ -41,7 +59,9 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         appBarLayout = view.findViewById(R.id.app_bar);
         headLayout = view.findViewById(R.id.head_layout);
         toolbar = view.findViewById(R.id.toolbar);
-
+        rl_alter_photo = view.findViewById(R.id.rl_alter_photo);
+        img_user = view.findViewById(R.id.img_user);
+        rl_alter_photo.setOnClickListener(this);
     }
 
     /**
@@ -68,7 +88,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -headLayout.getHeight() ) {
+                if (verticalOffset <= -headLayout.getHeight()) {
                     collapsingToolbarLayout.setTitle("黄晓果");
                     toolbar.setVisibility(View.VISIBLE);
                     toolbar.setTitle("sjafjs");
@@ -102,5 +122,100 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     @Override
     public void showError(String msg) {
 
+    }
+
+    public void selectImgPop() {
+        PopupGetPictureView popupGetPictureView = new PopupGetPictureView(getActivity(), new
+                PopupGetPictureView.GetPicture() {
+                    @Override
+                    public void takePhoto(View v) {
+                        if (PermissionUtils.checkTakePhotoPermission(getActivity())) {
+                            userImgFile = GetPictureUtils.takePicture(getActivity(), Constants.GETPICTURE_TAKEPHOTO);
+                        }
+                    }
+
+                    @Override
+                    public void selectPhoto(View v) {
+                        if (PermissionUtils.checkAlbumStroagePermission(getActivity())) {
+                            GetPictureUtils.selectPhoto(getActivity(), Constants.GETPICTURE_SELECTPHOTO);
+                        }
+                    }
+                });
+        popupGetPictureView.showPop(rl_alter_photo);
+    }
+
+    /***
+     * 以下为图片选择操作 onActivityResult、compressAndcommitImg、compressAndcommitImg
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 0) {
+            return;
+        }
+
+        switch (requestCode) {
+            //拍照
+            case Constants.GETPICTURE_TAKEPHOTO:
+                userImgFile = GetPictureUtils.cutPicture(getActivity(), userImgFile);
+                break;
+            //选择照片
+            case Constants.GETPICTURE_SELECTPHOTO:
+                userImgFile = GetPictureUtils.getPhotoFromIntent(data, getActivity());
+                userImgFile = GetPictureUtils.cutPicture(getActivity(), userImgFile);
+                break;
+            //裁剪照片
+            case Constants.CUT_PHOTO:
+                if (resultCode == Activity.RESULT_OK) {
+                    compressAndcommitImg(userImgFile);
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void compressAndcommitImg(File file) {
+        List<File> list = new ArrayList<>();
+        list.add(file);
+
+        BitmapUtil.compressFiles(list, new BitmapUtil.CompressImageResponse() {
+            @Override
+            public void onSuccess(List<File> imgs) {
+                File imgFile = imgs.get(0);
+                Uri uri = Uri.fromFile(imgFile);
+                img_user.setImageURI(uri);
+            }
+
+            @Override
+            public void onDo() {
+//                showLoading(view.getMContext());
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rl_alter_photo:
+                selectImgPop();
+                break;
+            default:
+                break;
+        }
     }
 }

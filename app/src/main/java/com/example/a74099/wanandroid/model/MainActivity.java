@@ -1,5 +1,6 @@
 package com.example.a74099.wanandroid.model;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -83,6 +84,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void showError(String msg) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        myselfFragment.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void setButtonBg(int i) {

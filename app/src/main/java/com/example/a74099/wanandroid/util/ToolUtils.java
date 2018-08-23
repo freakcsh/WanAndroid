@@ -31,7 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-
+import com.example.a74099.wanandroid.app.App;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -53,6 +53,14 @@ import java.util.Date;
  */
 
 public class ToolUtils {
+
+    /**
+     * 获取缓存路径
+     * @return
+     */
+    public static File getApplicationCacheDir() {
+        return App.getInstance().takePhotoCacheDir;
+    }
 
     /**
      * 显示加载框

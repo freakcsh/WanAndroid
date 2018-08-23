@@ -75,7 +75,7 @@ public class DetailFragment extends BaseFragment<ClassifyPresenter> implements C
                 mPresenter.getClassify(String.valueOf(page), cid);
             }
         });
-
+        classify_recycle.setFootViewText("正在努力加载中...", "我也是有底线的");
     }
 
     @Override
@@ -88,7 +88,7 @@ public class DetailFragment extends BaseFragment<ClassifyPresenter> implements C
 
     @Override
     protected void showLoading() {
-            ToolUtils.showLoading(getActivity());
+        ToolUtils.showLoading(getActivity());
     }
 
     @Override
