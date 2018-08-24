@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
+import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternSettingActivity;
 import com.example.a74099.wanandroid.util.PermissionUtils;
 import com.example.a74099.wanandroid.util.picture.BitmapUtil;
 import com.example.a74099.wanandroid.util.picture.GetPictureUtils;
@@ -34,7 +35,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private LinearLayout headLayout;
     private Toolbar toolbar;
     private File userImgFile;
-    private RelativeLayout rl_alter_photo;
+    private RelativeLayout rl_alter_photo,rl_gesture_pw;
     private CircleImageView img_user;
 
     @Override
@@ -61,7 +62,9 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         toolbar = view.findViewById(R.id.toolbar);
         rl_alter_photo = view.findViewById(R.id.rl_alter_photo);
         img_user = view.findViewById(R.id.img_user);
+        rl_gesture_pw = view.findViewById(R.id.rl_gesture_pw);
         rl_alter_photo.setOnClickListener(this);
+        rl_gesture_pw.setOnClickListener(this);
     }
 
     /**
@@ -213,6 +216,9 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         switch (v.getId()) {
             case R.id.rl_alter_photo:
                 selectImgPop();
+                break;
+            case R.id.rl_gesture_pw:
+                WholePatternSettingActivity.startAction(getActivity());
                 break;
             default:
                 break;

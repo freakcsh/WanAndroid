@@ -46,4 +46,12 @@
     <color name="c_a8a8a8">#a8a8a8</color>
     <color name="t1_9_background">#6D8FB0</color>
     <color name="c_cccccc">#cccccc</color>
+
+    <color name="color_red">#F44336</color>
+    <color name="color_pink">#e91e63</color>
+    <color name="color_purple">#9c27b0</color>
+    <color name="color_blue">#2196f3</color>
+    <color name="color_green">#4caf50</color>
+    <color name="color_black">#212121</color>
+    <color name="color_gray">#668a989e</color>
 </resources>

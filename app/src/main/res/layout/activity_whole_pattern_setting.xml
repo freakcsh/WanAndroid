@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_ffffff"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        style="@style/AppTheme.Toolbar"
+        app:title="@string/title_pattern_setting" />
+
+    <TextView
+        android:id="@+id/text_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="msg"
+        android:textColor="@color/color_black"
+        android:textSize="16dp" />
+
+    <com.example.a74099.wanandroid.model.myself.lock.core.PatternIndicatorView
+        android:id="@+id/pattern_indicator_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        app:piv_color="@color/color_gray"
+        app:piv_errorColor="@color/color_red"
+        app:piv_fillColor="@color/c_ffffff"
+        app:piv_hitColor="@color/colorPrimary"
+        app:plv_lineWidth="2dp" />
+    <!-- plv_enableAutoClean 设置完成图案时是否自动清除图案痕迹-->
+    <!--plv_errorColor 图案错误是显示的颜色-->
+    <!--plv_hitColor 连接图案时的颜色 -->
+    <!--plv_fillColor 图案圆圈（内圈）填充颜色-->
+    <!--plv_lineWidth 环形（外圈）大小-->
+    <!--plv_color 环形（外圈）颜色-->
+    <com.example.a74099.wanandroid.model.myself.lock.core.PatternLockerView
+        android:id="@+id/pattern_lock_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        app:plv_color="@color/color_gray"
+        app:plv_enableAutoClean="true"
+        app:plv_errorColor="@color/color_red"
+        app:plv_fillColor="@color/c_ffffff"
+        app:plv_hitColor="@color/colorPrimary"
+        app:plv_lineWidth="3dp" />
+
+</LinearLayout>

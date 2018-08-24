@@ -8,4 +8,5 @@
     <string name="main_system">体系</string>
     <string name="main_homepage">首页</string>
     <string name="nodata">暂无数据</string>
+    <string name="title_pattern_setting">设置手势密码</string>
 </resources>
