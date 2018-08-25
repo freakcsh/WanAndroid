@@ -20,6 +20,11 @@ public class PatternHelper {
     private boolean isFinish;
     private boolean isOk;
 
+    /**
+     * 验证码设置
+     *
+     * @param hitList
+     */
     public void validateForSetting(List<Integer> hitList) {
         this.isFinish = false;
         this.isOk = false;
@@ -50,6 +55,11 @@ public class PatternHelper {
         }
     }
 
+    /**
+     * 验证密码
+     *
+     * @param hitList
+     */
     public void validateForChecking(List<Integer> hitList) {
         this.isOk = false;
 
@@ -112,12 +122,22 @@ public class PatternHelper {
         return hitList.toString();
     }
 
+    /**
+     * 保存密码
+     *
+     * @param gesturePwd
+     */
     private void saveToStorage(String gesturePwd) {
         final String encryptPwd = SecurityUtil.encrypt(gesturePwd);
         SharedPreferencesUtil.getInstance().saveString(GESTURE_PWD_KEY, encryptPwd);
     }
 
-    private String getFromStorage() {
+    /**
+     * 获取密码
+     *
+     * @return
+     */
+    public String getFromStorage() {
         final String result = SharedPreferencesUtil.getInstance().getString(GESTURE_PWD_KEY);
         return SecurityUtil.decrypt(result);
     }

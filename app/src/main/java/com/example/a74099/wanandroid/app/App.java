@@ -3,6 +3,7 @@ package com.example.a74099.wanandroid.app;
 import android.app.Activity;
 import android.app.Application;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.example.a74099.wanandroid.base.BaseActivity;
 import com.example.a74099.wanandroid.util.picture.CachePathUtil;
@@ -27,7 +28,6 @@ public class App extends Application {
      * 缓存拍照图片路径
      */
     public File takePhotoCacheDir = null;
-
 
 
     public Set<Activity> getAllActivities() {
@@ -73,6 +73,7 @@ public class App extends Application {
         DisplayUtil.screenWidthDip = DisplayUtil.px2dip(getApplicationContext(), dm.widthPixels);
         DisplayUtil.screenHightDip = DisplayUtil.px2dip(getApplicationContext(), dm.heightPixels);
     }
+
     /**
      * 图片存储初始化
      */
@@ -80,17 +81,48 @@ public class App extends Application {
         this.takePhotoCacheDir = CachePathUtil.getCachePathFile("/picture/sm_photo");
     }
 
-    //##################################### 以下是activity的收litepal.xml集 ####################################
+    //##################################### 以下是activity的收集 ####################################
+
+    /**
+     * 添加activity
+     * @param act
+     */
     public void addActivity(Activity act) {
         if (allActivities == null) {
             allActivities = new HashSet<>();
         }
         allActivities.add(act);
+        for (Activity activity : allActivities) {
+            Log.e("FreakActivity", "addActivity" + activity.getLocalClassName());
+        }
+
     }
 
+    /**
+     * 移除单独的activity
+     *
+     * @param act
+     */
     public void removeActivity(Activity act) {
         if (allActivities != null) {
             allActivities.remove(act);
+        }
+        for (Activity activity : allActivities) {
+            Log.e("FreakActivity", "removeActivity" + activity.getLocalClassName());
+        }
+    }
+
+    /**
+     * 移除所有的activity
+     */
+    public void finishAll() {
+        for (Activity activity : allActivities) {
+            if (!activity.isFinishing()) {
+                activity.finish();
+            }
+        }
+        for (Activity activity : allActivities) {
+            Log.e("FreakActivity", "finishAll" + activity.getLocalClassName());
         }
     }
 }

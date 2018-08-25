@@ -6,10 +6,10 @@
     android:background="@color/c_ffffff"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        style="@style/AppTheme.Toolbar"
-        app:title="@string/title_pattern_setting" />
-
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--style="@style/AppTheme.Toolbar"-->
+        <!--app:title="@string/title_pattern_setting" />-->
+<!--<include layout="@layout/include_top_title"/>-->
     <TextView
         android:id="@+id/text_msg"
         android:layout_width="match_parent"

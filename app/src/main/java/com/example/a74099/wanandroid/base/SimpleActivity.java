@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
+import com.example.a74099.wanandroid.app.App;
 
 /**
  * Created by Administrator on 2018/2/5.
@@ -31,16 +32,16 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
         setContentView(getLayout());
         mContext = this;
-//        App.getInstance().addActivity(this);
-        ActivityCollector.addActivity(this);
+        App.getInstance().addActivity(this);
+//        ActivityCollector.addActivity(this);
         initEventAndData();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        App.getInstance().removeActivity(this);
-        ActivityCollector.removeActivity(this);
+        App.getInstance().removeActivity(this);
+//        ActivityCollector.removeActivity(this);
     }
 
 

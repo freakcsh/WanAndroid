@@ -44,10 +44,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         setContentView(getLayout());
 
         mActivity = this;
-//        App.getInstance().addActivity(this);
-
         //活动控制器
-        ActivityCollector.addActivity(this);
+        App.getInstance().addActivity(this);
+
+
+//        ActivityCollector.addActivity(this);
 
 
         if (mPresenter != null) {
@@ -66,7 +67,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityCollector.removeActivity(this);
+//        ActivityCollector.removeActivity(this);
 
         /**
          * presenter 解除view订阅
@@ -75,7 +76,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mPresenter.detachView();
         }
 
-//        App.getInstance().removeActivity(this);
+        App.getInstance().removeActivity(this);
+
     }
 
     //返回监听

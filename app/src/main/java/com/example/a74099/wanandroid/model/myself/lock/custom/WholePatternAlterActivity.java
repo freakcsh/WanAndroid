@@ -5,31 +5,28 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
-import com.example.a74099.wanandroid.app.App;
 import com.example.a74099.wanandroid.base.SimpleActivity;
 import com.example.a74099.wanandroid.model.myself.lock.core.IHitCellView;
 import com.example.a74099.wanandroid.model.myself.lock.core.OnPatternChangeListener;
 import com.example.a74099.wanandroid.model.myself.lock.core.PatternIndicatorView;
 import com.example.a74099.wanandroid.model.myself.lock.core.PatternLockerView;
 import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
-import com.example.a74099.wanandroid.util.T;
 
 import java.util.List;
 
 /**
- * 验证图形密码
+ * 修改图形密码
  */
-public class WholePatternCheckingActivity extends SimpleActivity {
+public class WholePatternAlterActivity extends SimpleActivity {
 
     private PatternLockerView patternLockerView;
     private PatternIndicatorView patternIndicatorView;
     private TextView textMsg;
     private PatternHelper patternHelper;
     private boolean mIsError;
-    private final long BACKPRESS_TIME = 2000;
-    private long lastTimeMillis;
+
     public static void startAction(Context context) {
-        Intent intent = new Intent(context, WholePatternCheckingActivity.class);
+        Intent intent = new Intent(context, WholePatternAlterActivity.class);
         context.startActivity(intent);
     }
 
@@ -69,6 +66,9 @@ public class WholePatternCheckingActivity extends SimpleActivity {
 //
 //            @Override
 //            public void onClear(PatternLockerView view) {
+//                if (!mIsError) {
+//                    WholePatternSettingActivity.startAction(WholePatternAlterActivity.this);
+//                }
 //                finishIfNeeded();
 //            }
 //        });
@@ -84,8 +84,8 @@ public class WholePatternCheckingActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-//        setBackPress();
-//        setTitleTx("手势密码");
+        setBackPress();
+        setTitleTx("修改手势密码");
         this.patternIndicatorView = findViewById(R.id.pattern_indicator_view);
         this.patternLockerView = findViewById(R.id.pattern_lock_view);
         this.textMsg = findViewById(R.id.text_msg);
@@ -117,11 +117,14 @@ public class WholePatternCheckingActivity extends SimpleActivity {
 
             @Override
             public void onClear(PatternLockerView view) {
+                if (!mIsError) {
+                    WholePatternSettingActivity.startAction(WholePatternAlterActivity.this);
+                }
                 finishIfNeeded();
             }
         });
 
-        this.textMsg.setText("请输入手势密码");
+        this.textMsg.setText("绘制解锁图案");
         this.patternHelper = new PatternHelper();
     }
 
@@ -146,17 +149,6 @@ public class WholePatternCheckingActivity extends SimpleActivity {
     private void finishIfNeeded() {
         if (this.patternHelper.isFinish()) {
             finish();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (System.currentTimeMillis() - lastTimeMillis <= BACKPRESS_TIME) {
-            App.getInstance().finishAll();
-            super.onBackPressed();
-        } else {
-            lastTimeMillis = System.currentTimeMillis();
-            T.showShort(this, getString(R.string.backpress_again_finish));
         }
     }
 }

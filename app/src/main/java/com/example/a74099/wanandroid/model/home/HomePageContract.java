@@ -18,6 +18,7 @@ public interface HomePageContract {
         void getArticleSuccess(ArticleListBean articleListBean);
 
         void getArticleError(String msg);
+
     }
 
     interface Presenter extends BasePresenter<View> {

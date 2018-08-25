@@ -10,12 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
+import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintSettingActivity;
+import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternAlterActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternSettingActivity;
+import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
 import com.example.a74099.wanandroid.util.PermissionUtils;
+import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.util.picture.BitmapUtil;
 import com.example.a74099.wanandroid.util.picture.GetPictureUtils;
 import com.example.a74099.wanandroid.util.picture.PopupGetPictureView;
@@ -35,8 +40,10 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private LinearLayout headLayout;
     private Toolbar toolbar;
     private File userImgFile;
-    private RelativeLayout rl_alter_photo,rl_gesture_pw;
+    private RelativeLayout rl_alter_photo, rl_gesture_pw,rl_fingerprint;
     private CircleImageView img_user;
+    private String mPw;
+    private TextView tv_pw_state;
 
     @Override
     protected MyselfPresenter createPresenter() {
@@ -53,6 +60,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         initView(view);
         setToolBarReplaceActionBar();
         setTitleToCollapsingToolbarLayout();
+
     }
 
     private void initView(View view) {
@@ -63,8 +71,17 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         rl_alter_photo = view.findViewById(R.id.rl_alter_photo);
         img_user = view.findViewById(R.id.img_user);
         rl_gesture_pw = view.findViewById(R.id.rl_gesture_pw);
+        rl_fingerprint = view.findViewById(R.id.rl_fingerprint);
+        tv_pw_state = view.findViewById(R.id.tv_pw_state);
         rl_alter_photo.setOnClickListener(this);
         rl_gesture_pw.setOnClickListener(this);
+        rl_fingerprint.setOnClickListener(this);
+        mPw = new PatternHelper().getFromStorage();
+        if (ToolUtils.isNull(mPw)) {
+            tv_pw_state.setText("未开启");
+        } else {
+            tv_pw_state.setText("点击修改");
+        }
     }
 
     /**
@@ -218,7 +235,14 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 selectImgPop();
                 break;
             case R.id.rl_gesture_pw:
-                WholePatternSettingActivity.startAction(getActivity());
+                if (ToolUtils.isNull(mPw)) {
+                    WholePatternSettingActivity.startAction(getActivity());
+                } else {
+                    WholePatternAlterActivity.startAction(getActivity());
+                }
+                break;
+            case R.id.rl_fingerprint:
+                FingerPrintSettingActivity.startAction(getActivity());
                 break;
             default:
                 break;

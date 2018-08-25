@@ -86,7 +86,9 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
 
     @Override
     protected void showLoading() {
-        ToolUtils.showLoading(getActivity());
+//        if (mList != null && mList.size() != 0){
+//            ToolUtils.showLoading(getActivity());
+//        }
     }
 
     @Override
@@ -197,6 +199,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     public void getArticleError(String msg) {
 
     }
+
 
     @Override
     public void showError(String msg) {

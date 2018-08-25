@@ -36,10 +36,13 @@
         </activity>
         <activity android:name=".model.home.activity.ArticleDetailAct" />
         <activity android:name=".model.home.activity.BannerDetailAct" />
-        <activity android:name=".model.navigation.activity.NavigationActivity"/>
-        <activity android:name=".model.classify.activity.ClassifyDetailActivity"/>
-        <activity android:name=".model.myself.lock.custom.WholePatternSettingActivity"/>
-
+        <activity android:name=".model.navigation.activity.NavigationActivity" />
+        <activity android:name=".model.classify.activity.ClassifyDetailActivity" />
+        <activity android:name=".model.myself.lock.custom.WholePatternSettingActivity" />
+        <activity android:name=".model.myself.lock.custom.WholePatternCheckingActivity" />
+        <activity android:name=".model.myself.lock.custom.WholePatternAlterActivity" />
+        <activity android:name=".model.myself.fingerprint.FingerPrintCheckActivity" />
+        <activity android:name=".model.myself.fingerprint.FingerPrintSettingActivity" />
         <!--非常重要，缺少这个在7.0以上手机是不能打开手机的拍照的-->
         <provider
             android:name="android.support.v4.content.FileProvider"
