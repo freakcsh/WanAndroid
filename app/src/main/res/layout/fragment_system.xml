@@ -5,6 +5,14 @@
     android:background="@color/c_132737"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/rl_net_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <!--<include layout="@layout/error_net" />-->
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_system_classify"
@@ -61,9 +69,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@color/c_1b364c"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="@color/c_1b364c">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"

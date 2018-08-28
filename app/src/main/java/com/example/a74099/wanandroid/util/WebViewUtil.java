@@ -29,9 +29,6 @@ import android.widget.TextView;
 import java.util.List;
 
 
-/**
- * Created by LB on 2018/5/10.
- */
 
 public class WebViewUtil {
     private static final WebViewUtil u = new WebViewUtil();

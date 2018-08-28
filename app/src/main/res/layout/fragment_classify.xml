@@ -17,6 +17,14 @@
         app:tl_indicator_margin_left="2dp"
         app:tl_indicator_margin_right="2dp"
         app:tl_indicator_style="BLOCK" />
+    <RelativeLayout
+        android:id="@+id/rl_net_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <!--<include-->
+            <!--layout="@layout/error_net"/>-->
+    </RelativeLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/class_view_pager"
         android:layout_width="match_parent"

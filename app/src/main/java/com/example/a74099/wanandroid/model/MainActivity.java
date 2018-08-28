@@ -19,12 +19,9 @@ import com.example.a74099.wanandroid.model.myself.MyselfFragment;
 import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintCheckActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.core.FingerprintCore;
 import com.example.a74099.wanandroid.model.myself.fingerprint.util.KeyguardLockScreenManager;
-import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternCheckingActivity;
-import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
 import com.example.a74099.wanandroid.model.navigation.NavigationFragment;
 import com.example.a74099.wanandroid.model.system.SystemFragment;
-import com.example.a74099.wanandroid.util.T;
-import com.example.a74099.wanandroid.util.ToolUtils;
+import com.example.a74099.wanandroid.util.ToastUtil;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.VIew, View.OnClickListener {
     private HomepageFragment mHomapageFragment = null;
@@ -48,19 +45,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return R.layout.activity_main;
     }
 
+
     @Override
     protected void initEventAndData() {
         initView();
         initOnClick();
         IntentFingerprint();
-        checkLocker();
+//        checkLocker();
     }
 
-    private void checkLocker() {
-        if (!ToolUtils.isNull(mPw)){
-            WholePatternCheckingActivity.startAction(this);
-        }
-    }
+
 
     private void initOnClick() {
         ll_homepage.setOnClickListener(this);
@@ -90,8 +84,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         img_classify = findViewById(R.id.img_classify);
         img_myself = findViewById(R.id.img_myself);
 
-        mPw = new PatternHelper().getFromStorage();
-        mFingerprintCore = new FingerprintCore(this);
+
+        initFingerprintCore();
     }
 
     /*****************************指纹解锁模块***************************************/
@@ -111,6 +105,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void initFingerprintCore() {
         if (mFingerprintCore == null) {
             mFingerprintCore = new FingerprintCore(this);
+            mFingerprintCore.setFingerprintManager(mResultListener);
+        }else {
             mFingerprintCore.setFingerprintManager(mResultListener);
         }
         mKeyguardLockScreenManager = new KeyguardLockScreenManager(this);
@@ -366,7 +362,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             super.onBackPressed();
         } else {
             lastTimeMillis = System.currentTimeMillis();
-            T.showShort(this, getString(R.string.backpress_again_finish));
+            ToastUtil.showShort(this, getString(R.string.backpress_again_finish));
         }
     }
 }

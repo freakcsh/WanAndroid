@@ -12,6 +12,7 @@ import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.bean.ClassifyBean;
 import com.example.a74099.wanandroid.bean.ClassifyTitleBean;
 import com.example.a74099.wanandroid.model.classify.fragment.DetailFragment;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -26,14 +27,21 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     private List<String> mList;
     private List<Fragment> mFragmentList;
     private SlidingTabLayout sliding_tab_layout;
-    private String[] mTitles_3 = {"首页", "消息", "联系人", "更多","我们","我们","我们","我们","我们","我们","我们","首页", "消息", "联系人", "更多","我们","我们","我们","我们","我们","我们","我们"};
     private List<ClassifyTitleBean> classifyBeanList;
 
     @Override
     protected ClassifyPresenter createPresenter() {
         return new ClassifyPresenter();
     }
-
+    /**
+     * 断网重连
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        mPresenter.getClassifyTitle();
+    }
 
     @Override
     protected int getLayoutId() {

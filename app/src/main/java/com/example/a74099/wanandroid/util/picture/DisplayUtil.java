@@ -2,9 +2,7 @@ package com.example.a74099.wanandroid.util.picture;
 
 import android.content.Context;
 
-/**
- * Created by aaron on 16/8/3.
- */
+
 public class DisplayUtil
 {
 

@@ -15,6 +15,10 @@ import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.App;
 import com.example.a74099.wanandroid.net.BasePresenter;
 import com.example.a74099.wanandroid.net.BaseView;
+import com.example.a74099.wanandroid.net.util.NetStateChangeObserver;
+import com.example.a74099.wanandroid.net.util.NetStateChangeReceiver;
+import com.example.a74099.wanandroid.net.util.NetworkType;
+import com.example.a74099.wanandroid.util.ToastUtil;
 
 
 /**
@@ -22,14 +26,17 @@ import com.example.a74099.wanandroid.net.BaseView;
  * MVP activity基类
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView, NetStateChangeObserver {
     protected T mPresenter;
     protected Activity mActivity;
+    private View netErrorView;
 
     protected abstract int getLayout();
 
     protected abstract void initEventAndData();
+
     protected abstract T createPresenter();
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,9 +55,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         App.getInstance().addActivity(this);
 
 
-//        ActivityCollector.addActivity(this);
-
-
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
@@ -62,22 +66,73 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onResume() {
         App.baseActivity = this;
         super.onResume();
+        /**
+         * 判断该页面是否需要开启网络变化监听，如需要则启动广播
+         */
+        if (needRegisterNetworkChangeObserver()) {
+            NetStateChangeReceiver.registerObserver(this);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ActivityCollector.removeActivity(this);
-
         /**
          * presenter 解除view订阅
          */
         if (mPresenter != null) {
             mPresenter.detachView();
         }
-
+        /**
+         * 判断该页面是否开启了网络变化监听，已开启则关闭广播
+         */
+        if (needRegisterNetworkChangeObserver()) {
+            NetStateChangeReceiver.unregisterObserver(this);
+        }
         App.getInstance().removeActivity(this);
 
+    }
+
+    /**
+     * 是否需要注册网络变化的Observer,如果不需要监听网络变化,则返回false;否则返回true
+     */
+    protected boolean needRegisterNetworkChangeObserver() {
+        return true;
+    }
+
+    /**
+     * 网络断开时执行的操作
+     */
+    @Override
+    public void onNetDisconnected() {
+        showDisConnectedView();
+    }
+
+    /**
+     * 网络重连时执行的操作
+     *
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        ToastUtil.showLong(mActivity, "当前连接的是"+networkType.toString()+"网络");
+        hideDisConnectedView();
+    }
+
+    /**
+     * 显示无网络状态
+     */
+    public void showDisConnectedView() {
+        netErrorView = findViewById(R.id.rl_net_error);
+        netErrorView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 隐藏无网络状态
+     */
+    public void hideDisConnectedView() {
+        netErrorView = findViewById(R.id.rl_net_error);
+        netErrorView.setVisibility(View.GONE);
     }
 
     //返回监听

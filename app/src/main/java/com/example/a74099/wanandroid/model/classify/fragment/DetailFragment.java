@@ -15,6 +15,7 @@ import com.example.a74099.wanandroid.model.classify.ClassifyContract;
 import com.example.a74099.wanandroid.model.classify.ClassifyPresenter;
 import com.example.a74099.wanandroid.model.classify.activity.ClassifyDetailActivity;
 import com.example.a74099.wanandroid.model.classify.adapter.ClassifyDetailAdapter;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -45,6 +46,17 @@ public class DetailFragment extends BaseFragment<ClassifyPresenter> implements C
 ////        fragment.cid = cid;
 //        return fragment;
 //    }
+
+    /**
+     * 断网重连
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        page = 1;
+        mPresenter.getClassify(String.valueOf(page), cid);
+    }
 
     public DetailFragment(String cid) {
         this.cid = cid;

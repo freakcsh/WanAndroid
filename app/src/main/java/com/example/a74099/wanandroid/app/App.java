@@ -6,6 +6,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.example.a74099.wanandroid.base.BaseActivity;
+import com.example.a74099.wanandroid.net.util.NetStateChangeReceiver;
 import com.example.a74099.wanandroid.util.picture.CachePathUtil;
 import com.example.a74099.wanandroid.util.picture.DisplayUtil;
 
@@ -51,12 +52,18 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         baseInit();
+        // 注册BroadcastReceiver
+        NetStateChangeReceiver.registerReceiver(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        // 取消BroadcastReceiver注册
+        NetStateChangeReceiver.unregisterReceiver(this);
     }
 
     private void baseInit() {
-//        Thread.setDefaultUncaughtExceptionHandler(CrashExpection.getInstance(
-//                this, CachePathUtil.getCachePathFile("/crash")
-//                        .getAbsolutePath()));
         initTakePhotoFile();
         /**
          * 初始化尺寸工具类
@@ -85,6 +92,7 @@ public class App extends Application {
 
     /**
      * 添加activity
+     *
      * @param act
      */
     public void addActivity(Activity act) {
@@ -95,7 +103,6 @@ public class App extends Application {
         for (Activity activity : allActivities) {
             Log.e("FreakActivity", "addActivity" + activity.getLocalClassName());
         }
-
     }
 
     /**

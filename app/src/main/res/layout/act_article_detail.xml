@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_article_detail"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_132737">
-    <include layout="@layout/include_top_title"/>
+    android:background="@color/c_132737"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_top_title" />
+
     <ProgressBar
         android:id="@+id/progressBar1"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="3dip"
         android:progressDrawable="@drawable/pg"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_net_error"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone">
+
+        <include layout="@layout/error_net" />
+    </RelativeLayout>
 
 </LinearLayout>

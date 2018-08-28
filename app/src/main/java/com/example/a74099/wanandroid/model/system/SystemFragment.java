@@ -20,6 +20,7 @@ import com.example.a74099.wanandroid.dialog.SystemSecondDialogFragment;
 import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
 import com.example.a74099.wanandroid.model.system.adapter.SystemDetailAdapter;
 import com.example.a74099.wanandroid.model.system.adapter.SystemFirstAdapter;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.DialogUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -47,6 +48,17 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     @Override
     protected SystemPresenter createPresenter() {
         return new SystemPresenter();
+    }
+
+    /**
+     * 断网重连
+     *
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        mPresenter.getSystem();
     }
 
     @Override
@@ -143,7 +155,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
                             public void onSuccess(String name, int id) {
                                 Log.e("freak", "name=" + name + "id=" + id);
                                 mId = id;
-                                curPage=1;
+                                curPage = 1;
                                 tv_system_second_name.setText(name);
                                 mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
                             }

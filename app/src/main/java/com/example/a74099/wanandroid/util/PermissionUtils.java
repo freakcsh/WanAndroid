@@ -12,7 +12,7 @@ import com.example.a74099.wanandroid.app.Constants;
 
 /**
  * 权限管理
- * Created by lzj on 2017/9/9.
+ *
  */
 
 public class PermissionUtils {
@@ -48,7 +48,7 @@ public class PermissionUtils {
                 ActivityCompat.requestPermissions((Activity) mContext,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
                         0);
-                T.showLong(mContext, "请授权后再进入扫码");
+                ToastUtil.showLong(mContext, "请授权后再进入扫码");
                 return false;
             } else {
                 return true;
@@ -75,7 +75,7 @@ public class PermissionUtils {
                 ActivityCompat.requestPermissions((Activity) mContext,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
                         Constants.TAKEPHOTO_PERMISSION_REQUESTCODE);
-                T.showShort(mContext, "请允许授权");
+                ToastUtil.showShort(mContext, "请允许授权");
                 return false;
             } else {
                 return true;
@@ -99,7 +99,7 @@ public class PermissionUtils {
                 ActivityCompat.requestPermissions((Activity) mContext,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         Constants.ALBUM_PERMISSION_REQUESTCODE);
-                T.showShort(mContext, "请允许授权");
+                ToastUtil.showShort(mContext, "请允许授权");
                 return false;
             } else {
                 return true;

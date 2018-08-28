@@ -7,6 +7,8 @@ import android.widget.ProgressBar;
 
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.SimpleActivity;
+import com.example.a74099.wanandroid.net.util.NetworkType;
+import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.util.WebViewUtil;
 
 /**
@@ -24,6 +26,16 @@ public class BannerDetailAct extends SimpleActivity {
         return R.layout.act_banner_detail;
     }
 
+    /**
+     * 断网重连
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
+    }
+
     @Override
     protected void initEventAndData() {
         setBackPress();
@@ -38,7 +50,11 @@ public class BannerDetailAct extends SimpleActivity {
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mWebView.setLayoutParams(params);
         ll_banner_detail.addView(mWebView);
+        if (!ToolUtils.isConnected(this)){
+            showDisConnectedView();
+        }
         WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
+
     }
 
     @Override

@@ -14,6 +14,7 @@ import com.example.a74099.wanandroid.bean.NavigationBean;
 import com.example.a74099.wanandroid.model.navigation.activity.NavigationActivity;
 import com.example.a74099.wanandroid.model.navigation.adapter.NavigationLeftAdapter;
 import com.example.a74099.wanandroid.model.navigation.adapter.NavigationRightAdapter;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.ArrayList;
@@ -40,6 +41,17 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
     @Override
     protected NavigationPresenter createPresenter() {
         return new NavigationPresenter();
+    }
+
+    /**
+     * 断网重连
+     *
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        mPresenter.getNavigation();
     }
 
     @Override

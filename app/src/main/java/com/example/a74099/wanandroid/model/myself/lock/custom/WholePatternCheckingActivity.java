@@ -12,7 +12,7 @@ import com.example.a74099.wanandroid.model.myself.lock.core.OnPatternChangeListe
 import com.example.a74099.wanandroid.model.myself.lock.core.PatternIndicatorView;
 import com.example.a74099.wanandroid.model.myself.lock.core.PatternLockerView;
 import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
-import com.example.a74099.wanandroid.util.T;
+import com.example.a74099.wanandroid.util.ToastUtil;
 
 import java.util.List;
 
@@ -33,49 +33,6 @@ public class WholePatternCheckingActivity extends SimpleActivity {
         context.startActivity(intent);
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_whole_pattern_checking);
-//
-//        this.patternIndicatorView = findViewById(R.id.pattern_indicator_view);
-//        this.patternLockerView = findViewById(R.id.pattern_lock_view);
-//        this.textMsg = findViewById(R.id.text_msg);
-//
-//        final IHitCellView hitCellView = new RippleLockerHitCellView()
-//                .setHitColor(this.patternLockerView.getHitColor())
-//                .setErrorColor(this.patternLockerView.getErrorColor());
-//
-//        this.patternLockerView.setHitCellView(hitCellView)
-//                .setLinkedLineView(null)
-//                .build();
-//
-//        this.patternLockerView.setOnPatternChangedListener(new OnPatternChangeListener() {
-//            @Override
-//            public void onStart(PatternLockerView view) {
-//            }
-//
-//            @Override
-//            public void onChange(PatternLockerView view, List<Integer> hitList) {
-//            }
-//
-//            @Override
-//            public void onComplete(PatternLockerView view, List<Integer> hitList) {
-//                mIsError = !isPatternOk(hitList);
-//                view.updateStatus(mIsError);
-//                patternIndicatorView.updateState(hitList, mIsError);
-//                updateMsg();
-//            }
-//
-//            @Override
-//            public void onClear(PatternLockerView view) {
-//                finishIfNeeded();
-//            }
-//        });
-//
-//        this.textMsg.setText("绘制解锁图案");
-//        this.patternHelper = new PatternHelper();
-//    }
 
     @Override
     protected int getLayout() {
@@ -156,7 +113,7 @@ public class WholePatternCheckingActivity extends SimpleActivity {
             super.onBackPressed();
         } else {
             lastTimeMillis = System.currentTimeMillis();
-            T.showShort(this, getString(R.string.backpress_again_finish));
+            ToastUtil.showShort(this, getString(R.string.backpress_again_finish));
         }
     }
 }

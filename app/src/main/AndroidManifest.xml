@@ -18,6 +18,8 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 拍照权限 -->
     <uses-feature android:name="android.hardware.camera" /> <!-- 使用照相机权限 -->
     <uses-feature android:name="android.hardware.camera.autofocus" /><!-- 自动聚焦权限 -->
+    <!--指纹解锁权限-->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <!--android:name=".MAppliaction" 这个属性一定要设置，要不选择拍照时会找不到文件目录，报空指针异常-->
     <application
         android:name=".app.App"

@@ -12,17 +12,20 @@ import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.App;
+import com.example.a74099.wanandroid.net.util.NetStateChangeObserver;
+import com.example.a74099.wanandroid.net.util.NetStateChangeReceiver;
+import com.example.a74099.wanandroid.net.util.NetworkType;
+import com.example.a74099.wanandroid.util.ToastUtil;
 
 /**
  * Created by Administrator on 2018/2/5.
  * 无MVP的activity基类
  */
 
-public abstract class SimpleActivity extends AppCompatActivity {
+public abstract class SimpleActivity extends AppCompatActivity implements NetStateChangeObserver {
 
     protected Activity mContext;
-
-
+    private View netErrorView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -38,12 +41,62 @@ public abstract class SimpleActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (needRegisterNetworkChangeObserver()) {
+            NetStateChangeReceiver.registerObserver(this);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         App.getInstance().removeActivity(this);
-//        ActivityCollector.removeActivity(this);
+        if (needRegisterNetworkChangeObserver()) {
+            NetStateChangeReceiver.unregisterObserver(this);
+        }
+    }
+    /**
+     * 是否需要注册网络变化的Observer,如果不需要监听网络变化,则返回false;否则返回true
+     */
+    protected boolean needRegisterNetworkChangeObserver() {
+        return true;
     }
 
+    /**
+     * 网络断开时执行的操作
+     */
+    @Override
+    public void onNetDisconnected() {
+        showDisConnectedView();
+    }
+
+    /**
+     * 网络重连时执行的操作
+     *
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        ToastUtil.showLong(mContext, "当前连接的是"+networkType.toString()+"网络");
+        hideDisConnectedView();
+    }
+
+    /**
+     * 显示无网络状态
+     */
+    public void showDisConnectedView() {
+        netErrorView = findViewById(R.id.rl_net_error);
+        netErrorView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 隐藏无网络状态
+     */
+    public void hideDisConnectedView() {
+        netErrorView = findViewById(R.id.rl_net_error);
+        netErrorView.setVisibility(View.GONE);
+    }
 
     //返回监听
     public void setBackPress() {

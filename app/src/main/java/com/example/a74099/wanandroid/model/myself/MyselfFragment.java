@@ -51,6 +51,11 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     }
 
     @Override
+    protected boolean needRegisterNetworkChangeObserver() {
+        return false;
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_myself;
     }

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -16,8 +17,10 @@ import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
 import com.example.a74099.wanandroid.model.home.activity.BannerDetailAct;
 import com.example.a74099.wanandroid.model.home.adapter.HomePageAdapter;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.view.NetworkImageHolderView;
+import com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -34,11 +37,26 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     private HomePageAdapter mHomePageAdapter;
     private List<ArticleListBean.Datas> mList;
     private List<String> mStringList;
+    private PullRefreshLayout include_no_data;
+    private RelativeLayout netErrorView;
 
     @Override
     protected HomepagePresenter createPresenter() {
         return new HomepagePresenter();
     }
+
+    /***
+     * 断网重连
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        curPage = 1;
+        mPresenter.getBanner();
+        mPresenter.getArticle(String.valueOf(curPage));
+    }
+
 
     @Override
     protected int getLayoutId() {
@@ -58,6 +76,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
         mStringList = new ArrayList<>();
         home_banner = view.findViewById(R.id.home_banner);
         home_recycle = view.findViewById(R.id.home_recycle);
+        include_no_data = view.findViewById(R.id.include_no_data);
         home_recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
         home_recycle.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -164,6 +183,8 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
 
     private void refresh(List<ArticleListBean.Datas> mList) {
         if (mList != null && mList.size() != 0) {
+            include_no_data.setVisibility(View.GONE);
+            home_recycle.setVisibility(View.VISIBLE);
             mListBeans.clear();
             mListBeans.addAll(mList);
             if (mHomePageAdapter == null) {
@@ -192,6 +213,9 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
                 mHomePageAdapter.notifyDataSetChanged();
             }
             home_recycle.refreshComplete();
+        } else {
+            include_no_data.setVisibility(View.VISIBLE);
+            home_recycle.setVisibility(View.GONE);
         }
     }
 

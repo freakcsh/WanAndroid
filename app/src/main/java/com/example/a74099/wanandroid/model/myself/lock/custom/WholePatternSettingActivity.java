@@ -30,50 +30,6 @@ public class WholePatternSettingActivity extends SimpleActivity {
         context.startActivity(intent);
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_whole_pattern_setting);
-//
-//        this.patternIndicatorView = findViewById(R.id.pattern_indicator_view);
-//        this.patternLockerView = findViewById(R.id.pattern_lock_view);
-//        this.textMsg = findViewById(R.id.text_msg);
-//
-//
-//        final IHitCellView hitCellView = new RippleLockerHitCellView()
-//                .setHitColor(this.patternLockerView.getHitColor())
-//                .setErrorColor(this.patternLockerView.getErrorColor());
-//
-//        this.patternLockerView.setHitCellView(hitCellView)
-//                .build();
-//
-//        this.patternLockerView.setOnPatternChangedListener(new OnPatternChangeListener() {
-//            @Override
-//            public void onStart(PatternLockerView view) {
-//            }
-//
-//            @Override
-//            public void onChange(PatternLockerView view, List<Integer> hitList) {
-//            }
-//
-//            @Override
-//            public void onComplete(PatternLockerView view, List<Integer> hitList) {
-//                boolean isOk = isPatternOk(hitList);
-//                view.updateStatus(!isOk);
-//                patternIndicatorView.updateState(hitList, !isOk);
-//                updateMsg();
-//            }
-//
-//            @Override
-//            public void onClear(PatternLockerView view) {
-//                finishIfNeeded();
-//            }
-//        });
-//
-//        this.textMsg.setText("设置解锁图案");
-//        this.patternHelper = new PatternHelper();
-//
-//    }
 
     @Override
     protected int getLayout() {

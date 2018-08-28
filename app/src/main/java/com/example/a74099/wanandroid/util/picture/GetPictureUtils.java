@@ -13,7 +13,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
 import com.example.a74099.wanandroid.app.Constants;
-import com.example.a74099.wanandroid.util.T;
+import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.io.File;
@@ -109,7 +109,7 @@ public class GetPictureUtils {
                 return null;
             }
         } catch (Exception e) {
-            T.showShort(mContext, "获取图片失败");
+            ToastUtil.showShort(mContext, "获取图片失败");
             return null;
         }
     }

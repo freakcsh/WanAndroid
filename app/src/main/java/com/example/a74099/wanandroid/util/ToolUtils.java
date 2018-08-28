@@ -48,9 +48,6 @@ import java.util.Date;
 
 
 
-/**
- * Created by lzj on 2017/6/3.
- */
 
 public class ToolUtils {
 
@@ -493,7 +490,7 @@ public class ToolUtils {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
                 fos.flush();
                 fos.close();
-                T.showShort(activity, "截图已保存.");
+                ToastUtil.showShort(activity, "截图已保存.");
             }
         } catch (IOException e) {
             e.printStackTrace();

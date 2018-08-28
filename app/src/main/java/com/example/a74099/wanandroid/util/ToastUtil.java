@@ -3,18 +3,16 @@ package com.example.a74099.wanandroid.util;
 import android.content.Context;
 import android.widget.Toast;
 
-/**
- * Created by lzj on 2017/6/19.
- */
 
-public class T {
+
+public class ToastUtil {
 
     public static boolean isShow = true;
 
     private static Toast mToast;
     private static long timeStamp = 0;
 
-    private T() {
+    private ToastUtil() {
         throw new UnsupportedOperationException("can not be instantiated ");
     }
 

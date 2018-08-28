@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.a74099.wanandroid.R;
+import com.example.a74099.wanandroid.net.util.NetStateChangeObserver;
+import com.example.a74099.wanandroid.net.util.NetStateChangeReceiver;
+import com.example.a74099.wanandroid.net.util.NetworkType;
+import com.example.a74099.wanandroid.util.ToastUtil;
+
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -15,12 +21,12 @@ import me.yokeyword.fragmentation.SupportFragment;
  *  无MVP的Fragment基类
  */
 
-public abstract class SimpleFragment extends SupportFragment {
+public abstract class SimpleFragment extends SupportFragment implements NetStateChangeObserver {
 
     protected View mView;
     protected Activity mActivity;
     protected Context mContext;
-
+    private View netErrorView;
 
     @Override
     public void onAttach(Context context) {
@@ -53,7 +59,65 @@ public abstract class SimpleFragment extends SupportFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        /**
+         * 判断该页面是否开启了网络变化监听，已开启则关闭广播
+         */
+        if (needRegisterNetworkChangeObserver()) {
+            NetStateChangeReceiver.unregisterObserver(this);
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        /**
+         * 判断该页面是否需要开启网络变化监听，如需要则启动广播
+         */
+        if (needRegisterNetworkChangeObserver()) {
+            NetStateChangeReceiver.registerObserver(this);
+        }
+    }
 
+
+    /**
+     * 是否需要注册网络变化的Observer,如果不需要监听网络变化,则返回false;否则返回true
+     */
+    protected boolean needRegisterNetworkChangeObserver() {
+        return true;
+    }
+
+    /**
+     * 网络断开时执行的操作
+     */
+    @Override
+    public void onNetDisconnected() {
+        showDisConnectedView();
+    }
+
+    /**
+     * 网络重连时执行的操作
+     *
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        ToastUtil.showLong(mActivity, "当前连接的是"+networkType.toString()+"网络");
+        hideDisConnectedView();
+    }
+
+    /**
+     * 显示无网络状态
+     */
+    public void showDisConnectedView() {
+        netErrorView = mView.findViewById(R.id.rl_net_error);
+        netErrorView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 隐藏无网络状态
+     */
+    public void hideDisConnectedView() {
+        netErrorView = mView.findViewById(R.id.rl_net_error);
+        netErrorView.setVisibility(View.GONE);
     }
 
 //    public void toastShow(int resId) {

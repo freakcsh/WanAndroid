@@ -25,4 +25,5 @@
     <string name="fingerprint_sys_setting_page">进入系统指纹设置页面</string>
     <string name="sys_pwd_recognition_success">系统密码识别成功</string>
     <string name="sys_pwd_recognition_failed">系统密码识别失败</string>
+    <string name="net_error_prompt">网络连接不可用</string>
 </resources>

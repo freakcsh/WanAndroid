@@ -50,15 +50,6 @@ public class FingerPrintSettingActivity extends SimpleActivity implements View.O
      */
     private Button fingerprint_recognition_sys_setting;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        initViews();
-//        initViewListeners();
-//        initFingerprintCore();
-////        IntentFingerprint();
-//    }
 public static void startAction(Context context) {
     Intent intent = new Intent(context, FingerPrintSettingActivity.class);
     context.startActivity(intent);
@@ -66,6 +57,8 @@ public static void startAction(Context context) {
     private void initFingerprintCore() {
         if (mFingerprintCore == null) {
             mFingerprintCore = new FingerprintCore(this);
+            mFingerprintCore.setFingerprintManager(mResultListener);
+        }else {
             mFingerprintCore.setFingerprintManager(mResultListener);
         }
         mKeyguardLockScreenManager = new KeyguardLockScreenManager(this);
@@ -216,8 +209,8 @@ public static void startAction(Context context) {
      */
     private void startFingerprintRecognition() {
 
-        if (!mFingerprintCore.isSupport()) {
-            if (mFingerprintCore.isHardwareDetected()) {
+        if (mFingerprintCore.isSupport()) {
+            if (!mFingerprintCore.isHardwareDetected()) {
                 toastTipMsg(R.string.fingerprint_recognition_not_enrolled);
                 FingerprintUtil.openFingerPrintSettingPage(this);
                 return;
