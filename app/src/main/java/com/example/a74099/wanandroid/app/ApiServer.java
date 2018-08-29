@@ -5,6 +5,7 @@ import com.example.a74099.wanandroid.bean.ArticleListBean;
 import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.bean.ClassifyBean;
 import com.example.a74099.wanandroid.bean.ClassifyTitleBean;
+import com.example.a74099.wanandroid.bean.CollectBean;
 import com.example.a74099.wanandroid.bean.NavigationBean;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
@@ -38,6 +39,9 @@ public interface ApiServer {
 
     @GET
     Observable<HttpResult<ArticleListBean>> getArticle(@Url String url);
+
+    @GET
+    Observable<HttpResult<CollectBean>> getCollect(@Url String url);
 
     @GET
     Observable<HttpResult<ClassifyBean>> getClassifyDetail(@Url String url);

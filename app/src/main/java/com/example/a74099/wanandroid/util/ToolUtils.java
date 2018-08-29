@@ -31,6 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.App;
 
 import java.io.ByteArrayOutputStream;
@@ -46,7 +47,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
 public class ToolUtils {

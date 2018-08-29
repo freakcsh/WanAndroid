@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="52dp"
+                    android:src="@mipmap/login_icon_user" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="@string/login_user_tip"
+                    android:textColor="@color/c_66ffffff"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginLeft="52dp"
+                android:layout_marginRight="52dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_login_edt_bg">
+
+                <EditText
+                    android:id="@+id/edt_login_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/login_user_hint"
+                    android:paddingLeft="16dp"
+                    android:textColor="@color/c_999999"
+                    android:textColorHint="@color/c_999999"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <!--密码方式登录-->
+            <LinearLayout
+                android:id="@+id/ll_login_pw_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="52dp"
+                        android:src="@mipmap/login_lock" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="@string/login_pw_tip"
+                        android:textColor="@color/c_66ffffff"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp"
+                    android:layout_marginLeft="52dp"
+                    android:layout_marginRight="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_login_edt_bg">
+
+                    <EditText
+                        android:id="@+id/edt_login_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="@string/login_pw_hint"
+                        android:inputType="textPassword"
+                        android:paddingLeft="16dp"
+                        android:textColor="@color/c_999999"
+                        android:textColorHint="@color/c_999999"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_login_commit"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginLeft="52dp"
+                android:layout_marginRight="52dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/shape_login_commit"
+                android:gravity="center"
+                android:text="@string/login_commit"
+                android:textColor="@color/c_ffffff"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="52dp"
+                android:layout_marginRight="52dp"
+                android:layout_marginTop="28dp"
+                android:background="@color/c_4dffffff" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_forget_pw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|end"
+                    android:paddingBottom="14dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/login_forget_pw"
+                    android:textColor="@color/c_4dffffff"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="/"
+                    android:textColor="@color/c_4dffffff"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_find_pw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:paddingBottom="14dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/login_find_pw"
+                    android:textColor="@color/c_4dffffff"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>

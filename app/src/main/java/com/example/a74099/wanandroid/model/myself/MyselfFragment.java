@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
+import com.example.a74099.wanandroid.model.login.LoginActivity;
+import com.example.a74099.wanandroid.model.myself.activity.ShapeActivity;
+import com.example.a74099.wanandroid.model.myself.activity.collect.CollectActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintSettingActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternAlterActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternSettingActivity;
@@ -40,10 +43,10 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private LinearLayout headLayout;
     private Toolbar toolbar;
     private File userImgFile;
-    private RelativeLayout rl_alter_photo, rl_gesture_pw,rl_fingerprint;
+    private RelativeLayout rl_alter_photo, rl_gesture_pw,rl_fingerprint,rl_shape,rl_collect;
     private CircleImageView img_user;
     private String mPw;
-    private TextView tv_pw_state;
+    private TextView tv_pw_state,tv_login;
 
     @Override
     protected MyselfPresenter createPresenter() {
@@ -77,10 +80,16 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         img_user = view.findViewById(R.id.img_user);
         rl_gesture_pw = view.findViewById(R.id.rl_gesture_pw);
         rl_fingerprint = view.findViewById(R.id.rl_fingerprint);
+        rl_shape = view.findViewById(R.id.rl_shape);
         tv_pw_state = view.findViewById(R.id.tv_pw_state);
+        rl_collect = view.findViewById(R.id.rl_collect);
+        tv_login = view.findViewById(R.id.tv_login);
         rl_alter_photo.setOnClickListener(this);
         rl_gesture_pw.setOnClickListener(this);
         rl_fingerprint.setOnClickListener(this);
+        rl_shape.setOnClickListener(this);
+        rl_collect.setOnClickListener(this);
+        tv_login.setOnClickListener(this);
         mPw = new PatternHelper().getFromStorage();
         if (ToolUtils.isNull(mPw)) {
             tv_pw_state.setText("未开启");
@@ -248,6 +257,15 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 break;
             case R.id.rl_fingerprint:
                 FingerPrintSettingActivity.startAction(getActivity());
+                break;
+            case R.id.rl_shape:
+                ShapeActivity.startAction(getActivity());
+                break;
+            case R.id.rl_collect:
+                CollectActivity.startAction(getActivity());
+                break;
+            case R.id.tv_login:
+                LoginActivity.startAction(getActivity());
                 break;
             default:
                 break;

@@ -26,4 +26,13 @@
     <string name="sys_pwd_recognition_success">系统密码识别成功</string>
     <string name="sys_pwd_recognition_failed">系统密码识别失败</string>
     <string name="net_error_prompt">网络连接不可用</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_user_tip">账号</string>
+    <string name="login_user_hint">请输入账号</string>
+    <string name="login_pw_tip">登录密码</string>
+    <string name="login_pw_hint">请输入登录密码</string>
+    <string name="login_commit">登录</string>
+    <string name="login_forget_pw">忘记密码？</string>
+    <string name="login_find_pw">找回密码！</string>
 </resources>

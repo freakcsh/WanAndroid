@@ -34,6 +34,7 @@
                     android:background="@mipmap/mine_icon_user_photo" />
 
                 <TextView
+                    android:id="@+id/tv_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
@@ -105,6 +106,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_collect"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="1dp"
@@ -219,6 +221,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_shape"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="1dp"
