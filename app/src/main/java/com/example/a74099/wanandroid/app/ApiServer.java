@@ -6,6 +6,8 @@ import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.bean.ClassifyBean;
 import com.example.a74099.wanandroid.bean.ClassifyTitleBean;
 import com.example.a74099.wanandroid.bean.CollectBean;
+import com.example.a74099.wanandroid.bean.LoginBean;
+import com.example.a74099.wanandroid.bean.LoginOutBean;
 import com.example.a74099.wanandroid.bean.NavigationBean;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
@@ -14,6 +16,7 @@ import com.example.a74099.wanandroid.net.HttpResult;
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -36,6 +39,12 @@ public interface ApiServer {
 
     @GET("banner/json")
     Observable<HttpResult<List<BannerBean>>> getBanner();
+
+    @GET("user/logout/json")
+    Observable<HttpResult<LoginOutBean>> doLoginOut();
+
+    @POST("user/login")
+    Observable<HttpResult<LoginBean>> doLogin(@Query("username") String username, @Query("password") String password);
 
     @GET
     Observable<HttpResult<ArticleListBean>> getArticle(@Url String url);

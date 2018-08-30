@@ -38,7 +38,7 @@ public class SubscriberCallBack extends Subscriber {
                 msg = "连接超时，请检查您的网络状态";
                 apiCallback.onFailure(msg);
             }else {
-                Log.e("json","发送错误",e);
+                Log.e("json","解析失败",e);
                 e.printStackTrace();
                 apiCallback.onFailure(e.getMessage());
             }

@@ -23,6 +23,7 @@ import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternAlterA
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternSettingActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
 import com.example.a74099.wanandroid.util.PermissionUtils;
+import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.util.picture.BitmapUtil;
 import com.example.a74099.wanandroid.util.picture.GetPictureUtils;
@@ -43,10 +44,11 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private LinearLayout headLayout;
     private Toolbar toolbar;
     private File userImgFile;
-    private RelativeLayout rl_alter_photo, rl_gesture_pw,rl_fingerprint,rl_shape,rl_collect;
+    private RelativeLayout rl_alter_photo, rl_gesture_pw, rl_fingerprint, rl_shape, rl_collect;
     private CircleImageView img_user;
     private String mPw;
-    private TextView tv_pw_state,tv_login;
+    private TextView tv_pw_state, tv_login, tv_login_out;
+    private String mLoginBean;
 
     @Override
     protected MyselfPresenter createPresenter() {
@@ -84,17 +86,41 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         tv_pw_state = view.findViewById(R.id.tv_pw_state);
         rl_collect = view.findViewById(R.id.rl_collect);
         tv_login = view.findViewById(R.id.tv_login);
+        tv_login_out = view.findViewById(R.id.tv_login_out);
         rl_alter_photo.setOnClickListener(this);
         rl_gesture_pw.setOnClickListener(this);
         rl_fingerprint.setOnClickListener(this);
         rl_shape.setOnClickListener(this);
         rl_collect.setOnClickListener(this);
         tv_login.setOnClickListener(this);
+        tv_login_out.setOnClickListener(this);
         mPw = new PatternHelper().getFromStorage();
         if (ToolUtils.isNull(mPw)) {
             tv_pw_state.setText("未开启");
         } else {
             tv_pw_state.setText("点击修改");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setLoginInfo();
+    }
+
+    private void setLoginInfo() {
+        mLoginBean = ToolUtils.getLoginBean(getActivity());
+        if (ToolUtils.isLogin(getActivity())) {
+            tv_login.setText("请登录");
+            tv_login.setEnabled(true);
+        } else {
+            if (ToolUtils.isNull(mLoginBean)) {
+                tv_login.setText(mLoginBean);
+                tv_login.setEnabled(false);
+                toolbar.setTitle(mLoginBean);
+            } else {
+                toolbar.setTitle("请登录");
+            }
         }
     }
 
@@ -123,9 +149,15 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -headLayout.getHeight()) {
-                    collapsingToolbarLayout.setTitle("黄晓果");
+                    collapsingToolbarLayout.setTitle("请登录");
                     toolbar.setVisibility(View.VISIBLE);
-                    toolbar.setTitle("sjafjs");
+                    if (ToolUtils.isNull(mLoginBean)) {
+                        toolbar.setTitle("请登录");
+                        tv_login.setText("请登录");
+                    } else {
+                        toolbar.setTitle(mLoginBean);
+                        tv_login.setText(mLoginBean);
+                    }
                     //使用下面两个CollapsingToolbarLayout的方法设置展开透明->折叠时你想要的颜色
                     collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
                     collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorAccent));
@@ -152,6 +184,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     public void getMyselfSuccess() {
 
     }
+
 
     @Override
     public void showError(String msg) {
@@ -266,6 +299,14 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 break;
             case R.id.tv_login:
                 LoginActivity.startAction(getActivity());
+                break;
+            case R.id.tv_login_out:
+                if (ToolUtils.isNull(mLoginBean)) {
+                    ToastUtil.showShort(getActivity(), "请先登录");
+                } else {
+                ToolUtils.logout(getActivity());
+                setLoginInfo();
+                }
                 break;
             default:
                 break;

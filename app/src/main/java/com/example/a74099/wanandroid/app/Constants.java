@@ -32,4 +32,6 @@ public class Constants {
      */
     public static final int ALBUM_PERMISSION_REQUESTCODE = 3002;
 
+    public final static String IS_LOGIN = "IS_LOGIN";
+    public final static String LOGIN_BEAN="LOGIN_BEAN";
 }

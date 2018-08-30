@@ -6,9 +6,13 @@ import com.example.a74099.wanandroid.net.BaseView;
 public interface MyselfContract {
     interface View extends BaseView {
         void getMyselfSuccess();
+
+
     }
 
     interface Presenter extends BasePresenter<View> {
         void getMyself();
+
+
     }
 }

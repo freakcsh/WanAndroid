@@ -31,8 +31,8 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.App;
+import com.example.a74099.wanandroid.app.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,13 +47,12 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.sharesdk.onekeyshare.OnekeyShare;
-
 
 public class ToolUtils {
 
     /**
      * 获取缓存路径
+     *
      * @return
      */
     public static File getApplicationCacheDir() {
@@ -134,6 +133,7 @@ public class ToolUtils {
     public interface IDelayAction {
         void delayAction();
     }
+
     /**
      * times毫秒后,执行操作
      *
@@ -580,23 +580,6 @@ public class ToolUtils {
         clipboard.setPrimaryClip(clip);
 //        T.showShort(context, context.getString(R.string.copy_success));
     }
-//
-//    /**
-//     * 获取登录令牌
-//     *
-//     * @param context
-//     * @param flag
-//     */
-//    public static FToken getToken(Context context, boolean flag) throws NeedLoginException {
-//        FToken token = (FToken) ACache.get(context).getAsObject(ACEConstant.ACE_FTOKEN_KEY);
-//        if (token == null || isNull(token.token)) {
-//            if (flag) {
-////                context.startActivity(new Intent(context, LoginAct.class));
-//            }
-//            throw new NeedLoginException();
-//        }
-//        return token;
-//    }
 
 //    public static UserInfoEntity getUserInfo(Context context) {
 //        UserInfoEntity userInfoEntity = (UserInfoEntity) ACache.get(context).getAsObject(ACEConstant.ACE_USERINFO);
@@ -609,57 +592,60 @@ public class ToolUtils {
 
 
     /**
-     * 查看是否登录
-     *
-     * @param context
-     * @return
-     */
-//    public static boolean checkLogin(Context context, boolean flag) throws NeedLoginException {
-//        FToken token = (FToken) ACache.get(context).getAsObject(ACEConstant.ACE_FTOKEN_KEY);
-//        if (token == null || isNull(token.token)) {
-//            if (flag) {
-////                context.startActivity(new Intent(context, UserLoginAct.class));
-//            }
-//            throw new NeedLoginException();
-//        }
-//        return true;
-//    }
-
-//    public static boolean isLogin(Context context) {
-//        FToken token = (FToken) ACache.get(context).getAsObject(ACEConstant.ACE_FTOKEN_KEY);
-//        if (token == null) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
-    /**
      * 登录成功后保存的Token
      *
      * @param context
-     * @param token
+     * @param cookie
      */
-//    public static void saveToken(Context context, FToken token) {
-//        ACache.get(context).put(ACEConstant.ACE_FTOKEN_KEY, token);
-//    }
+    public static void saveToken(Context context, String cookie) {
+        ACache.get(context).put(Constants.IS_LOGIN, cookie);
+    }
 
     /**
+     * 保存登录信息
+     *
      * @param context
+     * @param userName
      */
-//    public static void saveUserInfo(Context context, UserInfoEntity userInfoEntity) {
-//        ACache.get(context).put(ACEConstant.ACE_USERINFO, userInfoEntity);
-//    }
+    public static void saveLoginInfo(Context context, String userName) {
+        SPUtils.put(context,Constants.LOGIN_BEAN,userName);
+
+    }
+
+    /**
+     * 获取登录信息
+     */
+    public static String getLoginBean(Context context) {
+        String userName = (String)SPUtils.get(context,Constants.LOGIN_BEAN,"");
+        if (ToolUtils.isNull(userName)) {
+            return null;
+        } else {
+            return userName;
+        }
+    }
+
+    /***
+     * 判断是否登录
+     * @param context
+     * @return
+     */
+    public static boolean isLogin(Context context) {
+        if (ToolUtils.isNull((String) ACache.get(context).getAsObject(Constants.IS_LOGIN))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     /**
      * 退出登录
      *
      * @param context
      */
-//    public static void logout(Context context) {
-//        ACache.get(context).remove(ACEConstant.ACE_FTOKEN_KEY);
-//        ACache.get(context).remove(ACEConstant.ACE_USERINFO);
-//    }
+    public static void logout(Context context) {
+        ACache.get(context).put(Constants.IS_LOGIN, "");
+        SPUtils.put(context, Constants.LOGIN_BEAN, "");
+    }
 
     /**
      * 复制String
@@ -735,8 +721,6 @@ public class ToolUtils {
             }
         }
     }
-
-
 
 
     public static byte[] File2byte(File file) {
