@@ -17,6 +17,7 @@ import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
@@ -32,10 +33,33 @@ public interface ApiServer {
 //                                             @Query("status") String status);
 //
 
+    /**
+     * 收藏文章
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<HttpResult<String>> doCollect(@Path("id") int id);
 
-    @GET("toutiao/index")
-    Observable<HttpResult<List<String>>> getNews(@Query("type") String type,
-                                                 @Query("key") String key);
+    /**
+     * 文章列表中取消收藏
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<HttpResult<String>> doCancelCollect(@Path("id") int id);
+
+    /**
+     * 收藏列表中取消收藏
+     *
+     * @param id
+     * @param originId
+     * @return
+     */
+    @POST("lg/uncollect/{id}/json")
+    Observable<HttpResult<String>> doCollectCancel(@Path("id") int id, @Query("originId") int originId);
 
     @GET("banner/json")
     Observable<HttpResult<List<BannerBean>>> getBanner();

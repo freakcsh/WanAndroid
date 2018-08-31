@@ -8,38 +8,43 @@
     tools:context=".model.myself.activity.collect.CollectActivity">
 
     <include layout="@layout/include_top_title" />
-    <LinearLayout
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout-->
+            <!--android:id="@+id/collect_include_no_data"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:visibility="gone">-->
+
+
+
+                <!--<include layout="@layout/include_no_data" />-->
+
+        <!--</com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout>-->
+
+        <!--<com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout-->
+            <!--android:id="@+id/collect_recycle_pu"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<com.jcodecraeer.xrecyclerview.XRecyclerView-->
+                <!--android:id="@+id/collect_recycle"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+            <!--/>-->
+
+            <!--<com.example.a74099.wanandroid.view.LockHeaderView-->
+                <!--android:id="@+id/header"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+        <!--</com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout>-->
+    <!--</LinearLayout>-->
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/collect_recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout
-            android:id="@+id/collect_include_no_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-
-
-
-                <include layout="@layout/include_no_data" />
-
-        </com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout>
-
-        <com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout
-            android:id="@+id/collect_recycle_pu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.jcodecraeer.xrecyclerview.XRecyclerView
-                android:id="@+id/collect_recycle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
-
-            <com.example.a74099.wanandroid.view.LockHeaderView
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout>
-    </LinearLayout>
+        />
 </LinearLayout>

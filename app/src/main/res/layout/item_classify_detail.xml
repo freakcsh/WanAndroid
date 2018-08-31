@@ -17,7 +17,8 @@
             android:id="@+id/img_classify_bg"
             android:layout_width="100dp"
             android:layout_marginLeft="10dp"
-            android:layout_height="120dp" />
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                 android:layout_height="50dp"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/c_ffffff" />
@@ -60,7 +61,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:maxLength="30"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="@color/c_bbbbbb" />
 
                 <TextView
@@ -69,15 +70,15 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:gravity="center_vertical"
                     android:maxLength="30"
                     android:textColor="@color/c_bbbbbb" />
 
                 <ImageView
                     android:id="@+id/img_classify_item_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/select_collage" />

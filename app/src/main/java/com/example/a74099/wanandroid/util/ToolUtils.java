@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -449,7 +450,55 @@ public class ToolUtils {
      * @param isopen   保存后是否打开图片
      * @return
      */
-    public static void saveScreemShots(Activity activity, boolean isopen) {
+    public static void saveScreemShots(Activity activity, boolean isopen,File dir) {
+        //1.构建Bitmap
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        Bitmap bitmap = null;
+
+        String savePath = dir.getPath();
+
+        //4.保存bitmap
+        try {
+            File path = new File(savePath);
+            String filePath = savePath + "/" + System.currentTimeMillis() + ".png";
+            File file = new File(filePath);
+            if (!path.exists()) {
+                path.mkdir();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            if (null != fos) {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+                fos.flush();
+                fos.close();
+                ToastUtil.showShort(activity, "截图已保存.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (isopen) {
+            Intent intent = new Intent("android.intent.action.VIEW");
+            intent.addCategory("android.intent.category.DEFAULT");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Uri uri = Uri.fromFile(new File(savePath));
+            intent.setDataAndType(uri, "image/*");
+            activity.startActivity(intent);
+        }
+    }
+
+    /**
+     *
+     * 保存选择的图片
+     * @param activity
+     * @param isopen
+     */
+    public static void saveLoginPhoto(Activity activity, boolean isopen) {
         //1.构建Bitmap
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -466,9 +515,9 @@ public class ToolUtils {
         String statue = Environment.getExternalStorageState();
         File dir = null;
         if (statue.equals(Environment.MEDIA_MOUNTED)) {
-            dir = new File(Environment.getExternalStorageDirectory() + "/DCIM/Screemshots");
+            dir = new File(Environment.getExternalStorageDirectory() + "/WanAndroid/photo");
         } else {
-            dir = new File(Environment.getDownloadCacheDirectory() + "/DCIM/Screemshots");
+            dir = new File(Environment.getDownloadCacheDirectory() + "/WanAndroid/photo");
         }
         if (!dir.exists()) {
             dir.mkdir();
@@ -598,7 +647,7 @@ public class ToolUtils {
      * @param cookie
      */
     public static void saveToken(Context context, String cookie) {
-        ACache.get(context).put(Constants.IS_LOGIN, cookie);
+        SPUtils.put(context, Constants.IS_LOGIN, cookie);
     }
 
     /**
@@ -608,7 +657,7 @@ public class ToolUtils {
      * @param userName
      */
     public static void saveLoginInfo(Context context, String userName) {
-        SPUtils.put(context,Constants.LOGIN_BEAN,userName);
+        SPUtils.put(context, Constants.LOGIN_BEAN, userName);
 
     }
 
@@ -616,7 +665,7 @@ public class ToolUtils {
      * 获取登录信息
      */
     public static String getLoginBean(Context context) {
-        String userName = (String)SPUtils.get(context,Constants.LOGIN_BEAN,"");
+        String userName = (String) SPUtils.get(context, Constants.LOGIN_BEAN, "");
         if (ToolUtils.isNull(userName)) {
             return null;
         } else {
@@ -630,7 +679,8 @@ public class ToolUtils {
      * @return
      */
     public static boolean isLogin(Context context) {
-        if (ToolUtils.isNull((String) ACache.get(context).getAsObject(Constants.IS_LOGIN))) {
+        Log.e("freak", (String) SPUtils.get(context, Constants.IS_LOGIN, ""));
+        if (ToolUtils.isNull((String) SPUtils.get(context, Constants.IS_LOGIN, ""))) {
             return false;
         } else {
             return true;
@@ -643,8 +693,32 @@ public class ToolUtils {
      * @param context
      */
     public static void logout(Context context) {
-        ACache.get(context).put(Constants.IS_LOGIN, "");
+        SPUtils.put(context, Constants.IS_LOGIN, "");
         SPUtils.put(context, Constants.LOGIN_BEAN, "");
+    }
+
+    /**
+     * 保存图片地址
+     *
+     * @param context
+     * @param url
+     */
+    public static void savePhotoUrl(Context context, String url) {
+        SPUtils.put(context, Constants.PHOTO, url);
+    }
+
+    /**
+     * 获取图片地址
+     *
+     * @param context
+     */
+    public static String getPhotoUrl(Context context) {
+        String uri = (String) SPUtils.get(context, Constants.PHOTO, "");
+        if (uri==null){
+            return null;
+        }else {
+            return uri;
+        }
     }
 
     /**

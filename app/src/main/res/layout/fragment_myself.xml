@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="@mipmap/mine_icon_bg"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -28,6 +29,7 @@
                 app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_login_photo"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
@@ -51,10 +53,23 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            android:layout_height="wrap_content"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/tool_bar_img_user"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/img_alter_right"
+                android:background="@mipmap/mine_icon_user_photo" />
+            <TextView
+                android:id="@+id/tv_tool_bar_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/c_ffffff"/>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -295,7 +310,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_right"
                     android:gravity="center"
-                    android:text="v2.3.0"
                     android:textColor="@color/c_b3b3b3"
                     android:textSize="12sp" />
 

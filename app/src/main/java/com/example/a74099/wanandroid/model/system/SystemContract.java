@@ -10,11 +10,21 @@ import java.util.List;
 public interface SystemContract {
     interface View extends BaseView {
         void getSystemSuccess(List<SystemClassifyBean> systemClassifyBeanList);
+
         void getClassifyDetailSuccess(SystemDetailBean systemDetailBean);
+
+        void doCollectSuccess();
+
+        void doCancelCollectSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
         void getSystem();
-        void getClassifyDetail(String curPage, String  cid );
+
+        void getClassifyDetail(String curPage, String cid);
+
+        void doCancelCollect(int id);
+
+        void doCollect(int id);
     }
 }

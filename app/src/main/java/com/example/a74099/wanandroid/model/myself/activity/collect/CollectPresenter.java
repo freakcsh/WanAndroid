@@ -37,4 +37,20 @@ public class CollectPresenter extends RxPresenter<CollectContract.View> implemen
             }
         }));
     }
+
+    @Override
+    public void doCollectCancel(int id, int originId) {
+        Observable observable = apiServer.doCollectCancel(id,originId).map(new HttpResultFunc<String>());
+        addSubscription(observable, new SubscriberCallBack(new ApiCallback<String>() {
+            @Override
+            public void onSuccess(String model) {
+                mView.doCollectCancelSuccess();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        }));
+    }
 }

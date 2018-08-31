@@ -34,4 +34,5 @@ public class Constants {
 
     public final static String IS_LOGIN = "IS_LOGIN";
     public final static String LOGIN_BEAN="LOGIN_BEAN";
+    public static String PHOTO="photo";
 }

@@ -33,8 +33,10 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     protected ClassifyPresenter createPresenter() {
         return new ClassifyPresenter();
     }
+
     /**
      * 断网重连
+     *
      * @param networkType
      */
     @Override
@@ -77,11 +79,21 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     public void getClassifyTitleSuccess(List<ClassifyTitleBean> model) {
         classifyBeanList = model;
-       for (ClassifyTitleBean classifyTitleBean : model){
-           mList.add(classifyTitleBean.getName());
-       }
+        for (ClassifyTitleBean classifyTitleBean : model) {
+            mList.add(classifyTitleBean.getName());
+        }
         class_view_pager.setAdapter(new BaseAdapter(getChildFragmentManager(), mList, mFragmentList));
         sliding_tab_layout.setViewPager(class_view_pager);
+    }
+
+    @Override
+    public void doCollectSuccess() {
+
+    }
+
+    @Override
+    public void doCancelCollectSuccess() {
+
     }
 
     @Override

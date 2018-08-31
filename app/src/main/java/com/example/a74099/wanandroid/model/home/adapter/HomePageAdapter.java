@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.MBaseAdapter;
 import com.example.a74099.wanandroid.bean.ArticleListBean;
+import com.example.a74099.wanandroid.util.ToastUtil;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.List;
 
@@ -49,27 +51,11 @@ public class HomePageAdapter extends MBaseAdapter<HomePageAdapter.HomePageViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final HomePageViewHolder holder, final int position) {
-        holder.home_item_title.setText(mList.get(position).getTitle());
-        holder.home_item_author.setText(mList.get(position).getAuthor());
-        holder.home_item_classify.setText(mList.get(position).getSuperChapterName());
-        holder.home_item_time.setText(mList.get(position).getNiceDate());
-        holder.ll_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.doIntern(mList.get(position));
-                }
-            }
-        });
-        holder.home_item_collect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.doCollage(mList.get(position),holder.home_item_img);
-                }
-            }
-        });
+        holder.bindData(position, mList.get(position));
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -91,6 +77,39 @@ public class HomePageAdapter extends MBaseAdapter<HomePageAdapter.HomePageViewHo
             home_item_time = itemView.findViewById(R.id.home_item_time);
             ll_item = itemView.findViewById(R.id.ll_item);
             home_item_img = itemView.findViewById(R.id.home_item_img);
+        }
+
+        public void bindData(final int position, final ArticleListBean.Datas datas) {
+            home_item_title.setText(datas.getTitle());
+            home_item_author.setText(datas.getAuthor());
+            home_item_classify.setText(datas.getSuperChapterName());
+            home_item_time.setText(datas.getNiceDate());
+            if (datas.getCollect()){
+                home_item_img.setSelected(true);
+            }else {
+                home_item_img.setSelected(false);
+            }
+            ll_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.doIntern(datas);
+                    }
+                }
+            });
+            home_item_collect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ToolUtils.isLogin(mContext)){
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.doCollage(datas,home_item_img);
+                        }
+                    }else {
+                        ToastUtil.showShort(mContext, "请先登录");
+                    }
+
+                }
+            });
         }
     }
 }

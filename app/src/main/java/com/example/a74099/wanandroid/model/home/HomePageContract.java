@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface HomePageContract {
     interface View extends BaseView {
-        void getHomepageSuccess();
+        void doCollectSuccess();
 
         void getBannerSuccess(List<BannerBean> list);
 
@@ -19,9 +19,16 @@ public interface HomePageContract {
 
         void getArticleError(String msg);
 
+        void doCancelCollectSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getHomepage();
+        void doCollect(int id);
+
+        void getBanner();
+
+        void getArticle(String curPage);
+
+        void doCancelCollect(int id);
     }
 }

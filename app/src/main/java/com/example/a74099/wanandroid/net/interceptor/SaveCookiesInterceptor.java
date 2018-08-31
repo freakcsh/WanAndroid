@@ -86,6 +86,7 @@ public class SaveCookiesInterceptor implements Interceptor {
         if (!TextUtils.isEmpty(domain)) {
             editor.putString(domain, cookies);
         }
+        Log.e("Freak","Cookies\n"+cookies);
         ToolUtils.saveToken(App.getInstance().getApplicationContext(), cookies);
         editor.apply();
 

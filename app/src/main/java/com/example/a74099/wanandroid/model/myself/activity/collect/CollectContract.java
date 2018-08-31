@@ -13,9 +13,13 @@ public interface CollectContract {
         void getCollectListSuccess(CollectBean collectBean);
 
         void getCollectError(String mse);
+
+        void doCollectCancelSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
         void getCollectList(String curPage);
+
+        void doCollectCancel(int id, int originId);
     }
 }

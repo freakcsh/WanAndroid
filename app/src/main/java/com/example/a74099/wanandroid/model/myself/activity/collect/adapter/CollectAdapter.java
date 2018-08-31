@@ -8,15 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.MBaseAdapter;
 import com.example.a74099.wanandroid.bean.CollectBean;
+import com.example.a74099.wanandroid.util.ToastUtil;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.List;
 
-public class CollectAdapter extends MBaseAdapter<CollectAdapter.HomePageViewHolder> {
+public class CollectAdapter extends MBaseAdapter<CollectAdapter.CollectViewHolder> {
     private Context mContext;
     private List<CollectBean.Datas> mList;
 
@@ -36,61 +40,80 @@ public class CollectAdapter extends MBaseAdapter<CollectAdapter.HomePageViewHold
     }
 
     public interface OnItemClickListener {
-        void doCollage(CollectBean.Datas mData, ImageView imageView);
+        void doCancelCollage(CollectBean.Datas mData, ImageView imageView);
 
         void doIntern(CollectBean.Datas mData);
     }
 
     @NonNull
     @Override
-    public HomePageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomePageViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_homepage, parent, false));
+    public CollectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new CollectViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_collect_list, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final HomePageViewHolder holder, final int position) {
-        holder.home_item_title.setText(mList.get(position).getTitle());
-        holder.home_item_author.setText(mList.get(position).getAuthor());
-//        holder.home_item_classify.setText(mList.get(position).getSuperChapterName());
-        holder.home_item_time.setText(mList.get(position).getNiceDate());
-        holder.ll_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.doIntern(mList.get(position));
-                }
-            }
-        });
-        holder.home_item_collect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.doCollage(mList.get(position),holder.home_item_img);
-                }
-            }
-        });
+    public void onBindViewHolder(@NonNull final CollectViewHolder holder, final int position) {
+        holder.bindData(position, mList.get(position));
     }
+
 
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
     }
 
-    class HomePageViewHolder extends RecyclerView.ViewHolder {
-        private TextView home_item_time, home_item_classify, home_item_author, home_item_title;
-        private LinearLayout home_item_collect, ll_item;
-        private ImageView home_item_img;
+    class CollectViewHolder extends RecyclerView.ViewHolder {
+        private TextView tv_article_author, tv_article_date, tv_article_title, tv_article_chapterName;
+        private LinearLayout ll_collect, ll_item;
+        private ImageView iv_article_thumbnail, iv_like;
+        private RelativeLayout rl_collect_item;
 
-
-        public HomePageViewHolder(View itemView) {
+        public CollectViewHolder(View itemView) {
             super(itemView);
-            home_item_collect = itemView.findViewById(R.id.home_item_collect);
-            home_item_title = itemView.findViewById(R.id.home_item_title);
-            home_item_author = itemView.findViewById(R.id.home_item_author);
-            home_item_classify = itemView.findViewById(R.id.home_item_classify);
-            home_item_time = itemView.findViewById(R.id.home_item_time);
-            ll_item = itemView.findViewById(R.id.ll_item);
-            home_item_img = itemView.findViewById(R.id.home_item_img);
+            tv_article_author = itemView.findViewById(R.id.tv_article_author);
+            tv_article_date = itemView.findViewById(R.id.tv_article_date);
+            iv_article_thumbnail = itemView.findViewById(R.id.iv_article_thumbnail);
+            tv_article_title = itemView.findViewById(R.id.tv_article_title);
+            tv_article_chapterName = itemView.findViewById(R.id.tv_article_chapterName);
+            iv_like = itemView.findViewById(R.id.iv_like);
+            ll_collect = itemView.findViewById(R.id.ll_collect);
+            rl_collect_item = itemView.findViewById(R.id.rl_collect_item);
+
+        }
+
+        public void bindData(int position, final CollectBean.Datas datas) {
+            if (ToolUtils.isNull(datas.getEnvelopePic())) {
+                iv_article_thumbnail.setVisibility(View.GONE);
+            } else {
+                iv_article_thumbnail.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(datas.getEnvelopePic()).into(iv_article_thumbnail);
+            }
+            tv_article_author.setText(datas.getAuthor());
+            tv_article_date.setText(datas.getNiceDate());
+            tv_article_title.setText(datas.getTitle());
+            tv_article_chapterName.setText(datas.getChapterName());
+            iv_like.setSelected(true);
+            ll_collect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ToolUtils.isLogin(mContext)){
+                        if (mOnItemClickListener!=null){
+                            mOnItemClickListener.doCancelCollage(datas,iv_like);
+                        }
+                    }else {
+                        ToastUtil.showShort(mContext, "请先登录");
+                    }
+
+                }
+            });
+            rl_collect_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener!=null){
+                        mOnItemClickListener.doIntern(datas);
+                    }
+                }
+            });
         }
     }
 }

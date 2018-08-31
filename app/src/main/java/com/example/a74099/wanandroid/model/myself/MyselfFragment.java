@@ -2,11 +2,14 @@ package com.example.a74099.wanandroid.model.myself;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -45,9 +48,9 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private Toolbar toolbar;
     private File userImgFile;
     private RelativeLayout rl_alter_photo, rl_gesture_pw, rl_fingerprint, rl_shape, rl_collect;
-    private CircleImageView img_user;
+    private CircleImageView img_user, tool_bar_img_user, img_login_photo;
     private String mPw;
-    private TextView tv_pw_state, tv_login, tv_login_out;
+    private TextView tv_pw_state, tv_login, tv_login_out, tv_version, tv_tool_bar_user_name;
     private String mLoginBean;
 
     @Override
@@ -87,6 +90,10 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         rl_collect = view.findViewById(R.id.rl_collect);
         tv_login = view.findViewById(R.id.tv_login);
         tv_login_out = view.findViewById(R.id.tv_login_out);
+        tv_version = view.findViewById(R.id.tv_version);
+        tv_tool_bar_user_name = view.findViewById(R.id.tv_tool_bar_user_name);
+        tool_bar_img_user = view.findViewById(R.id.tool_bar_img_user);
+        img_login_photo = view.findViewById(R.id.img_login_photo);
         rl_alter_photo.setOnClickListener(this);
         rl_gesture_pw.setOnClickListener(this);
         rl_fingerprint.setOnClickListener(this);
@@ -106,21 +113,38 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     public void onResume() {
         super.onResume();
         setLoginInfo();
+        setVision();
     }
 
     private void setLoginInfo() {
         mLoginBean = ToolUtils.getLoginBean(getActivity());
         if (ToolUtils.isLogin(getActivity())) {
-            tv_login.setText("请登录");
-            tv_login.setEnabled(true);
-        } else {
-            if (ToolUtils.isNull(mLoginBean)) {
+            if (!TextUtils.isEmpty(mLoginBean)) {
                 tv_login.setText(mLoginBean);
-                tv_login.setEnabled(false);
-                toolbar.setTitle(mLoginBean);
+                tv_tool_bar_user_name.setText(mLoginBean);
+                if (ToolUtils.isNull(ToolUtils.getPhotoUrl(getActivity()))) {
+                    tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                    img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                    img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                } else {
+                    String path = ToolUtils.getPhotoUrl(getActivity());
+                    Uri uri = Uri.fromFile(new File(path));
+                    tool_bar_img_user.setImageURI(uri);
+                    img_login_photo.setImageURI(uri);
+                    img_user.setImageURI(uri);
+                }
             } else {
-                toolbar.setTitle("请登录");
+                tv_tool_bar_user_name.setText("请登录");
+                tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
             }
+
+        } else {
+            tv_login.setText("请登录");
+            tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+            img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+            img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
         }
     }
 
@@ -129,14 +153,8 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
      */
     private void setToolBarReplaceActionBar() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // onBackPressed();//结束程序
-            }
-        });
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        toolbar.setTitle("");
     }
 
 
@@ -151,12 +169,28 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 if (verticalOffset <= -headLayout.getHeight()) {
                     collapsingToolbarLayout.setTitle("请登录");
                     toolbar.setVisibility(View.VISIBLE);
-                    if (ToolUtils.isNull(mLoginBean)) {
-                        toolbar.setTitle("请登录");
-                        tv_login.setText("请登录");
-                    } else {
-                        toolbar.setTitle(mLoginBean);
+                    if (ToolUtils.isLogin(getActivity())) {
                         tv_login.setText(mLoginBean);
+                        tv_tool_bar_user_name.setText(mLoginBean);
+                        if (ToolUtils.isNull(ToolUtils.getPhotoUrl(getActivity()))) {
+                            tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                            img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                            img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                        } else {
+                            String path = ToolUtils.getPhotoUrl(getActivity());
+                            Uri uri = Uri.fromFile(new File(path));
+                            tool_bar_img_user.setImageURI(uri);
+                            img_login_photo.setImageURI(uri);
+                            img_user.setImageURI(uri);
+                        }
+
+                    } else {
+                        tv_login.setText("请登录");
+                        tv_tool_bar_user_name.setText("请登录");
+                        tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                        img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+                        img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
+
                     }
                     //使用下面两个CollapsingToolbarLayout的方法设置展开透明->折叠时你想要的颜色
                     collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
@@ -254,8 +288,12 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
             @Override
             public void onSuccess(List<File> imgs) {
                 File imgFile = imgs.get(0);
-                Uri uri = Uri.fromFile(imgFile);
-                img_user.setImageURI(uri);
+//                ToolUtils.saveScreemShots(getActivity(),false,imgFile);
+                ToolUtils.savePhotoUrl(getActivity(), imgFile.getPath());
+                setLoginInfo();
+//                Log.e("freak", imgFile.getPath());
+//                Uri uri = Uri.fromFile(imgFile);
+//                img_user.setImageURI(uri);
             }
 
             @Override
@@ -273,6 +311,17 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
 
             }
         });
+    }
+
+    public void setVision() {
+        try {
+            PackageManager manager = getActivity().getPackageManager();
+            PackageInfo info = null;
+            info = manager.getPackageInfo(getActivity().getPackageName(), 0);
+            tv_version.setText(info.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -295,17 +344,26 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 ShapeActivity.startAction(getActivity());
                 break;
             case R.id.rl_collect:
-                CollectActivity.startAction(getActivity());
+                if (ToolUtils.isLogin(getActivity())) {
+                    CollectActivity.startAction(getActivity());
+                } else {
+                    ToastUtil.showShort(getActivity(), "请先登录");
+                }
                 break;
             case R.id.tv_login:
-                LoginActivity.startAction(getActivity());
+                if (ToolUtils.isLogin(getActivity())) {
+                    ToastUtil.showShort(getActivity(), "您已登录，请勿重复操作");
+                } else {
+                    LoginActivity.startAction(getActivity());
+                }
+
                 break;
             case R.id.tv_login_out:
                 if (ToolUtils.isNull(mLoginBean)) {
                     ToastUtil.showShort(getActivity(), "请先登录");
                 } else {
-                ToolUtils.logout(getActivity());
-                setLoginInfo();
+                    ToolUtils.logout(getActivity());
+                    setLoginInfo();
                 }
                 break;
             default:

@@ -59,4 +59,7 @@
     <color name="c_999999">#999999</color>
     <color name="c_4dffffff">#4dffffff</color>
     <color name="c_66ffffff">#66ffffff</color>
+    <color name="c_616161">#616161</color>
+    <color name="c_757575">#757575</color>
+    <color name="item_title">#19191B</color>
 </resources>

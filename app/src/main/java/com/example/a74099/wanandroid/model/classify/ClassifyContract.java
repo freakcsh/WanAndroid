@@ -10,11 +10,21 @@ import java.util.List;
 public interface ClassifyContract {
     interface View extends BaseView {
         void getClassifySuccess(ClassifyBean model);
+
         void getClassifyTitleSuccess(List<ClassifyTitleBean> model);
+
+        void doCollectSuccess();
+
+        void doCancelCollectSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getClassify(String curPage,String cid);
+        void getClassify(String curPage, String cid);
+
         void getClassifyTitle();
+
+        void doCancelCollect(int id);
+
+        void doCollect(int id);
     }
 }

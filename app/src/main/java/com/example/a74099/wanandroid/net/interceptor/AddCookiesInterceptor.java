@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.example.a74099.wanandroid.app.Constants;
+import com.example.a74099.wanandroid.util.SPUtils;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -22,11 +25,19 @@ public class AddCookiesInterceptor implements Interceptor {
         mContext = context;
     }
 
+    /**
+     * 在请求在加入cookie
+     * @param chain
+     * @return
+     * @throws IOException
+     */
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
-        String cookie = getCookie(request.url().toString(), request.url().host());
+//        String cookie = getCookie(request.url().toString(), request.url().host());
+        //获取保存在本地的cookie
+        String cookie= (String) SPUtils.get(mContext,Constants.IS_LOGIN,"");
         if (!TextUtils.isEmpty(cookie)) {
             builder.addHeader("Cookie", cookie);
         }

@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.MBaseAdapter;
 import com.example.a74099.wanandroid.bean.ClassifyBean;
+import com.example.a74099.wanandroid.util.ToastUtil;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.List;
 
@@ -84,12 +86,22 @@ public class ClassifyDetailAdapter extends MBaseAdapter<ClassifyDetailAdapter.Cl
             tv_classify_context.setText(Html.fromHtml(classifyBean.getDesc()));
             tv_classify_time.setText(classifyBean.getNiceDate());
             tv_classify_author.setText(classifyBean.getAuthor());
+            if (classifyBean.getCollect()){
+                img_classify_item_img.setSelected(true);
+            }else {
+                img_classify_item_img.setSelected(false);
+            }
             img_classify_item_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.doCollage(classifyBean, img_classify_item_img);
+                    if (ToolUtils.isLogin(mContext)){
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.doCollage(classifyBean, img_classify_item_img);
+                        }
+                    }else {
+                        ToastUtil.showShort(mContext, "请先登录");
                     }
+
                 }
             });
             ll_classify_item.setOnClickListener(new View.OnClickListener() {

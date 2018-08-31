@@ -22,6 +22,7 @@ import com.example.a74099.wanandroid.model.system.adapter.SystemDetailAdapter;
 import com.example.a74099.wanandroid.model.system.adapter.SystemFirstAdapter;
 import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.DialogUtil;
+import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -192,6 +193,26 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
         }
     }
 
+    /**
+     * 收藏成功回调
+     */
+    @Override
+    public void doCollectSuccess() {
+        curPage = 1;
+        mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
+        ToastUtil.showShort(getActivity(),"收藏成功");
+    }
+
+    /**
+     * 取消收藏成功回调
+     */
+    @Override
+    public void doCancelCollectSuccess() {
+        curPage = 1;
+        mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
+        ToastUtil.showShort(getActivity(),"取消收藏成功");
+    }
+
     private void loading(List<SystemDetailBean.Datas> mList) {
         if (mList != null && mList.size() != 0) {
             system_detail_recycle.loadMoreComplete();
@@ -221,9 +242,9 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
                     @Override
                     public void doCollage(SystemDetailBean.Datas mData, ImageView imageView) {
                         if (mData.getCollect()) {
-                            imageView.setSelected(false);
+                            mPresenter.doCancelCollect(mData.getId());
                         } else {
-                            imageView.setSelected(true);
+                            mPresenter.doCollect(mData.getId());
                         }
                     }
 

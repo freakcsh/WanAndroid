@@ -16,6 +16,7 @@ import com.example.a74099.wanandroid.model.classify.ClassifyPresenter;
 import com.example.a74099.wanandroid.model.classify.activity.ClassifyDetailActivity;
 import com.example.a74099.wanandroid.model.classify.adapter.ClassifyDetailAdapter;
 import com.example.a74099.wanandroid.net.util.NetworkType;
+import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -128,9 +129,9 @@ public class DetailFragment extends BaseFragment<ClassifyPresenter> implements C
                     @Override
                     public void doCollage(ClassifyBean.Datas mData, ImageView imageView) {
                         if (mData.getCollect()) {
-                            imageView.setSelected(false);
+                            mPresenter.doCancelCollect(mData.getId());
                         } else {
-                            imageView.setSelected(true);
+                            mPresenter.doCollect(mData.getId());
                         }
                     }
 
@@ -178,5 +179,25 @@ public class DetailFragment extends BaseFragment<ClassifyPresenter> implements C
     @Override
     public void showError(String msg) {
 
+    }
+
+    /**
+     * 收藏成功回调
+     */
+    @Override
+    public void doCollectSuccess() {
+        page = 1;
+        mPresenter.getClassify(String.valueOf(page), cid);
+        ToastUtil.showShort(getActivity(),"收藏成功");
+    }
+
+    /**
+     * 取消收藏成功回调
+     */
+    @Override
+    public void doCancelCollectSuccess() {
+        page = 1;
+        mPresenter.getClassify(String.valueOf(page), cid);
+        ToastUtil.showShort(getActivity(),"取消收藏成功");
     }
 }

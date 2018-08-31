@@ -53,4 +53,43 @@ public class ClassifyPresenter extends RxPresenter<ClassifyContract.View> implem
             }
         }));
     }
+
+    /**
+     * 文章列表中取消收藏
+     * @param id
+     */
+    @Override
+    public void doCancelCollect(int id) {
+        Observable observable = apiServer.doCancelCollect(id).map(new HttpResultFunc<String>());
+        addSubscription(observable, new SubscriberCallBack(new ApiCallback<String>() {
+            @Override
+            public void onSuccess(String model) {
+                mView.doCancelCollectSuccess();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        }));
+    }
+
+    /**
+     * 收藏文章
+     */
+    @Override
+    public void doCollect(int id) {
+        Observable observable = apiServer.doCollect(id).map(new HttpResultFunc<String>());
+        addSubscription(observable, new SubscriberCallBack(new ApiCallback<String>() {
+            @Override
+            public void onSuccess(String model) {
+                mView.doCollectSuccess();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        }));
+    }
 }

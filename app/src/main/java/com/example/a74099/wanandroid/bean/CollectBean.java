@@ -7,25 +7,25 @@ import java.util.List;
  */
 
 public class CollectBean {
-    private int curPage;
+    private String curPage;
 
     private List<Datas> datas;
 
-    private int offset;
+    private String offset;
 
     private boolean over;
 
-    private int pageCount;
+    private String pageCount;
 
-    private int size;
+    private String size;
 
-    private int total;
+    private String total;
 
-    public void setCurPage(int curPage) {
+    public void setCurPage(String curPage) {
         this.curPage = curPage;
     }
 
-    public int getCurPage() {
+    public String getCurPage() {
         return this.curPage;
     }
 
@@ -37,11 +37,11 @@ public class CollectBean {
         return this.datas;
     }
 
-    public void setOffset(int offset) {
+    public void setOffset(String offset) {
         this.offset = offset;
     }
 
-    public int getOffset() {
+    public String getOffset() {
         return this.offset;
     }
 
@@ -53,38 +53,38 @@ public class CollectBean {
         return this.over;
     }
 
-    public void setPageCount(int pageCount) {
+    public void setPageCount(String pageCount) {
         this.pageCount = pageCount;
     }
 
-    public int getPageCount() {
+    public String getPageCount() {
         return this.pageCount;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public int getSize() {
+    public String getSize() {
         return this.size;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return this.total;
     }
 
     public class Datas {
         private String author;
 
-        private int chapterId;
+        private String chapterId;
 
         private String chapterName;
 
-        private int courseId;
+        private String courseId;
 
         private String desc;
 
@@ -100,15 +100,15 @@ public class CollectBean {
 
         private int originId;
 
-        private int publishTime;
+        private String publishTime;
 
         private String title;
 
-        private int userId;
+        private String userId;
 
-        private int visible;
+        private String visible;
 
-        private int zan;
+        private String zan;
 
         public void setAuthor(String author) {
             this.author = author;
@@ -118,11 +118,11 @@ public class CollectBean {
             return this.author;
         }
 
-        public void setChapterId(int chapterId) {
+        public void setChapterId(String chapterId) {
             this.chapterId = chapterId;
         }
 
-        public int getChapterId() {
+        public String getChapterId() {
             return this.chapterId;
         }
 
@@ -134,11 +134,11 @@ public class CollectBean {
             return this.chapterName;
         }
 
-        public void setCourseId(int courseId) {
+        public void setCourseId(String courseId) {
             this.courseId = courseId;
         }
 
-        public int getCourseId() {
+        public String getCourseId() {
             return this.courseId;
         }
 
@@ -198,11 +198,11 @@ public class CollectBean {
             return this.originId;
         }
 
-        public void setPublishTime(int publishTime) {
+        public void setPublishTime(String publishTime) {
             this.publishTime = publishTime;
         }
 
-        public int getPublishTime() {
+        public String getPublishTime() {
             return this.publishTime;
         }
 
@@ -214,27 +214,27 @@ public class CollectBean {
             return this.title;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
 
-        public int getUserId() {
+        public String getUserId() {
             return this.userId;
         }
 
-        public void setVisible(int visible) {
+        public void setVisible(String visible) {
             this.visible = visible;
         }
 
-        public int getVisible() {
+        public String getVisible() {
             return this.visible;
         }
 
-        public void setZan(int zan) {
+        public void setZan(String zan) {
             this.zan = zan;
         }
 
-        public int getZan() {
+        public String getZan() {
             return this.zan;
         }
 

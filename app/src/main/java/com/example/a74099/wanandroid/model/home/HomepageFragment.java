@@ -18,6 +18,7 @@ import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
 import com.example.a74099.wanandroid.model.home.activity.BannerDetailAct;
 import com.example.a74099.wanandroid.model.home.adapter.HomePageAdapter;
 import com.example.a74099.wanandroid.net.util.NetworkType;
+import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.example.a74099.wanandroid.view.NetworkImageHolderView;
 import com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout;
@@ -110,9 +111,14 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
 //        }
     }
 
+    /**
+     * 收藏成功
+     */
     @Override
-    public void getHomepageSuccess() {
-
+    public void doCollectSuccess() {
+        curPage = 1;
+        mPresenter.getArticle(String.valueOf(curPage));
+        ToastUtil.showShort(getActivity(),"收藏成功");
     }
 
     /***
@@ -194,9 +200,9 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
                     @Override
                     public void doCollage(ArticleListBean.Datas mData, ImageView imageView) {
                         if (mData.getCollect()) {
-                            imageView.setSelected(false);
+                            mPresenter.doCancelCollect(mData.getId());
                         } else {
-                            imageView.setSelected(true);
+                            mPresenter.doCollect(mData.getId());
                         }
                     }
 
@@ -222,6 +228,16 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     @Override
     public void getArticleError(String msg) {
 
+    }
+
+    /**
+     * 取消收藏成功
+     */
+    @Override
+    public void doCancelCollectSuccess() {
+        curPage = 1;
+        mPresenter.getArticle(String.valueOf(curPage));
+        ToastUtil.showShort(getActivity(),"取消收藏成功");
     }
 
 
