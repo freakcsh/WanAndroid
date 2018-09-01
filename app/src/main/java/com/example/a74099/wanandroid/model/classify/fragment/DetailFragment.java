@@ -15,6 +15,7 @@ import com.example.a74099.wanandroid.model.classify.ClassifyContract;
 import com.example.a74099.wanandroid.model.classify.ClassifyPresenter;
 import com.example.a74099.wanandroid.model.classify.activity.ClassifyDetailActivity;
 import com.example.a74099.wanandroid.model.classify.adapter.ClassifyDetailAdapter;
+import com.example.a74099.wanandroid.model.login.LoginActivity;
 import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
@@ -199,5 +200,19 @@ public class DetailFragment extends BaseFragment<ClassifyPresenter> implements C
         page = 1;
         mPresenter.getClassify(String.valueOf(page), cid);
         ToastUtil.showShort(getActivity(),"取消收藏成功");
+    }
+
+    @Override
+    public void doCollectError() {
+        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+        ToolUtils.logout(getActivity());
+        LoginActivity.startAction(getActivity());
+    }
+
+    @Override
+    public void doCancelCollectError() {
+        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+        ToolUtils.logout(getActivity());
+        LoginActivity.startAction(getActivity());
     }
 }

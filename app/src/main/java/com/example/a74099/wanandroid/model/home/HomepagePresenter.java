@@ -33,7 +33,7 @@ public class HomepagePresenter extends RxPresenter<HomePageContract.View> implem
 
             @Override
             public void onFailure(String msg) {
-
+                mView.doCollectError();
             }
         }));
     }
@@ -58,10 +58,11 @@ public class HomepagePresenter extends RxPresenter<HomePageContract.View> implem
 
     /**
      * 获取最新文章
+     *
      * @param curPage
      */
     public void getArticle(String curPage) {
-        String page= ToolUtils.subtract(curPage,"1");
+        String page = ToolUtils.subtract(curPage, "1");
         Observable observable = apiServer.getArticle("article/list/" + page + "/json").map(new HttpResultFunc<ArticleListBean>());
         addSubscription(observable, new SubscriberCallBack(new ApiCallback<ArticleListBean>() {
             @Override
@@ -79,6 +80,7 @@ public class HomepagePresenter extends RxPresenter<HomePageContract.View> implem
 
     /**
      * 文章列表中取消收藏
+     *
      * @param id
      */
     @Override
@@ -92,7 +94,7 @@ public class HomepagePresenter extends RxPresenter<HomePageContract.View> implem
 
             @Override
             public void onFailure(String msg) {
-
+                mView.doCancelCollectError();
             }
         }));
     }

@@ -37,12 +37,12 @@ public class SystemPresenter extends RxPresenter<SystemContract.View> implements
 
     public void getClassifyDetail(String curPage, String cid) {
         String page = ToolUtils.subtract(curPage, "1");
-        Observable observable = apiServer.getClassifyDetail("article/list/"+page+"/json",cid).map(new HttpResultFunc<SystemDetailBean>());
+        Observable observable = apiServer.getClassifyDetail("article/list/" + page + "/json", cid).map(new HttpResultFunc<SystemDetailBean>());
         addSubscription(observable, new SubscriberCallBack(new ApiCallback<SystemDetailBean>() {
             @Override
             public void onSuccess(SystemDetailBean model) {
                 mView.getClassifyDetailSuccess(model);
-                Log.e("freak",model.toString());
+                Log.e("freak", model.toString());
             }
 
             @Override
@@ -54,6 +54,7 @@ public class SystemPresenter extends RxPresenter<SystemContract.View> implements
 
     /**
      * 文章列表中取消收藏
+     *
      * @param id
      */
     @Override
@@ -67,7 +68,7 @@ public class SystemPresenter extends RxPresenter<SystemContract.View> implements
 
             @Override
             public void onFailure(String msg) {
-
+                mView.doCancelCollectError();
             }
         }));
     }
@@ -86,7 +87,7 @@ public class SystemPresenter extends RxPresenter<SystemContract.View> implements
 
             @Override
             public void onFailure(String msg) {
-
+                mView.doCollectError();
             }
         }));
     }

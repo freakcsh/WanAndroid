@@ -97,6 +97,20 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     }
 
     @Override
+    public void doCollectError() {
+//        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+//        ToolUtils.logout(getActivity());
+//        LoginActivity.startAction(getActivity());
+    }
+
+    @Override
+    public void doCancelCollectError() {
+//        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+//        ToolUtils.logout(getActivity());
+//        LoginActivity.startAction(getActivity());
+    }
+
+    @Override
     public void showError(String msg) {
 
     }

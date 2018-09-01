@@ -16,6 +16,10 @@ public interface ClassifyContract {
         void doCollectSuccess();
 
         void doCancelCollectSuccess();
+
+        void doCollectError();
+
+        void doCancelCollectError();
     }
 
     interface Presenter extends BasePresenter<View> {

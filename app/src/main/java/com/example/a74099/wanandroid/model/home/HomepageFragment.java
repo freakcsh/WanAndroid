@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.bean.ArticleListBean;
@@ -17,12 +15,16 @@ import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
 import com.example.a74099.wanandroid.model.home.activity.BannerDetailAct;
 import com.example.a74099.wanandroid.model.home.adapter.HomePageAdapter;
+import com.example.a74099.wanandroid.model.home.adapter.HomeRollAdapter;
+import com.example.a74099.wanandroid.model.login.LoginActivity;
 import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
-import com.example.a74099.wanandroid.view.NetworkImageHolderView;
 import com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.jude.rollviewpager.OnItemClickListener;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,8 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     private List<String> mStringList;
     private PullRefreshLayout include_no_data;
     private RelativeLayout netErrorView;
+    private RollPagerView roll_pagerView;
+    private HomeRollAdapter rollAdapter;
 
     @Override
     protected HomepagePresenter createPresenter() {
@@ -97,6 +101,13 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
                 }
             }
         });
+        roll_pagerView = view.findViewById(R.id.roll_pagerView);
+        //设置播放时间间隔
+        roll_pagerView.setPlayDelay(3000);
+        //设置透明度
+        roll_pagerView.setAnimationDurtion(500);
+        roll_pagerView.setHintView(new ColorPointHintView(getActivity(), 0xffff6d1d, 0xffeeeeee));
+
     }
 
     @Override
@@ -118,7 +129,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     public void doCollectSuccess() {
         curPage = 1;
         mPresenter.getArticle(String.valueOf(curPage));
-        ToastUtil.showShort(getActivity(),"收藏成功");
+        ToastUtil.showShort(getActivity(), "收藏成功");
     }
 
     /***
@@ -127,17 +138,34 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
      */
     @Override
     public void getBannerSuccess(final List<BannerBean> list) {
-        for (int i = 0; i < list.size(); i++) {
-            mStringList.add(list.get(i).getImagePath());
+//        for (int i = 0; i < list.size(); i++) {
+//            mStringList.add(list.get(i).getImagePath());
+//        }
+//        home_banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+//            @Override
+//            public NetworkImageHolderView createHolder() {
+//                return new NetworkImageHolderView();
+//            }
+//        }, mStringList);
+//        home_banner.startTurning(3000);
+//        home_banner.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(getActivity(), BannerDetailAct.class);
+//                intent.putExtra("url", list.get(position).getUrl());
+//                intent.putExtra("title", list.get(position).getTitle());
+//                startActivity(intent);
+//            }
+//        });
+
+        if (rollAdapter == null) {
+            rollAdapter = new HomeRollAdapter(getActivity(), list);
+            roll_pagerView.setAdapter(rollAdapter);
+        } else {
+            rollAdapter.setData(list);
+            rollAdapter.notifyDataSetChanged();
         }
-        home_banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-            @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
-            }
-        }, mStringList);
-        home_banner.startTurning(3000);
-        home_banner.setOnItemClickListener(new OnItemClickListener() {
+        roll_pagerView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(getActivity(), BannerDetailAct.class);
@@ -237,7 +265,21 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     public void doCancelCollectSuccess() {
         curPage = 1;
         mPresenter.getArticle(String.valueOf(curPage));
-        ToastUtil.showShort(getActivity(),"取消收藏成功");
+        ToastUtil.showShort(getActivity(), "取消收藏成功");
+    }
+
+    @Override
+    public void doCollectError() {
+        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+        ToolUtils.logout(getActivity());
+        LoginActivity.startAction(getActivity());
+    }
+
+    @Override
+    public void doCancelCollectError() {
+        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+        ToolUtils.logout(getActivity());
+        LoginActivity.startAction(getActivity());
     }
 
 

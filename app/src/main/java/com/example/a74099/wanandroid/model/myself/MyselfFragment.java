@@ -47,7 +47,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private LinearLayout headLayout;
     private Toolbar toolbar;
     private File userImgFile;
-    private RelativeLayout rl_alter_photo, rl_gesture_pw, rl_fingerprint, rl_shape, rl_collect;
+    private RelativeLayout rl_alter_photo, rl_gesture_pw, rl_fingerprint, rl_shape, rl_collect,rl_suggest;
     private CircleImageView img_user, tool_bar_img_user, img_login_photo;
     private String mPw;
     private TextView tv_pw_state, tv_login, tv_login_out, tv_version, tv_tool_bar_user_name;
@@ -88,6 +88,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         rl_shape = view.findViewById(R.id.rl_shape);
         tv_pw_state = view.findViewById(R.id.tv_pw_state);
         rl_collect = view.findViewById(R.id.rl_collect);
+        rl_suggest = view.findViewById(R.id.rl_suggest);
         tv_login = view.findViewById(R.id.tv_login);
         tv_login_out = view.findViewById(R.id.tv_login_out);
         tv_version = view.findViewById(R.id.tv_version);
@@ -101,6 +102,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         rl_collect.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         tv_login_out.setOnClickListener(this);
+        rl_suggest.setOnClickListener(this);
         mPw = new PatternHelper().getFromStorage();
         if (ToolUtils.isNull(mPw)) {
             tv_pw_state.setText("未开启");
@@ -365,6 +367,10 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                     ToolUtils.logout(getActivity());
                     setLoginInfo();
                 }
+                break;
+            case R.id.rl_suggest:
+//                SuggestActivity.startAction(getActivity());
+                ToastUtil.showShort(getActivity(),"此功能还在开发中，敬请期待");
                 break;
             default:
                 break;

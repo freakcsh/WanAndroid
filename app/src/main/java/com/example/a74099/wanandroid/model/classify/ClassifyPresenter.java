@@ -20,9 +20,9 @@ public class ClassifyPresenter extends RxPresenter<ClassifyContract.View> implem
     ApiServer apiServer = HttpMethods.getInstance().create(ApiServer.class);
 
     @Override
-    public void getClassify(String curPage,String cid) {
-        String page= ToolUtils.subtract(curPage,"1");
-        Observable observable = apiServer.getClassifyDetail("project/list/" + page + "/json?cid="+cid).map(new HttpResultFunc<ClassifyBean>());
+    public void getClassify(String curPage, String cid) {
+        String page = ToolUtils.subtract(curPage, "1");
+        Observable observable = apiServer.getClassifyDetail("project/list/" + page + "/json?cid=" + cid).map(new HttpResultFunc<ClassifyBean>());
         addSubscription(observable, new SubscriberCallBack(new ApiCallback<ClassifyBean>() {
             @Override
             public void onSuccess(ClassifyBean model) {
@@ -39,7 +39,7 @@ public class ClassifyPresenter extends RxPresenter<ClassifyContract.View> implem
 
     @Override
     public void getClassifyTitle() {
-        Observable observable=apiServer.getClassifyTitle().map(new HttpResultFunc<List<ClassifyTitleBean>>());
+        Observable observable = apiServer.getClassifyTitle().map(new HttpResultFunc<List<ClassifyTitleBean>>());
         addSubscription(observable, new SubscriberCallBack(new ApiCallback<List<ClassifyTitleBean>>() {
             @Override
             public void onSuccess(List<ClassifyTitleBean> model) {
@@ -56,6 +56,7 @@ public class ClassifyPresenter extends RxPresenter<ClassifyContract.View> implem
 
     /**
      * 文章列表中取消收藏
+     *
      * @param id
      */
     @Override
@@ -69,7 +70,7 @@ public class ClassifyPresenter extends RxPresenter<ClassifyContract.View> implem
 
             @Override
             public void onFailure(String msg) {
-
+                mView.doCancelCollectError();
             }
         }));
     }
@@ -88,7 +89,7 @@ public class ClassifyPresenter extends RxPresenter<ClassifyContract.View> implem
 
             @Override
             public void onFailure(String msg) {
-
+                mView.doCollectError();
             }
         }));
     }

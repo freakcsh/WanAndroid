@@ -18,6 +18,7 @@ import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
 import com.example.a74099.wanandroid.dialog.SystemSecondDialogFragment;
 import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
+import com.example.a74099.wanandroid.model.login.LoginActivity;
 import com.example.a74099.wanandroid.model.system.adapter.SystemDetailAdapter;
 import com.example.a74099.wanandroid.model.system.adapter.SystemFirstAdapter;
 import com.example.a74099.wanandroid.net.util.NetworkType;
@@ -200,7 +201,7 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     public void doCollectSuccess() {
         curPage = 1;
         mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
-        ToastUtil.showShort(getActivity(),"收藏成功");
+        ToastUtil.showShort(getActivity(), "收藏成功");
     }
 
     /**
@@ -210,7 +211,21 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
     public void doCancelCollectSuccess() {
         curPage = 1;
         mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
-        ToastUtil.showShort(getActivity(),"取消收藏成功");
+        ToastUtil.showShort(getActivity(), "取消收藏成功");
+    }
+
+    @Override
+    public void doCollectError() {
+        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+        ToolUtils.logout(getActivity());
+        LoginActivity.startAction(getActivity());
+    }
+
+    @Override
+    public void doCancelCollectError() {
+        ToastUtil.showShort(getActivity(), "登录过期，请重新登录");
+        ToolUtils.logout(getActivity());
+        LoginActivity.startAction(getActivity());
     }
 
     private void loading(List<SystemDetailBean.Datas> mList) {

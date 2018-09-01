@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseActivity;
 import com.example.a74099.wanandroid.bean.CollectBean;
+import com.example.a74099.wanandroid.model.login.LoginActivity;
 import com.example.a74099.wanandroid.model.myself.activity.collect.adapter.CollectAdapter;
 import com.example.a74099.wanandroid.model.myself.activity.collect.detail.CollectDetailAct;
 import com.example.a74099.wanandroid.util.ToastUtil;
@@ -123,10 +124,10 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
                 mCollectAdapter.setOnItemClickListener(new CollectAdapter.OnItemClickListener() {
                     @Override
                     public void doCancelCollage(CollectBean.Datas mData, ImageView imageView) {
-                        if (ToolUtils.isNull(String.valueOf(mData.getOriginId()))){
-                            mPresenter.doCollectCancel(mData.getId(),-1);
-                        }else {
-                            mPresenter.doCollectCancel(mData.getId(),mData.getOriginId());
+                        if (ToolUtils.isNull(String.valueOf(mData.getOriginId()))) {
+                            mPresenter.doCollectCancel(mData.getId(), -1);
+                        } else {
+                            mPresenter.doCollectCancel(mData.getId(), mData.getOriginId());
                         }
                     }
 
@@ -151,7 +152,10 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
 
     @Override
     public void getCollectError(String mse) {
-
+        ToastUtil.showShort(this, "登录过期，请重新登录");
+        ToolUtils.logout(this);
+        LoginActivity.startAction(this);
+        finish();
     }
 
     /**
@@ -161,6 +165,6 @@ public class CollectActivity extends BaseActivity<CollectPresenter> implements C
     public void doCollectCancelSuccess() {
         curPage = 1;
         mPresenter.getCollectList(String.valueOf(curPage));
-        ToastUtil.showShort(this,"取消收藏成功");
+        ToastUtil.showShort(this, "取消收藏成功");
     }
 }

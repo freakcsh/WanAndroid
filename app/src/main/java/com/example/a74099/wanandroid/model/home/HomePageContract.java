@@ -20,6 +20,10 @@ public interface HomePageContract {
         void getArticleError(String msg);
 
         void doCancelCollectSuccess();
+
+        void doCollectError();
+
+        void doCancelCollectError();
     }
 
     interface Presenter extends BasePresenter<View> {

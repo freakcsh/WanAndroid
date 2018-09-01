@@ -10,6 +10,7 @@ import com.example.a74099.wanandroid.net.util.NetStateChangeReceiver;
 import com.example.a74099.wanandroid.util.picture.CachePathUtil;
 import com.example.a74099.wanandroid.util.picture.DisplayUtil;
 import com.mob.MobSDK;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
 import java.util.HashSet;
@@ -56,6 +57,7 @@ public class App extends Application {
         // 注册BroadcastReceiver
         NetStateChangeReceiver.registerReceiver(this);
         MobSDK.init(this);
+        CrashReport.initCrashReport(getApplicationContext(), "46fb82cb75", false);
     }
 
     @Override

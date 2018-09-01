@@ -39,7 +39,8 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private String mPw;
-
+    private final long BACKPRESS_TIME = 2000;
+    private long lastTimeMillis;
 
     @Override
     protected void onResume() {
@@ -178,5 +179,16 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
 
         tv_pw.setOnClickListener(this);
         tv_cancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastTimeMillis <= BACKPRESS_TIME) {
+            App.getInstance().finishAll();
+            super.onBackPressed();
+        } else {
+            lastTimeMillis = System.currentTimeMillis();
+            ToastUtil.showShort(this, getString(R.string.backpress_again_finish));
+        }
     }
 }

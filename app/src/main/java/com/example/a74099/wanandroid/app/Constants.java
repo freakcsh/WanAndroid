@@ -21,7 +21,7 @@ public class Constants {
      * 裁剪图片
      */
     public static final int CUT_PHOTO = 10003;
-
+    public static final boolean DEBUG = Boolean.parseBoolean("true");
 
     /**
      * 拍照时所需权限
