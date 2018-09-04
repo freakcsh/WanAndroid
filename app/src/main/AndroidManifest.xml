@@ -29,6 +29,7 @@
     <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
     <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!--android:name=".MAppliaction" 这个属性一定要设置，要不选择拍照时会找不到文件目录，报空指针异常-->
     <application
         android:name=".app.App"
@@ -64,6 +65,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent"/>
         <activity android:name=".model.home.activity.ArticleDetailAct" />
         <activity android:name=".model.home.activity.BannerDetailAct" />
         <activity android:name=".model.navigation.activity.NavigationActivity" />
