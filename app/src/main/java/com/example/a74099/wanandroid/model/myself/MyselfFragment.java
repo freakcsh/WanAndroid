@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
@@ -369,8 +370,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 }
                 break;
             case R.id.rl_suggest:
-//                SuggestActivity.startAction(getActivity());
-                ToastUtil.showShort(getActivity(),"此功能还在开发中，敬请期待");
+                FeedbackAPI.openFeedbackActivity();
                 break;
             default:
                 break;

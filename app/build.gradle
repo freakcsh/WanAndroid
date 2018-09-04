@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
+//阿里移动用户反馈
+apply plugin: 'com.aliyun.ams.emas-services'
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -97,7 +99,14 @@ dependencies {
  * 腾讯bugly
  */
 //    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+//阿里移动用户反馈
+    compile 'com.aliyun.ams:alicloud-android-feedback:3.1.2'
+    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    compile 'com.aliyun.ams:alicloud-android-ut:5.1.0'
+    compile 'com.aliyun.ams:alicloud-android-utils:1.1.1'
 
 }
