@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">玩Android</string>
+    <string name="app_name">玩转Android</string>
 
     <!-- mainActivity-->
     <string name="main_myself">我的</string>
@@ -31,8 +31,19 @@
     <string name="login_user_tip">账号</string>
     <string name="login_user_hint">请输入账号</string>
     <string name="login_pw_tip">登录密码</string>
+    <string name="login_pw_tip2">确认密码</string>
     <string name="login_pw_hint">请输入登录密码</string>
     <string name="login_commit">登录</string>
     <string name="login_forget_pw">忘记密码？</string>
     <string name="login_find_pw">找回密码！</string>
+    <string name="RegisterFragment_success">注册成功，请进行登录</string>
+    <string name="hot_search">热搜</string>
+    <string name="failed_to_obtain_search_data_list">获取搜索数据列表失败</string>
+    <string name="failed_to_obtain_top_data">获取热门数据失败</string>
+    <string name="failed_to_obtain_useful_sites_data">获取常用网站数据失败</string>
+    <string name="or">或</string>
+    <string name="clear_all">清空</string>
+    <string name="search_null_tint">快来搜点干货吧*≧▽≦*</string>
+    <string name="history_search">搜索历史</string>
+    <string name="search_tint">发现更多干货</string>
 </resources>

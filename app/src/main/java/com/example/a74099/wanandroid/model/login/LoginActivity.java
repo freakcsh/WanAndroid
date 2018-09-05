@@ -53,6 +53,10 @@ public class LoginActivity extends SimpleActivity {
         login_view_pager.setAdapter(new LoginActivity.MyAdapter(getSupportFragmentManager(), mList));
         login_tab_layout.setupWithViewPager(login_view_pager);
     }
+
+    public void doIntent() {
+        login_view_pager.setCurrentItem(0);
+    }
     public class MyAdapter extends FragmentPagerAdapter {
         private List<String> list;
 

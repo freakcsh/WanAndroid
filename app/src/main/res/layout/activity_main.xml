@@ -7,6 +7,15 @@
     android:gravity="bottom"
     android:orientation="vertical"
     tools:context="com.example.a74099.wanandroid.model.MainActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="false"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <include layout="@layout/include_top_title_no_back" />
+    </android.support.design.widget.AppBarLayout>
     <RelativeLayout
         android:id="@+id/rl_net_error"
         android:layout_width="match_parent"

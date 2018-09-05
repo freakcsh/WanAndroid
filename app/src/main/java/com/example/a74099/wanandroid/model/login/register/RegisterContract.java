@@ -8,10 +8,13 @@ import com.example.a74099.wanandroid.net.BaseView;
  */
 
 public interface RegisterContract {
-    interface View extends BaseView{
+    interface View extends BaseView {
+        void doRegisterSuccess();
+        void doRegisterError(String msg);
 
     }
-    interface Presenter extends BasePresenter<View>{
 
+    interface Presenter extends BasePresenter<View> {
+        void doRegister(String username,String password,String repassword);
     }
 }

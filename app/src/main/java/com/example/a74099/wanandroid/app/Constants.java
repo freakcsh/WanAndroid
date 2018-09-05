@@ -1,5 +1,7 @@
 package com.example.a74099.wanandroid.app;
 
+import android.graphics.Color;
+
 /**
  * Created by Administrator on 2018/2/4.
  */
@@ -35,4 +37,17 @@ public class Constants {
     public final static String IS_LOGIN = "IS_LOGIN";
     public final static String LOGIN_BEAN="LOGIN_BEAN";
     public static String PHOTO="photo";
+
+    /**
+     * Tab colors
+     */
+    public static final int[] TAB_COLORS = new int[]{
+            Color.parseColor("#90C5F0"),
+            Color.parseColor("#91CED5"),
+            Color.parseColor("#F88F55"),
+            Color.parseColor("#C0AFD0"),
+            Color.parseColor("#E78F8F"),
+            Color.parseColor("#67CCB7"),
+            Color.parseColor("#F6BC7E")
+    };
 }

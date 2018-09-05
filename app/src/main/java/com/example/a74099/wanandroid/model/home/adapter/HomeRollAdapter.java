@@ -20,6 +20,7 @@ import java.util.List;
 public class HomeRollAdapter extends StaticPagerAdapter {
     private Context context;
     private List<BannerBean> dataList;
+    private ImageView mImageView;
 
     public HomeRollAdapter(Context context, List list) {
         this.context = context;
@@ -28,14 +29,16 @@ public class HomeRollAdapter extends StaticPagerAdapter {
 
     @Override
     public View getView(ViewGroup container, final int position) {
-        ImageView imageView = new ImageView(container.getContext());
 
-        Glide.with(context).load(dataList.get(position).getImagePath()).into(imageView);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+        if (container.getContext() != null) {
+            mImageView = new ImageView(container.getContext());
+            Glide.with(context).load(dataList.get(position).getImagePath()).into(mImageView);
+        }
+        mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mImageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
                 .MATCH_PARENT));
         if (!ToolUtils.isNull(dataList.get(position).getUrl())) {
-            imageView.setOnClickListener(new View.OnClickListener() {
+            mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     posIntent(position, dataList.get(position).getUrl());
@@ -43,7 +46,7 @@ public class HomeRollAdapter extends StaticPagerAdapter {
             });
         }
 
-        return imageView;
+        return mImageView;
     }
 
     private void posIntent(int pos, String link) {

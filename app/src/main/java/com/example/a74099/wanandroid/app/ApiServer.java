@@ -11,6 +11,7 @@ import com.example.a74099.wanandroid.bean.LoginOutBean;
 import com.example.a74099.wanandroid.bean.NavigationBean;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
+import com.example.a74099.wanandroid.bean.TopSearchData;
 import com.example.a74099.wanandroid.net.HttpResult;
 
 import java.util.List;
@@ -32,6 +33,14 @@ public interface ApiServer {
 //                                             @Query("coin_name") String coin_name,
 //                                             @Query("status") String status);
 //
+
+    /**
+     * 搜索热词
+     *
+     * @return
+     */
+    @GET("/hotkey/json")
+    Observable<HttpResult<List<TopSearchData>>> doSearchHot();
 
     /**
      * 收藏文章
@@ -67,8 +76,25 @@ public interface ApiServer {
     @GET("user/logout/json")
     Observable<HttpResult<LoginOutBean>> doLoginOut();
 
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     @POST("user/login")
     Observable<HttpResult<LoginBean>> doLogin(@Query("username") String username, @Query("password") String password);
+
+    /**
+     * 注册
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @POST("user/register")
+    Observable<HttpResult<LoginBean>> doRegister(@Query("username") String username, @Query("password") String password, @Query("repassword") String repassword);
 
     @GET
     Observable<HttpResult<ArticleListBean>> getArticle(@Url String url);

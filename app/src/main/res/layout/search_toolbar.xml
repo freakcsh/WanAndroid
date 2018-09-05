@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorCard"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    app:layout_scrollFlags="scroll|enterAlways">
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/search_back_ib"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:src="@mipmap/left_arrow" />
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_alignParentRight="true"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/search_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/search_bg"
+        android:contentDescription="@null"
+        android:gravity="center"
+        android:text="搜索"
+        android:textColor="@color/c_ffffff"
+        android:textSize="12sp" />
+</LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:id="@+id/search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:inputType="text"
+            android:labelFor="@id/search_edit"
+            android:paddingEnd="1dp"
+            android:paddingStart="27dp"
+            android:textColor="@color/title_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/search_tint_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="6dp"
+            android:drawableStart="@drawable/ic_search"
+            android:gravity="center"
+            android:hint="发现更多干货"
+            android:textColor="@color/grey_search"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -103,6 +103,56 @@
                 </LinearLayout>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/ll_register_re_pw_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="52dp"
+                        android:src="@mipmap/login_lock" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center"
+                        android:text="@string/login_pw_tip2"
+                        android:textColor="@color/c_66ffffff"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp"
+                    android:layout_marginLeft="52dp"
+                    android:layout_marginRight="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_login_edt_bg">
+
+                    <EditText
+                        android:id="@+id/edt_register_re_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="请再次输入密码"
+                        android:inputType="textPassword"
+                        android:paddingLeft="16dp"
+                        android:textColor="@color/c_999999"
+                        android:textColorHint="@color/c_999999"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
             <TextView
                 android:id="@+id/tv_register_commit"
                 android:layout_width="match_parent"

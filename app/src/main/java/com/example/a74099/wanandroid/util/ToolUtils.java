@@ -47,6 +47,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 
 public class ToolUtils {
@@ -443,6 +444,14 @@ public class ToolUtils {
         return "";
     }
 
+    public static int randomTagColor() {
+        int randomNum = new Random().nextInt();
+        int position = randomNum % Constants.TAB_COLORS.length;
+        if (position < 0) {
+            position = -position;
+        }
+        return Constants.TAB_COLORS[position];
+    }
     /**
      * 实现截图,返回保存路径
      *

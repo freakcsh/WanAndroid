@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.bean.ArticleListBean;
@@ -33,7 +32,6 @@ import java.util.List;
  * 首页
  */
 public class HomepageFragment extends BaseFragment<HomepagePresenter> implements HomePageContract.View {
-    private ConvenientBanner home_banner;
     private XRecyclerView home_recycle;
     private int curPage = 1;
     private List<ArticleListBean.Datas> mListBeans;
@@ -79,7 +77,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     private void initView(View view) {
         mListBeans = new ArrayList<>();
         mStringList = new ArrayList<>();
-        home_banner = view.findViewById(R.id.home_banner);
+
         home_recycle = view.findViewById(R.id.home_recycle);
         include_no_data = view.findViewById(R.id.include_no_data);
         home_recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -138,26 +136,6 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
      */
     @Override
     public void getBannerSuccess(final List<BannerBean> list) {
-//        for (int i = 0; i < list.size(); i++) {
-//            mStringList.add(list.get(i).getImagePath());
-//        }
-//        home_banner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-//            @Override
-//            public NetworkImageHolderView createHolder() {
-//                return new NetworkImageHolderView();
-//            }
-//        }, mStringList);
-//        home_banner.startTurning(3000);
-//        home_banner.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Intent intent = new Intent(getActivity(), BannerDetailAct.class);
-//                intent.putExtra("url", list.get(position).getUrl());
-//                intent.putExtra("title", list.get(position).getTitle());
-//                startActivity(intent);
-//            }
-//        });
-
         if (rollAdapter == null) {
             rollAdapter = new HomeRollAdapter(getActivity(), list);
             roll_pagerView.setAdapter(rollAdapter);
@@ -291,6 +269,6 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        home_banner.stopTurning();
+        roll_pagerView.stopNestedScroll();
     }
 }

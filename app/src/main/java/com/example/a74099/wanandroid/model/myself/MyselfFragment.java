@@ -20,7 +20,6 @@ import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.model.login.LoginActivity;
-import com.example.a74099.wanandroid.model.myself.activity.ShapeActivity;
 import com.example.a74099.wanandroid.model.myself.activity.collect.CollectActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintSettingActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternAlterActivity;
@@ -138,6 +137,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 }
             } else {
                 tv_tool_bar_user_name.setText("请登录");
+                tv_login.setText("请登录");
                 tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
                 img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
                 img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
@@ -344,7 +344,8 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 FingerPrintSettingActivity.startAction(getActivity());
                 break;
             case R.id.rl_shape:
-                ShapeActivity.startAction(getActivity());
+//                ShapeActivity.startAction(getActivity());
+                ToastUtil.showShort(getActivity(),"此功能正在开发中，敬请期待");
                 break;
             case R.id.rl_collect:
                 if (ToolUtils.isLogin(getActivity())) {
@@ -355,9 +356,9 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 break;
             case R.id.tv_login:
                 if (ToolUtils.isLogin(getActivity())) {
-                    ToastUtil.showShort(getActivity(), "您已登录，请勿重复操作");
-                } else {
                     LoginActivity.startAction(getActivity());
+                } else {
+                    ToastUtil.showShort(getActivity(), "您已登录，请勿重复操作");
                 }
 
                 break;

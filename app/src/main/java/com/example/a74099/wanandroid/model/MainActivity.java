@@ -7,12 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.App;
-import com.example.a74099.wanandroid.base.BaseActivity;
 import com.example.a74099.wanandroid.base.BaseFragment;
+import com.example.a74099.wanandroid.base.SimpleActivity;
 import com.example.a74099.wanandroid.model.classify.ClassifyFragment;
 import com.example.a74099.wanandroid.model.home.HomepageFragment;
 import com.example.a74099.wanandroid.model.myself.MyselfFragment;
@@ -20,10 +21,11 @@ import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintCheckAc
 import com.example.a74099.wanandroid.model.myself.fingerprint.core.FingerprintCore;
 import com.example.a74099.wanandroid.model.myself.fingerprint.util.KeyguardLockScreenManager;
 import com.example.a74099.wanandroid.model.navigation.NavigationFragment;
+import com.example.a74099.wanandroid.model.search.SearchDialogFragment;
 import com.example.a74099.wanandroid.model.system.SystemFragment;
 import com.example.a74099.wanandroid.util.ToastUtil;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.VIew, View.OnClickListener {
+public class MainActivity extends SimpleActivity implements View.OnClickListener {
     private HomepageFragment mHomapageFragment = null;
     private SystemFragment mSystemFragment = null;
     private NavigationFragment mNavigationFragment = null;
@@ -37,9 +39,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private final long BACKPRESS_TIME = 2000;
     private long lastTimeMillis;
 
+    private RelativeLayout search, often;
+
     //指纹解锁
     private FingerprintCore mFingerprintCore;
     private KeyguardLockScreenManager mKeyguardLockScreenManager;
+    private SearchDialogFragment searchDialogFragment;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
@@ -55,13 +61,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
-
     private void initOnClick() {
         ll_homepage.setOnClickListener(this);
         ll_system.setOnClickListener(this);
         ll_navigation.setOnClickListener(this);
         ll_classify.setOnClickListener(this);
         ll_myself.setOnClickListener(this);
+        often.setOnClickListener(this);
+        search.setOnClickListener(this);
         ll_homepage.performClick();
     }
 
@@ -83,6 +90,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         img_navigation = findViewById(R.id.img_navigation);
         img_classify = findViewById(R.id.img_classify);
         img_myself = findViewById(R.id.img_myself);
+        search = findViewById(R.id.search);
+        often = findViewById(R.id.often);
 
 
         initFingerprintCore();
@@ -106,13 +115,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (mFingerprintCore == null) {
             mFingerprintCore = new FingerprintCore(this);
             mFingerprintCore.setFingerprintManager(mResultListener);
-        }else {
+        } else {
             mFingerprintCore.setFingerprintManager(mResultListener);
         }
         mKeyguardLockScreenManager = new KeyguardLockScreenManager(this);
     }
 
-//    private void resetGuideViewState() {
+    //    private void resetGuideViewState() {
 //        mFingerGuideTxt.setText(R.string.fingerprint_recognition_guide_tip);
 //        mFingerGuideImg.setBackgroundResource(R.drawable.fingerprint_normal);
 //    }
@@ -152,21 +161,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //    }
 
     /*****************************************以上为指纹解锁模块*************************************************/
-    @Override
-    protected MainPresenter createPresenter() {
-        return new MainPresenter();
-    }
-
-    @Override
-    public void getSuccess() {
-
-    }
-
-    @Override
-    public void showError(String msg) {
-
-    }
-
+//    @Override
+//    protected MainPresenter createPresenter() {
+//        return new MainPresenter();
+//    }
+//
+//    @Override
+//    public void getSuccess() {
+//
+//    }
+//
+//    @Override
+//    public void showError(String msg) {
+//
+//    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         myselfFragment.onActivityResult(requestCode, resultCode, data);
@@ -249,6 +257,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 setButtonBg(4);
                 showMyselfFragment();
                 break;
+            case R.id.search:
+                if (searchDialogFragment == null) {
+                    searchDialogFragment = new SearchDialogFragment();
+                }
+                if (!isDestroyed() && searchDialogFragment.isAdded()) {
+                    searchDialogFragment.dismiss();
+                }
+                searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
+                break;
+            case R.id.often:
+                break;
             default:
                 break;
         }
@@ -270,6 +289,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 transaction.hide(baseFragment).add(R.id.main_frame, myselfFragment).commit();
             }
         }
+        setTitleTx(getString(R.string.main_myself));
         baseFragment = myselfFragment;
     }
 
@@ -289,6 +309,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 transaction.hide(baseFragment).add(R.id.main_frame, mClassifyFragment).commit();
             }
         }
+        setTitleTx(getString(R.string.main_classify));
         baseFragment = mClassifyFragment;
     }
 
@@ -308,6 +329,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 transaction.hide(baseFragment).add(R.id.main_frame, mNavigationFragment).commit();
             }
         }
+        setTitleTx(getString(R.string.main_navigation));
         baseFragment = mNavigationFragment;
     }
 
@@ -327,6 +349,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 transaction.hide(baseFragment).add(R.id.main_frame, mSystemFragment).commit();
             }
         }
+        setTitleTx(getString(R.string.main_system));
         baseFragment = mSystemFragment;
     }
 
@@ -346,13 +369,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 transaction.hide(baseFragment).add(R.id.main_frame, mHomapageFragment).commit();
             }
         }
+        setTitleTx(getString(R.string.main_homepage));
         baseFragment = mHomapageFragment;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.getInstance().finishAll();
+//        App.getInstance().finishAll();
     }
 
     @Override
