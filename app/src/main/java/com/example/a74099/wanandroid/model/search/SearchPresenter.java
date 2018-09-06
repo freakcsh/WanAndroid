@@ -3,6 +3,7 @@ package com.example.a74099.wanandroid.model.search;
 import com.example.a74099.wanandroid.app.ApiServer;
 import com.example.a74099.wanandroid.bean.HistoryData;
 import com.example.a74099.wanandroid.bean.TopSearchData;
+import com.example.a74099.wanandroid.model.search.db.RealmHelper;
 import com.example.a74099.wanandroid.net.ApiCallback;
 import com.example.a74099.wanandroid.net.HttpMethods;
 import com.example.a74099.wanandroid.net.HttpResultFunc;
@@ -19,24 +20,29 @@ import rx.Observable;
 
 public class SearchPresenter extends RxPresenter<SearchContract.VIew> implements SearchContract.Presenter {
     ApiServer mApiServer = HttpMethods.getInstance().create(ApiServer.class);
+    private RealmHelper mRealmHelper = new RealmHelper();
 
     @Override
     public List<HistoryData> loadAllHistoryData() {
-        return null;
+        return mRealmHelper.selectAllHistory();
     }
 
     @Override
     public void addHistoryData(String data) {
-        mView.judgeToTheSearchListActivity();
+        mRealmHelper.saveHistory(data);
+        mView.judgeToTheSearchListActivity(data);
     }
+
+
     @Override
     public void clearHistoryData() {
-
+        mRealmHelper.clearHistory();
     }
+
     @Override
     public void getTopSearchData() {
-        Observable observable=mApiServer.doSearchHot().map(new HttpResultFunc<List<TopSearchData>>());
-        addSubscription(observable,new SubscriberCallBack(new ApiCallback<List<TopSearchData>>() {
+        Observable observable = mApiServer.doSearchHot().map(new HttpResultFunc<List<TopSearchData>>());
+        addSubscription(observable, new SubscriberCallBack(new ApiCallback<List<TopSearchData>>() {
             @Override
             public void onSuccess(List<TopSearchData> model) {
                 mView.showTopSearchData(model);

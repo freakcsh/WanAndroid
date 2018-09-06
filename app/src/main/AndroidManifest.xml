@@ -83,6 +83,9 @@
         <activity android:name=".model.myself.activity.collect.CollectActivity" />
         <activity android:name=".model.login.LoginActivity" />
         <activity android:name=".model.myself.activity.collect.detail.CollectDetailAct" />
+        <activity android:name=".model.search.SearchActivity"/>
+        <activity android:name=".model.search.detail.SearchDetailActivity"/>
+        <activity android:name=".model.frequently.FrequentlyActivity"/>
         <!--非常重要，缺少这个在7.0以上手机是不能打开手机的拍照的-->
         <provider
             android:name="android.support.v4.content.FileProvider"

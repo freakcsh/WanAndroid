@@ -3,35 +3,38 @@
     android:id="@+id/search_toolbar"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/colorCard"
+    android:background="@color/c_132737"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     app:layout_scrollFlags="scroll|enterAlways">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/leftImg_ly"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-        <ImageButton
-            android:id="@+id/search_back_ib"
-            android:layout_width="20dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:background="@android:color/transparent"
-            android:contentDescription="@null"
+        <ImageView
+            android:id="@+id/leftImg"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
             android:src="@mipmap/left_arrow" />
-    </LinearLayout>
+    </RelativeLayout>
 
 <LinearLayout
     android:layout_width="50dp"
     android:layout_height="50dp"
     android:layout_alignParentRight="true"
+    android:layout_marginRight="10dp"
     android:gravity="center">
     <TextView
         android:id="@+id/search_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="25dp"
         android:background="@drawable/search_bg"
         android:contentDescription="@null"
         android:gravity="center"
@@ -43,19 +46,22 @@
 
     <RelativeLayout
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
         <EditText
             android:id="@+id/search_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="12dp"
             android:inputType="text"
-            android:labelFor="@id/search_edit"
             android:paddingEnd="1dp"
+            android:gravity="center_vertical"
             android:paddingStart="27dp"
-            android:textColor="@color/title_black"
+            android:hint="发现更多干货"
+            android:background="@null"
+            android:textColorHint="@color/c_ffffff"
+            android:textColor="@color/c_ffffff"
             android:textSize="14sp" />
 
         <TextView
@@ -66,7 +72,6 @@
             android:layout_marginStart="6dp"
             android:drawableStart="@drawable/ic_search"
             android:gravity="center"
-            android:hint="发现更多干货"
             android:textColor="@color/grey_search"
             android:textSize="14sp" />
     </RelativeLayout>

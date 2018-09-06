@@ -145,6 +145,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
 
         } else {
             tv_login.setText("请登录");
+            tv_tool_bar_user_name.setText("请登录");
             tool_bar_img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
             img_login_photo.setBackgroundResource(R.mipmap.mine_icon_user_photo);
             img_user.setBackgroundResource(R.mipmap.mine_icon_user_photo);
@@ -172,7 +173,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 if (verticalOffset <= -headLayout.getHeight()) {
                     collapsingToolbarLayout.setTitle("请登录");
                     toolbar.setVisibility(View.VISIBLE);
-                    if (ToolUtils.isLogin(getActivity())) {
+                    if (!ToolUtils.isLogin(getActivity())) {
                         tv_login.setText(mLoginBean);
                         tv_tool_bar_user_name.setText(mLoginBean);
                         if (ToolUtils.isNull(ToolUtils.getPhotoUrl(getActivity()))) {

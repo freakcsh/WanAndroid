@@ -30,7 +30,7 @@ public interface SearchContract {
         /**
          * Judge to the search list activity
          */
-        void judgeToTheSearchListActivity();
+        void judgeToTheSearchListActivity(String data);
 
     }
 

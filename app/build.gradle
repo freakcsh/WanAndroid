@@ -476,4 +476,8 @@ dependencies {
 
     compile 'com.github.baserecycleradapter:library:1.1.0'
 
+    //litepal数据库
+    implementation 'org.litepal.android:core:2.0.0'
+
+
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.MBaseAdapter;
 import com.example.a74099.wanandroid.bean.HistoryData;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class HistorySearchAdapter extends MBaseAdapter<HistorySearchAdapter.Hist
         return mList == null ? 0 : mList.size();
     }
 
+    public void setdata(List<HistoryData> data) {
+        mList = data;
+    }
+
     class HistorySearchViewHolder extends RecyclerView.ViewHolder {
         private TextView item_search_history_tv;
 
@@ -53,12 +58,13 @@ public class HistorySearchAdapter extends MBaseAdapter<HistorySearchAdapter.Hist
 
         }
 
-        public void bindData(HistoryData historyData, int position) {
+        public void bindData(final HistoryData historyData, final int position) {
             item_search_history_tv.setText(historyData.getData());
+            item_search_history_tv.setTextColor(ToolUtils.randomColor());
             item_search_history_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    onItemClick.onItemClick(position,historyData);
                 }
             });
         }

@@ -15,13 +15,14 @@ import com.example.a74099.wanandroid.app.App;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.base.SimpleActivity;
 import com.example.a74099.wanandroid.model.classify.ClassifyFragment;
+import com.example.a74099.wanandroid.model.frequently.FrequentlyActivity;
 import com.example.a74099.wanandroid.model.home.HomepageFragment;
 import com.example.a74099.wanandroid.model.myself.MyselfFragment;
 import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintCheckActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.core.FingerprintCore;
 import com.example.a74099.wanandroid.model.myself.fingerprint.util.KeyguardLockScreenManager;
 import com.example.a74099.wanandroid.model.navigation.NavigationFragment;
-import com.example.a74099.wanandroid.model.search.SearchDialogFragment;
+import com.example.a74099.wanandroid.model.search.SearchActivity;
 import com.example.a74099.wanandroid.model.system.SystemFragment;
 import com.example.a74099.wanandroid.util.ToastUtil;
 
@@ -44,7 +45,7 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
     //指纹解锁
     private FingerprintCore mFingerprintCore;
     private KeyguardLockScreenManager mKeyguardLockScreenManager;
-    private SearchDialogFragment searchDialogFragment;
+    private SearchActivity searchDialogFragment;
 
     @Override
     protected int getLayout() {
@@ -258,15 +259,10 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
                 showMyselfFragment();
                 break;
             case R.id.search:
-                if (searchDialogFragment == null) {
-                    searchDialogFragment = new SearchDialogFragment();
-                }
-                if (!isDestroyed() && searchDialogFragment.isAdded()) {
-                    searchDialogFragment.dismiss();
-                }
-                searchDialogFragment.show(getSupportFragmentManager(), "SearchDialogFragment");
+                SearchActivity.startAction(this);
                 break;
             case R.id.often:
+                FrequentlyActivity.startAction(this);
                 break;
             default:
                 break;

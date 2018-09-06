@@ -30,6 +30,8 @@ import com.taobao.sophix.listener.PatchLoadStatusListener;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
+import org.litepal.LitePal;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -83,6 +85,7 @@ public class App extends Application {
         Bugly.init(getApplicationContext(), "46fb82cb75", false);
         //阿里移动用户反馈初始化
         initFeedbackService();
+        LitePal.initialize(this);
     }
 
     /**

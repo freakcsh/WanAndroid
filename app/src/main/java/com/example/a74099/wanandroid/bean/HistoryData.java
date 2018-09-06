@@ -1,11 +1,13 @@
 package com.example.a74099.wanandroid.bean;
 
+import org.litepal.crud.LitePalSupport;
+
 /**
  * @author quchao
  * @date 2018/3/5
  */
 
-public class HistoryData {
+public class HistoryData extends LitePalSupport{
 
 
     private Long id;

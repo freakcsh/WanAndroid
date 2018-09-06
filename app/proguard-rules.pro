@@ -31,3 +31,11 @@
 -dontwarn com.ut.**
 -keep class com.ta.** {*;}
 -dontwarn com.ta.**
+
+-keep class org.litepal.** {
+    *;
+}
+
+-keep class * extends org.litepal.crud.LitePalSupport{
+    *;
+}

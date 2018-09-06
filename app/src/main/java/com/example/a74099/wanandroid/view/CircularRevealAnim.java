@@ -6,10 +6,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
-/**
- * @author quchao
- * @date 2018/3/1
- */
+
 
 public class CircularRevealAnim {
 

@@ -6,9 +6,11 @@ import com.example.a74099.wanandroid.bean.BannerBean;
 import com.example.a74099.wanandroid.bean.ClassifyBean;
 import com.example.a74099.wanandroid.bean.ClassifyTitleBean;
 import com.example.a74099.wanandroid.bean.CollectBean;
+import com.example.a74099.wanandroid.bean.FrequentlyBean;
 import com.example.a74099.wanandroid.bean.LoginBean;
 import com.example.a74099.wanandroid.bean.LoginOutBean;
 import com.example.a74099.wanandroid.bean.NavigationBean;
+import com.example.a74099.wanandroid.bean.SearchDetailBean;
 import com.example.a74099.wanandroid.bean.SystemClassifyBean;
 import com.example.a74099.wanandroid.bean.SystemDetailBean;
 import com.example.a74099.wanandroid.bean.TopSearchData;
@@ -41,6 +43,21 @@ public interface ApiServer {
      */
     @GET("/hotkey/json")
     Observable<HttpResult<List<TopSearchData>>> doSearchHot();
+
+    /**
+     * 搜索
+     *
+     * @param page
+     * @return
+     */
+    @POST("article/query/{page}/json")
+    Observable<HttpResult<SearchDetailBean>> doSearch(@Path("page") int page, @Query("k") String k);
+
+    /**
+     * 常用网址
+     */
+    @GET("friend/json")
+    Observable<HttpResult<List<FrequentlyBean>>> getFrequently();
 
     /**
      * 收藏文章

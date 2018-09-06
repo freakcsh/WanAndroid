@@ -80,4 +80,6 @@
     <color name="common_bg">#ffffff</color>
     <color name="search_grey">#ffffff</color>
     <color name="search_grey_gone">#cccccc</color>
+    <color name="light_green">#3fc75f</color>
+    <color name="light_red">#e26d2e</color>
 </resources>
