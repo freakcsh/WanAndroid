@@ -103,7 +103,7 @@ public class PatternHelper {
     }
 
     private String getCheckingSuccessMsg() {
-        return "解锁成功！";
+        return "验证成功！";
     }
 
     private String getSizeErrorMsg() {
@@ -127,7 +127,7 @@ public class PatternHelper {
      *
      * @param gesturePwd
      */
-    private void saveToStorage(String gesturePwd) {
+    public void saveToStorage(String gesturePwd) {
         final String encryptPwd = SecurityUtil.encrypt(gesturePwd);
         SharedPreferencesUtil.getInstance().saveString(GESTURE_PWD_KEY, encryptPwd);
     }

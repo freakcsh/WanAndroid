@@ -10,11 +10,32 @@
         <!--style="@style/AppTheme.Toolbar"-->
         <!--app:title="@string/title_pattern_setting" />-->
 <!--<include layout="@layout/include_top_title"/>-->
+    <include layout="@layout/include_top_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="是否开启手势解锁"
+            android:textColor="@color/colorCard"
+            android:textSize="15sp" />
+
+        <Switch
+            android:id="@+id/switch_open_off"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/text_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         android:padding="20dp"
         android:text="msg"

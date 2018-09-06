@@ -2,6 +2,10 @@ package com.example.a74099.wanandroid.model.myself.lock.custom;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.a74099.wanandroid.R;
@@ -11,6 +15,7 @@ import com.example.a74099.wanandroid.model.myself.lock.core.OnPatternChangeListe
 import com.example.a74099.wanandroid.model.myself.lock.core.PatternIndicatorView;
 import com.example.a74099.wanandroid.model.myself.lock.core.PatternLockerView;
 import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 import java.util.List;
 
@@ -23,7 +28,9 @@ public class WholePatternSettingActivity extends SimpleActivity {
     private PatternIndicatorView patternIndicatorView;
     private TextView textMsg;
     private PatternHelper patternHelper;
-
+    private LinearLayout ll_is_lock_open;
+    private Switch switch_open_off;
+    private String mPw;
 
     public static void startAction(Context context) {
         Intent intent = new Intent(context, WholePatternSettingActivity.class);
@@ -40,7 +47,9 @@ public class WholePatternSettingActivity extends SimpleActivity {
     protected void initEventAndData() {
         setBackPress();
         setTitleTx(getString(R.string.title_pattern_setting));
-
+        mPw = new PatternHelper().getFromStorage();
+        ll_is_lock_open = findViewById(R.id.ll_is_lock_open);
+        switch_open_off = findViewById(R.id.switch_open_off);
         this.patternIndicatorView = findViewById(R.id.pattern_indicator_view);
         this.patternLockerView = findViewById(R.id.pattern_lock_view);
         this.textMsg = findViewById(R.id.text_msg);
@@ -78,6 +87,23 @@ public class WholePatternSettingActivity extends SimpleActivity {
 
         this.textMsg.setText("设置解锁图案");
         this.patternHelper = new PatternHelper();
+        if (ToolUtils.isNull(mPw)){
+            switch_open_off.setChecked(false);
+            ll_is_lock_open.setVisibility(View.GONE);
+        }else {
+            switch_open_off.setChecked(true);
+            ll_is_lock_open.setVisibility(View.VISIBLE);
+        }
+        switch_open_off.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    ll_is_lock_open.setVisibility(View.VISIBLE);
+                }else {
+                    ll_is_lock_open.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private boolean isPatternOk(List<Integer> hitList) {

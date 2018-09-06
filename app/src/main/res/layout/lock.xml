@@ -5,7 +5,41 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/c_132737">
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
+            <ImageView
+                android:id="@+id/leftImg"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/left_arrow" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:minEms="2"
+            android:maxEms="9"
+            android:textColor="#ffffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,38 +67,37 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:gravity="center">
+
             <ImageView
                 android:id="@+id/img_fingerprint"
-                android:layout_width="120dp"
-                android:layout_height="150dp"
-                android:background="@mipmap/fingerprint"/>
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@mipmap/fingerprint" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_pw"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:textSize="15sp"
-            android:textColor="#ffffff"
-            android:text="使用密码"
-            android:gravity="center"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/shape_btn"
-            />
+            android:gravity="center"
+            android:text="使用密码"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_cancel"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:textSize="15sp"
-            android:textColor="#ffffff"
-            android:text="取消"
-            android:gravity="center"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/shape_btn"
-            />
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

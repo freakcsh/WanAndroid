@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
     private String mPw;
     private final long BACKPRESS_TIME = 2000;
     private long lastTimeMillis;
+    private RelativeLayout back;
 
     @Override
     protected void onResume() {
@@ -130,8 +132,8 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
         if (!ToolUtils.isNull(mPw)) {
             WholePatternCheckingActivity.startAction(this);
             finish();
-        }else {
-            ToastUtil.showShort(this,"图形密码暂未开启");
+        } else {
+            ToastUtil.showShort(this, "图形密码暂未开启");
         }
     }
 
@@ -143,6 +145,9 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
                 break;
             case R.id.tv_pw:
                 checkLocker();
+                break;
+            case R.id.back:
+                App.getInstance().finishAll();
                 break;
             default:
                 break;
@@ -173,12 +178,15 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
 
     @Override
     protected void initEventAndData() {
+        setTitleTx("应用锁");
         img_fingerprint = findViewById(R.id.img_fingerprint);
         tv_pw = findViewById(R.id.tv_pw);
         tv_cancel = findViewById(R.id.tv_cancel);
+        back = findViewById(R.id.back);
 
         tv_pw.setOnClickListener(this);
         tv_cancel.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -48,9 +49,107 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 
 public class ToolUtils {
+
+
+    /**
+     * 计算inSampleSize
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int width = options.outWidth;
+        final int height = options.outHeight;
+        int inSampleSize = 1;
+
+        if (width > reqWidth || height > reqHeight) {
+            if (width > height) {
+                inSampleSize = Math.round((float) height / (float) reqHeight);
+            } else {
+                inSampleSize = Math.round((float) width / (float) reqWidth);
+            }
+        }
+        return inSampleSize;
+    }
+
+    /**
+     * 缩略图
+     * @param path
+     * @param maxWidth
+     * @param maxHeight
+     * @param autoRotate
+     * @return
+     */
+    public static Bitmap thumbnail(String  path, int maxWidth, int maxHeight,boolean autoRotate) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        options.inJustDecodeBounds = false;
+        int sampleSize = calculateInSampleSize(options,maxWidth,maxHeight);
+        options.inSampleSize =sampleSize;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inPurgeable =true;
+        options.inInputShareable = true;
+        if(bitmap !=null&&!bitmap.isRecycled()){
+            bitmap.recycle();
+        }
+        bitmap = BitmapFactory.decodeFile(path,options);
+        return bitmap;
+    }
+
+    /***
+     * 保存到sd卡
+     * @param bitmap
+     * @param format
+     * @param quality
+     * @param context
+     * @return
+     */
+
+    public static String save(Bitmap  bitmap, Bitmap.CompressFormat format, int quality,Context context) {
+        if(!Environment.getExternalStorageState()
+                .equals(Environment.MEDIA_MOUNTED)){
+            return null;
+        }
+        File dir = new File(Environment.getExternalStorageDirectory()+
+                "/"+context.getPackageName());
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+        File desFile = new File(dir, UUID.randomUUID().toString());
+        return save(bitmap,format,quality,desFile);
+    }
+    /**
+     * 保存bitmap
+     * @param bitmap
+     * @param format
+     * @param quality
+     * @param desFile
+     * @return
+     */
+    public static String save(Bitmap  bitmap, Bitmap.CompressFormat format, int quality,File desFile) {
+        try{
+            FileOutputStream out = new FileOutputStream(desFile);
+            if(bitmap.compress(format,quality,out)){
+                out.flush();
+                out.close();
+            }
+            if(bitmap!=null&&!bitmap.isRecycled()){
+                bitmap.recycle();
+            }
+            return  desFile.getAbsolutePath();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * 获取随机rgb颜色值
      */
