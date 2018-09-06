@@ -20,6 +20,7 @@ import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.Constants;
 import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.model.login.LoginActivity;
+import com.example.a74099.wanandroid.model.myself.activity.ShapeActivity;
 import com.example.a74099.wanandroid.model.myself.activity.collect.CollectActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintSettingActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternAlterActivity;
@@ -345,8 +346,8 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 FingerPrintSettingActivity.startAction(getActivity());
                 break;
             case R.id.rl_shape:
-//                ShapeActivity.startAction(getActivity());
-                ToastUtil.showShort(getActivity(),"此功能正在开发中，敬请期待");
+                ShapeActivity.startAction(getActivity());
+//                ToastUtil.showShort(getActivity(),"此功能正在开发中，敬请期待");
                 break;
             case R.id.rl_collect:
                 if (ToolUtils.isLogin(getActivity())) {

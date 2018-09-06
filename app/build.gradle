@@ -8,8 +8,8 @@ android {
         applicationId "com.example.a74099.wanandroid"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.2"
+        versionCode 3
+        versionName "1.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             // 设置支持的SO库架构
@@ -31,34 +31,34 @@ MobSDK {
     ShareSDK {
         //平台配置信息
         devInfo {
-            SinaWeibo {
-                id 1
-                sortId 1
-                appKey "568898243"
-                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
-                callbackUri "http://www.sharesdk.cn"
-                shareByAppClient true
-                enable true
-            }
-
-            TencentWeibo {
-                id 2
-                sortId 2
-                appKey "801307650"
-                appSecret "ae36f4ee3946e1cbb98d6965b0b2ff5c"
-                callbackUri "http://sharesdk.cn"
-                enable true
-            }
-
-            QZone {
-                id 3
-                sortId 3
-                appId "100371282"
-                appKey "aed9b0303e3ed1e27bae87c33761161d"
-                shareByAppClient true
-                bypassApproval false
-                enable true
-            }
+//            SinaWeibo {
+//                id 1
+//                sortId 1
+//                appKey "568898243"
+//                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+//                callbackUri "http://www.sharesdk.cn"
+//                shareByAppClient true
+//                enable true
+//            }
+//
+//            TencentWeibo {
+//                id 2
+//                sortId 2
+//                appKey "801307650"
+//                appSecret "ae36f4ee3946e1cbb98d6965b0b2ff5c"
+//                callbackUri "http://sharesdk.cn"
+//                enable true
+//            }
+//
+//            QZone {
+//                id 3
+//                sortId 3
+//                appId "100371282"
+//                appKey "aed9b0303e3ed1e27bae87c33761161d"
+//                shareByAppClient true
+//                bypassApproval false
+//                enable true
+//            }
 
 
             /* Wechat微信和WechatMoments微信朋友圈的appid是一样的；
@@ -74,43 +74,43 @@ MobSDK {
             Wechat {
                 id 4
                 sortId 4
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wx86bb51dd1ab393aa"
+                appSecret "f3a45c92524fc7a8e94be201a1043d75"
                 userName "gh_afb25ac019c9"
                 path "pages/index/index.html?id=1"
                 withShareTicket true
                 miniprogramType 0
-                bypassApproval true
+                bypassApproval false
                 enable true
             }
 
             WechatMoments {
                 id 5
                 sortId 5
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
-                bypassApproval true
+                appId "wx86bb51dd1ab393aa"
+                appSecret "f3a45c92524fc7a8e94be201a1043d75"
+                bypassApproval false
                 enable true
             }
 
             WechatFavorite {
                 id 6
                 sortId 6
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wx86bb51dd1ab393aa"
+                appSecret "f3a45c92524fc7a8e94be201a1043d75"
                 bypassApproval false
                 enable true
             }
 
-            QQ {
-                id 7
-                sortId 7
-                appId "100371282"
-                appKey "aed9b0303e3ed1e27bae87c33761161d"
-                shareByAppClient true
-                bypassApproval false
-                enable true
-            }
+//            QQ {
+//                id 7
+//                sortId 7
+//                appId "100371282"
+//                appKey "aed9b0303e3ed1e27bae87c33761161d"
+//                shareByAppClient true
+//                bypassApproval false
+//                enable true
+//            }
 
 //            Facebook {
 //                id 8
@@ -149,17 +149,17 @@ MobSDK {
 //                enable true
 //            }
 
-            Email {
-                id 12
-                sortId 12
-                enable true
-            }
-
-            ShortMessage {
-                id 13
-                sortId 13
-                enable true
-            }
+//            Email {
+//                id 12
+//                sortId 12
+//                enable true
+//            }
+//
+//            ShortMessage {
+//                id 13
+//                sortId 13
+//                enable true
+//            }
 
 //            Douban {
 //                id 16
@@ -170,15 +170,15 @@ MobSDK {
 //                enable true
 //            }
 
-            YouDao {
-                id 17
-                sortId 17
-                hostType "product"
-                appKey "dcde25dca105bcc36884ed4534dab940"
-                appSecret "d98217b4020e7f1874263795f44838fe"
-                callbackUri "http://www.sharesdk.cn/"
-                enable true
-            }
+//            YouDao {
+//                id 17
+//                sortId 17
+//                hostType "product"
+//                appKey "dcde25dca105bcc36884ed4534dab940"
+//                appSecret "d98217b4020e7f1874263795f44838fe"
+//                callbackUri "http://www.sharesdk.cn/"
+//                enable true
+//            }
 
 //
 //            /*在中国大陆，印象笔记有两个服务器，一个是沙箱（sandbox），一个是生产服务器（china）。
