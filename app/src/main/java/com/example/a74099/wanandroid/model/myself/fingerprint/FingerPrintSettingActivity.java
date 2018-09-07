@@ -21,7 +21,7 @@ import com.example.a74099.wanandroid.model.myself.fingerprint.util.KeyguardLockS
  * Created by 74099 on 2018/8/25.
  */
 
-public class FingerPrintSettingActivity extends SimpleActivity implements View.OnClickListener{
+public class FingerPrintSettingActivity extends SimpleActivity implements View.OnClickListener {
     private FingerprintCore mFingerprintCore;
 
     private KeyguardLockScreenManager mKeyguardLockScreenManager;
@@ -50,15 +50,16 @@ public class FingerPrintSettingActivity extends SimpleActivity implements View.O
      */
     private Button fingerprint_recognition_sys_setting;
 
-public static void startAction(Context context) {
-    Intent intent = new Intent(context, FingerPrintSettingActivity.class);
-    context.startActivity(intent);
-}
+    public static void startAction(Context context) {
+        Intent intent = new Intent(context, FingerPrintSettingActivity.class);
+        context.startActivity(intent);
+    }
+
     private void initFingerprintCore() {
         if (mFingerprintCore == null) {
             mFingerprintCore = new FingerprintCore(this);
             mFingerprintCore.setFingerprintManager(mResultListener);
-        }else {
+        } else {
             mFingerprintCore.setFingerprintManager(mResultListener);
         }
         mKeyguardLockScreenManager = new KeyguardLockScreenManager(this);

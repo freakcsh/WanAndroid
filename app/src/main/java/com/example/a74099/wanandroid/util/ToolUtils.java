@@ -57,6 +57,7 @@ public class ToolUtils {
 
     /**
      * 计算inSampleSize
+     *
      * @param options
      * @param reqWidth
      * @param reqHeight
@@ -79,26 +80,27 @@ public class ToolUtils {
 
     /**
      * 缩略图
+     *
      * @param path
      * @param maxWidth
      * @param maxHeight
      * @param autoRotate
      * @return
      */
-    public static Bitmap thumbnail(String  path, int maxWidth, int maxHeight,boolean autoRotate) {
+    public static Bitmap thumbnail(String path, int maxWidth, int maxHeight, boolean autoRotate) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         options.inJustDecodeBounds = false;
-        int sampleSize = calculateInSampleSize(options,maxWidth,maxHeight);
-        options.inSampleSize =sampleSize;
+        int sampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
+        options.inSampleSize = sampleSize;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        options.inPurgeable =true;
+        options.inPurgeable = true;
         options.inInputShareable = true;
-        if(bitmap !=null&&!bitmap.isRecycled()){
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
         }
-        bitmap = BitmapFactory.decodeFile(path,options);
+        bitmap = BitmapFactory.decodeFile(path, options);
         return bitmap;
     }
 
@@ -111,59 +113,63 @@ public class ToolUtils {
      * @return
      */
 
-    public static String save(Bitmap  bitmap, Bitmap.CompressFormat format, int quality,Context context) {
-        if(!Environment.getExternalStorageState()
-                .equals(Environment.MEDIA_MOUNTED)){
+    public static String save(Bitmap bitmap, Bitmap.CompressFormat format, int quality, Context context) {
+        if (!Environment.getExternalStorageState()
+                .equals(Environment.MEDIA_MOUNTED)) {
             return null;
         }
-        File dir = new File(Environment.getExternalStorageDirectory()+
-                "/"+context.getPackageName());
-        if(!dir.exists()){
+        File dir = new File(Environment.getExternalStorageDirectory() +
+                "/" + context.getPackageName());
+        if (!dir.exists()) {
             dir.mkdir();
         }
         File desFile = new File(dir, UUID.randomUUID().toString());
-        return save(bitmap,format,quality,desFile);
+        return save(bitmap, format, quality, desFile);
     }
+
     /**
      * 保存bitmap
+     *
      * @param bitmap
      * @param format
      * @param quality
      * @param desFile
      * @return
      */
-    public static String save(Bitmap  bitmap, Bitmap.CompressFormat format, int quality,File desFile) {
-        try{
+    public static String save(Bitmap bitmap, Bitmap.CompressFormat format, int quality, File desFile) {
+        try {
             FileOutputStream out = new FileOutputStream(desFile);
-            if(bitmap.compress(format,quality,out)){
+            if (bitmap.compress(format, quality, out)) {
                 out.flush();
                 out.close();
             }
-            if(bitmap!=null&&!bitmap.isRecycled()){
+            if (bitmap != null && !bitmap.isRecycled()) {
                 bitmap.recycle();
             }
-            return  desFile.getAbsolutePath();
-        }catch (FileNotFoundException e){
+            return desFile.getAbsolutePath();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     /**
      * 获取随机rgb颜色值
      */
     public static int randomColor() {
         Random random = new Random();
         //0-190, 如果颜色值过大,就越接近白色,就看不清了,所以需要限定范围
-        int red =random.nextInt(150);
+        int red = random.nextInt(150);
         //0-190
-        int green =random.nextInt(150);
+        int green = random.nextInt(150);
         //0-190
-        int blue =random.nextInt(150);
+        int blue = random.nextInt(150);
         //使用rgb混合生成一种新的颜色,Color.rgb生成的是一个int数
-        return Color.rgb(red,green, blue);
+        return Color.rgb(red, green, blue);
     }
+
     /**
      * 获取缓存路径
      *
@@ -564,6 +570,7 @@ public class ToolUtils {
         }
         return Constants.TAB_COLORS[position];
     }
+
     /**
      * 实现截图,返回保存路径
      *
@@ -571,7 +578,7 @@ public class ToolUtils {
      * @param isopen   保存后是否打开图片
      * @return
      */
-    public static void saveScreemShots(Activity activity, boolean isopen,File dir) {
+    public static void saveScreemShots(Activity activity, boolean isopen, File dir) {
         //1.构建Bitmap
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -614,8 +621,8 @@ public class ToolUtils {
     }
 
     /**
-     *
      * 保存选择的图片
+     *
      * @param activity
      * @param isopen
      */
@@ -772,6 +779,22 @@ public class ToolUtils {
     }
 
     /**
+     * 保存指纹解锁状态
+     */
+    public static void saveFingerState(Context context, String open) {
+        SPUtils.put(context, Constants.FINGER, open);
+    }
+
+    /**
+     * 获取指纹解锁状态
+     */
+    public static String getFingerState(Context context) {
+        String state = (String) SPUtils.get(context, Constants.FINGER, "");
+        return state;
+    }
+
+
+    /**
      * 保存登录信息
      *
      * @param context
@@ -835,9 +858,9 @@ public class ToolUtils {
      */
     public static String getPhotoUrl(Context context) {
         String uri = (String) SPUtils.get(context, Constants.PHOTO, "");
-        if (uri==null){
+        if (uri == null) {
             return null;
-        }else {
+        } else {
             return uri;
         }
     }

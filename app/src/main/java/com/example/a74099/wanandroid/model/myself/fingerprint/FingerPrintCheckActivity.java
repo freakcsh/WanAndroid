@@ -1,5 +1,7 @@
 package com.example.a74099.wanandroid.model.myself.fingerprint;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -43,7 +45,10 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
     private final long BACKPRESS_TIME = 2000;
     private long lastTimeMillis;
     private RelativeLayout back;
-
+    public static void startAction(Context context) {
+        Intent intent = new Intent(context, FingerPrintCheckActivity.class);
+        context.startActivity(intent);
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -68,11 +73,13 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
                 FingerprintUtil.openFingerPrintSettingPage(this);
                 return;
             }
-            toastTipMsg(R.string.fingerprint_recognition_tip);
+            if (!ToolUtils.isNull(ToolUtils.getFingerState(this))){
+                toastTipMsg(R.string.fingerprint_recognition_tip);
+            }
 
             img_fingerprint.setBackgroundResource(R.mipmap.fingerprint);
             if (!mFingerprintCore.isAuthenticating()) {
-                toastTipMsg(R.string.fingerprint_recognition_authenticating);
+//                toastTipMsg(R.string.fingerprint_recognition_authenticating);
             } else {
                 mFingerprintCore.startAuthenticate();
             }
@@ -102,7 +109,7 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
     private FingerprintCore.IFingerprintResultListener mresultlistener = new FingerprintCore.IFingerprintResultListener() {
         @Override
         public void onAuthenticateSuccess() {
-            toastTipMsg(R.string.fingerprint_recognition_success);
+//            toastTipMsg(R.string.fingerprint_recognition_success);
             resetGuideViewState();
             finish();
         }
@@ -114,7 +121,7 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
 
         @Override
         public void onAuthenticateError(int errMsgId) {
-            resetGuideViewState();
+//            resetGuideViewState();
             toastTipMsg(R.string.fingerprint_recognition_error);
         }
 

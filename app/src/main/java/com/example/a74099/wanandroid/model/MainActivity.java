@@ -3,7 +3,6 @@ package com.example.a74099.wanandroid.model;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,12 +18,11 @@ import com.example.a74099.wanandroid.model.frequently.FrequentlyActivity;
 import com.example.a74099.wanandroid.model.home.HomepageFragment;
 import com.example.a74099.wanandroid.model.myself.MyselfFragment;
 import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintCheckActivity;
-import com.example.a74099.wanandroid.model.myself.fingerprint.core.FingerprintCore;
-import com.example.a74099.wanandroid.model.myself.fingerprint.util.KeyguardLockScreenManager;
 import com.example.a74099.wanandroid.model.navigation.NavigationFragment;
 import com.example.a74099.wanandroid.model.search.SearchActivity;
 import com.example.a74099.wanandroid.model.system.SystemFragment;
 import com.example.a74099.wanandroid.util.ToastUtil;
+import com.example.a74099.wanandroid.util.ToolUtils;
 
 public class MainActivity extends SimpleActivity implements View.OnClickListener {
     private HomepageFragment mHomapageFragment = null;
@@ -36,16 +34,10 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
     private TextView tv_myself, tv_classify, tv_navigation, tv_system, tv_homepage;
     private ImageView img_myself, img_classify, img_navigation, img_system, img_homepage;
     private BaseFragment baseFragment = null;
-    private String mPw;
     private final long BACKPRESS_TIME = 2000;
     private long lastTimeMillis;
 
     private RelativeLayout search, often;
-
-    //指纹解锁
-    private FingerprintCore mFingerprintCore;
-    private KeyguardLockScreenManager mKeyguardLockScreenManager;
-    private SearchActivity searchDialogFragment;
 
     @Override
     protected int getLayout() {
@@ -57,8 +49,9 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
     protected void initEventAndData() {
         initView();
         initOnClick();
-        IntentFingerprint();
-//        checkLocker();
+        if (!ToolUtils.isNull(ToolUtils.getFingerState(this))) {
+         FingerPrintCheckActivity.startAction(this);
+        }
     }
 
 
@@ -93,89 +86,8 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
         img_myself = findViewById(R.id.img_myself);
         search = findViewById(R.id.search);
         often = findViewById(R.id.often);
-
-
-        initFingerprintCore();
     }
 
-    /*****************************指纹解锁模块***************************************/
-
-    public void IntentFingerprint() {
-        if (mFingerprintCore.isSupport()) {
-            if (!mFingerprintCore.hasEnrolledFingerprints()) {
-                initFingerprintCore();
-            } else {
-                Intent intent = new Intent(this, FingerPrintCheckActivity.class);
-                startActivity(intent);
-            }
-
-        }
-    }
-
-    private void initFingerprintCore() {
-        if (mFingerprintCore == null) {
-            mFingerprintCore = new FingerprintCore(this);
-            mFingerprintCore.setFingerprintManager(mResultListener);
-        } else {
-            mFingerprintCore.setFingerprintManager(mResultListener);
-        }
-        mKeyguardLockScreenManager = new KeyguardLockScreenManager(this);
-    }
-
-    //    private void resetGuideViewState() {
-//        mFingerGuideTxt.setText(R.string.fingerprint_recognition_guide_tip);
-//        mFingerGuideImg.setBackgroundResource(R.drawable.fingerprint_normal);
-//    }
-    private FingerprintCore.IFingerprintResultListener mResultListener = new FingerprintCore.IFingerprintResultListener() {
-        @Override
-        public void onAuthenticateSuccess() {
-            Log.e("freak", "onAuthenticateSuccess() ");
-//            toastTipMsg(R.string.fingerprint_recognition_success);
-//            resetGuideViewState();
-        }
-
-        @Override
-        public void onAuthenticateFailed(int helpId) {
-//            toastTipMsg(R.string.fingerprint_recognition_failed);
-//            mFingerGuideTxt.setText(R.string.fingerprint_recognition_failed);
-        }
-
-        @Override
-        public void onAuthenticateError(int errMsgId) {
-//            resetGuideViewState();
-//            toastTipMsg(R.string.fingerprint_recognition_error);
-        }
-
-        @Override
-        public void onStartAuthenticateResult(boolean isSuccess) {
-
-        }
-    };
-//    private void toastTipMsg(int messageId) {
-//        if (mToast == null) {
-//            mToast = Toast.makeText(this, messageId, Toast.LENGTH_SHORT);
-//        }
-//        mToast.setText(messageId);
-//        mToast.cancel();
-//        mHandler.removeCallbacks(mShowToastRunnable);
-//        mHandler.postDelayed(mShowToastRunnable, 0);
-//    }
-
-    /*****************************************以上为指纹解锁模块*************************************************/
-//    @Override
-//    protected MainPresenter createPresenter() {
-//        return new MainPresenter();
-//    }
-//
-//    @Override
-//    public void getSuccess() {
-//
-//    }
-//
-//    @Override
-//    public void showError(String msg) {
-//
-//    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         myselfFragment.onActivityResult(requestCode, resultCode, data);

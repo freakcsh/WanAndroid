@@ -20,7 +20,7 @@ import com.example.a74099.wanandroid.base.BaseFragment;
 import com.example.a74099.wanandroid.model.login.LoginActivity;
 import com.example.a74099.wanandroid.model.myself.activity.ShapeActivity;
 import com.example.a74099.wanandroid.model.myself.activity.collect.CollectActivity;
-import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintSettingActivity;
+import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintOpenActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternAlterActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.WholePatternSettingActivity;
 import com.example.a74099.wanandroid.model.myself.lock.custom.util.PatternHelper;
@@ -44,9 +44,9 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private LinearLayout headLayout;
-//    private Toolbar toolbar;
+    //    private Toolbar toolbar;
     private File userImgFile;
-    private RelativeLayout rl_alter_photo, rl_gesture_pw, rl_fingerprint, rl_shape, rl_collect,rl_suggest;
+    private RelativeLayout rl_alter_photo, rl_gesture_pw, rl_fingerprint, rl_shape, rl_collect, rl_suggest;
     private CircleImageView img_user, tool_bar_img_user, img_login_photo;
     private String mPw;
     private TextView tv_pw_state, tv_login, tv_login_out, tv_version, tv_tool_bar_user_name;
@@ -102,7 +102,6 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
         tv_login.setOnClickListener(this);
         tv_login_out.setOnClickListener(this);
         rl_suggest.setOnClickListener(this);
-
     }
 
     @Override
@@ -118,6 +117,11 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
             tv_pw_state.setText("未开启");
         } else {
             tv_pw_state.setText("点击修改");
+        }
+        if (ToolUtils.isNull(ToolUtils.getFingerState(getActivity()))) {
+            rl_fingerprint.setSelected(false);
+        } else {
+            rl_fingerprint.setSelected(true);
         }
         mLoginBean = ToolUtils.getLoginBean(getActivity());
         if (ToolUtils.isLogin(getActivity())) {
@@ -207,7 +211,6 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
 //            }
 //        });
 //    }
-
     @Override
     protected void initLazyData() {
 
@@ -342,7 +345,7 @@ public class MyselfFragment extends BaseFragment<MyselfPresenter> implements Mys
                 }
                 break;
             case R.id.rl_fingerprint:
-                FingerPrintSettingActivity.startAction(getActivity());
+                FingerPrintOpenActivity.startAction(getActivity());
                 break;
             case R.id.rl_shape:
                 ShapeActivity.startAction(getActivity());

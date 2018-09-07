@@ -16,6 +16,8 @@
     <string name="fingerprint_recognition_tip">请进行指纹识别，长按指纹解锁键</string>
     <string name="fingerprint_recognition_not_support">此设备不支持指纹解锁</string>
     <string name="fingerprint_recognition_success">指纹识别成功</string>
+    <string name="fingerprint_recognition_success1">指纹验证成功，已开启指纹解锁</string>
+    <string name="fingerprint_recognition_success2">指纹验证成功，已关闭指纹解锁</string>
     <string name="fingerprint_recognition_failed">指纹识别失败，请重试！</string>
     <string name="fingerprint_recognition_error">指纹识别错误，等待几秒之后再重试</string>
     <string name="fingerprint_recognition_authenticating">指纹识别已经开启，长按指纹解锁键</string>

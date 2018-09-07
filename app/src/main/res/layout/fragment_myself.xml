@@ -202,7 +202,7 @@
                     android:textSize="13sp" />
 
                 <ImageView
-                    android:layout_width="51dp"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"

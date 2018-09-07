@@ -7,6 +7,7 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -23,8 +24,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.a74099.wanandroid.R;
+import com.example.a74099.wanandroid.app.App;
 
 import java.util.List;
 
@@ -330,6 +336,7 @@ public class WebViewUtil {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 //加载页面的服务器出现错误时（如404）调用
+//                showErrorPage(view);
             }
 
             @Override
@@ -338,6 +345,7 @@ public class WebViewUtil {
                 code = 1;
                 //webView.loadUrl("file:///android_res/raw/error.html");
                 super.onReceivedError(view, errorCode, description, failingUrl);
+
             }
 
             @Override
@@ -394,7 +402,44 @@ public class WebViewUtil {
             }
         });
     }
-
+    boolean mIsErrorPage;
+    private View mErrorView;
+    protected void showErrorPage(WebView webview) {
+        LinearLayout webParentView = (LinearLayout)webview.getParent();
+        initErrorPage(webview);//初始化自定义页面
+        while (webParentView.getChildCount() > 1) {
+            webParentView.removeViewAt(0);
+        }
+        @SuppressWarnings("deprecation")
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewPager.LayoutParams.FILL_PARENT, ViewPager.LayoutParams.FILL_PARENT);
+        webParentView.addView(mErrorView, 0, lp);
+        mIsErrorPage = true;
+    }
+    /***
+     * 显示加载失败时自定义的网页
+     */
+    protected void initErrorPage(final WebView webview) {
+        if (mErrorView == null) {
+            mErrorView = View.inflate(App.getInstance(), R.layout.web_error, null);
+            RelativeLayout layout = (RelativeLayout) mErrorView.findViewById(R.id.online_error_btn_retry);
+            layout.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    webview.reload();
+                }
+            });
+            mErrorView.setOnClickListener(null);
+        }
+    }
+        /****
+         * 把系统自身请求失败时的网页隐藏
+         */
+//    protected void hideErrorPage() {
+//        LinearLayout webParentView = (LinearLayout)webview.getParent();
+//        mIsErrorPage = false;
+//        while (webParentView.getChildCount() > 1) {
+//            webParentView.removeViewAt(0);
+//        }
+//    }
     private final class JavaScriptInterface {
         public Activity activity;
 

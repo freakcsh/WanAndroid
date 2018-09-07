@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/c_132737">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/leftImg"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/left_arrow" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:maxEms="9"
+            android:minEms="2"
+            android:textColor="#ffffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="是否开启指纹解锁"
+            android:textColor="@color/colorCard"
+            android:textSize="15sp" />
+
+        <Switch
+            android:id="@+id/switch_open_off_finger"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/finger_open_off"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="请验证指纹"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="请轻触感应器验证指纹"
+            android:textColor="#666666"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/img_fingerprint"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@mipmap/fingerprint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_pw"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shape_btn"
+            android:gravity="center"
+            android:text="使用密码"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_btn"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>
