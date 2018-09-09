@@ -1,5 +1,6 @@
 package com.example.a74099.wanandroid.model;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,12 +18,10 @@ import com.example.a74099.wanandroid.model.classify.ClassifyFragment;
 import com.example.a74099.wanandroid.model.frequently.FrequentlyActivity;
 import com.example.a74099.wanandroid.model.home.HomepageFragment;
 import com.example.a74099.wanandroid.model.myself.MyselfFragment;
-import com.example.a74099.wanandroid.model.myself.fingerprint.FingerPrintCheckActivity;
 import com.example.a74099.wanandroid.model.navigation.NavigationFragment;
 import com.example.a74099.wanandroid.model.search.SearchActivity;
 import com.example.a74099.wanandroid.model.system.SystemFragment;
 import com.example.a74099.wanandroid.util.ToastUtil;
-import com.example.a74099.wanandroid.util.ToolUtils;
 
 public class MainActivity extends SimpleActivity implements View.OnClickListener {
     private HomepageFragment mHomapageFragment = null;
@@ -49,11 +48,12 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
     protected void initEventAndData() {
         initView();
         initOnClick();
-        if (!ToolUtils.isNull(ToolUtils.getFingerState(this))) {
-         FingerPrintCheckActivity.startAction(this);
-        }
-    }
 
+    }
+    public static void startAction(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
     private void initOnClick() {
         ll_homepage.setOnClickListener(this);
@@ -281,11 +281,6 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
         baseFragment = mHomapageFragment;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        App.getInstance().finishAll();
-    }
 
     @Override
     public void onBackPressed() {

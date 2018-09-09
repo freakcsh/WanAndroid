@@ -59,13 +59,16 @@
             <!--android:name="BUGLY_ENABLE_DEBUG"-->
             <!--android:value="false" />-->
 
-        <activity android:name=".model.MainActivity">
+        <activity android:name=".model.start.StartActivity"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".model.MainActivity"/>
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -83,7 +86,8 @@
         <activity android:name=".model.myself.activity.collect.CollectActivity" />
         <activity android:name=".model.login.LoginActivity" />
         <activity android:name=".model.myself.activity.collect.detail.CollectDetailAct" />
-        <activity android:name=".model.search.SearchActivity"/>
+        <activity android:name=".model.search.SearchActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".model.search.detail.SearchDetailActivity"/>
         <activity android:name=".model.frequently.FrequentlyActivity"/>
         <activity android:name=".model.myself.fingerprint.FingerPrintOpenActivity"/>

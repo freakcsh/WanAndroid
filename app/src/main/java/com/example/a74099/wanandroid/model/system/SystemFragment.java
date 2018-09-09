@@ -162,9 +162,9 @@ public class SystemFragment extends BaseFragment<SystemPresenter> implements Sys
                                 mPresenter.getClassifyDetail(String.valueOf(curPage), String.valueOf(mId));
                             }
                         });
-
                     }
                 });
+                tv_system_second_name.setText(mClassifyBeanList.get(0).getName());
             } else {
                 mSystemFirstAdapter.setData(mClassifyBeanList);
                 mSystemFirstAdapter.setSelect(0);

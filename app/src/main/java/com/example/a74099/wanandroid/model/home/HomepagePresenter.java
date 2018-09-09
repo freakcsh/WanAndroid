@@ -73,7 +73,7 @@ public class HomepagePresenter extends RxPresenter<HomePageContract.View> implem
 
             @Override
             public void onFailure(String msg) {
-
+                mView.getArticleError(msg);
             }
         }));
     }

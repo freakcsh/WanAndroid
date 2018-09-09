@@ -25,7 +25,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp">
+            android:layout_height="44dp"
+            android:background="@color/c_1b364c"
+           >
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/login_tab_layout"

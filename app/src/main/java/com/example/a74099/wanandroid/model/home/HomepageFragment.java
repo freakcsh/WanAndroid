@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.a74099.wanandroid.R;
@@ -19,7 +20,6 @@ import com.example.a74099.wanandroid.model.login.LoginActivity;
 import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
-import com.example.a74099.wanandroid.view.pullrefreshview.layout.PullRefreshLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
@@ -38,7 +38,7 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
     private HomePageAdapter mHomePageAdapter;
     private List<ArticleListBean.Datas> mList;
     private List<String> mStringList;
-    private PullRefreshLayout include_no_data;
+    private LinearLayout include_no_data;
     private RelativeLayout netErrorView;
     private RollPagerView roll_pagerView;
     private HomeRollAdapter rollAdapter;
@@ -233,6 +233,8 @@ public class HomepageFragment extends BaseFragment<HomepagePresenter> implements
 
     @Override
     public void getArticleError(String msg) {
+        include_no_data.setVisibility(View.VISIBLE);
+        home_recycle.setVisibility(View.GONE);
 
     }
 

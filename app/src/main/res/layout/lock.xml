@@ -25,7 +25,14 @@
                 android:layout_marginLeft="16dp"
                 android:src="@mipmap/left_arrow" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_net_error"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone">
 
+            <!--<include layout="@layout/error_net" />-->
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/title"

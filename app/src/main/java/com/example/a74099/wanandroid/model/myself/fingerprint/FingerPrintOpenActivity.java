@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a74099.wanandroid.R;
-import com.example.a74099.wanandroid.app.App;
 import com.example.a74099.wanandroid.base.SimpleActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.core.FingerprintCore;
 import com.example.a74099.wanandroid.model.myself.fingerprint.util.FingerprintUtil;
@@ -44,7 +43,7 @@ public class FingerPrintOpenActivity extends SimpleActivity implements View.OnCl
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private final long BACKPRESS_TIME = 2000;
     private long lastTimeMillis;
-    private RelativeLayout back;
+    private RelativeLayout open_back;
     private LinearLayout finger_open_off;
     private Switch switch_open_off_finger;
 
@@ -164,6 +163,7 @@ public class FingerPrintOpenActivity extends SimpleActivity implements View.OnCl
         public void onAuthenticateError(int errMsgId) {
 //            resetGuideViewState();
             toastTipMsg(R.string.fingerprint_recognition_error);
+            finish();
         }
 
         @Override
@@ -180,8 +180,8 @@ public class FingerPrintOpenActivity extends SimpleActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back:
-                App.getInstance().finishAll();
+            case R.id.open_back:
+                finish();
                 break;
             default:
                 break;
@@ -216,13 +216,11 @@ public class FingerPrintOpenActivity extends SimpleActivity implements View.OnCl
         img_fingerprint = findViewById(R.id.img_fingerprint);
         tv_pw = findViewById(R.id.tv_pw);
         tv_cancel = findViewById(R.id.tv_cancel);
-        back = findViewById(R.id.back);
+        open_back = findViewById(R.id.open_back);
         finger_open_off = findViewById(R.id.finger_open_off);
         switch_open_off_finger = findViewById(R.id.switch_open_off_finger);
 
-        tv_pw.setOnClickListener(this);
-        tv_cancel.setOnClickListener(this);
-        back.setOnClickListener(this);
+        open_back.setOnClickListener(this);
         initFingerprintCore();
         startFingerprint();
 

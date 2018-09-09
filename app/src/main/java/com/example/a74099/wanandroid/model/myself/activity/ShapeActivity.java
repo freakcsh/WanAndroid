@@ -53,7 +53,7 @@ public class ShapeActivity extends SimpleActivity {
 
     private void setRqCode() {
         try {
-            bitmap = new QRCodeUtil().createCode("https://pan.baidu.com/s/1rQDDfK4jSAhdidCZcEA5EQ", BarcodeFormat.QR_CODE, 250, 250);
+            bitmap = new QRCodeUtil().createCode("https://coding.net/u/freak_csh/p/wan_zhuan_Android/git/blob/master/玩转Android_V1.1.apk", BarcodeFormat.QR_CODE, 250, 250);
         } catch (WriterException e) {
             e.printStackTrace();
         }

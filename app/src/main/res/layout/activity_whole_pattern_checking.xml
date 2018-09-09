@@ -12,6 +12,15 @@
 <!--<include layout="@layout/include_top_title"/>-->
     <include layout="@layout/include_top_title"/>
     <RelativeLayout
+        android:id="@+id/rl_net_error"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone">
+
+        <!--<include layout="@layout/error_net" />-->
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_open"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 

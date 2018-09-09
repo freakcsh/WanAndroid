@@ -12,19 +12,19 @@
 
         <ImageView
             android:id="@+id/mouse"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
             android:src="@mipmap/catloading_mouse" />
 
         <ImageView
             android:id="@+id/cat"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/catloading_logo" />
+            android:src="@drawable/ic_kexue" />
 
         <ImageView
             android:id="@+id/eye_left"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/loadingTop_ly"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-30dp"
+        android:layout_marginBottom="-10dp"
         android:text="L O A D I N G ..."
         android:textColor="@color/c_ffffff"
         android:textSize="8sp"

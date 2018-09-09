@@ -55,6 +55,7 @@ public abstract class SimpleActivity extends AppCompatActivity implements NetSta
         if (needRegisterNetworkChangeObserver()) {
             NetStateChangeReceiver.unregisterObserver(this);
         }
+
     }
     /**
      * 是否需要注册网络变化的Observer,如果不需要监听网络变化,则返回false;否则返回true

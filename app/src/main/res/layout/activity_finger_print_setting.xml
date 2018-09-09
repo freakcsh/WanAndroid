@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff">
+    <RelativeLayout
+        android:id="@+id/rl_net_error"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone">
 
+        <!--<include layout="@layout/error_net" />-->
+    </RelativeLayout>
     <ImageView
         android:id="@+id/fingerprint_guide"
         android:layout_width="250dp"

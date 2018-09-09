@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_article_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/c_132737"
@@ -24,5 +23,20 @@
 
         <include layout="@layout/error_net" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_web_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/web_error" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_article_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
 
 </LinearLayout>

@@ -22,6 +22,7 @@ import com.example.a74099.wanandroid.bean.HistoryData;
 import com.example.a74099.wanandroid.bean.TopSearchData;
 import com.example.a74099.wanandroid.model.search.adapter.HistorySearchAdapter;
 import com.example.a74099.wanandroid.model.search.detail.SearchDetailActivity;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -56,7 +57,15 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         Intent intent = new Intent(context, SearchActivity.class);
         context.startActivity(intent);
     }
-
+    /***
+     * 断网重连
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        mPresenter.getTopSearchData();
+    }
     @Override
     protected int getLayout() {
         return R.layout.fragment_search;

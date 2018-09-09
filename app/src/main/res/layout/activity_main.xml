@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:background="@color/c_132737"
     tools:context="com.example.a74099.wanandroid.model.MainActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

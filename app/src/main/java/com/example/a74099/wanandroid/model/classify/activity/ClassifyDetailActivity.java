@@ -1,5 +1,6 @@
 package com.example.a74099.wanandroid.model.classify.activity;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ public class ClassifyDetailActivity extends SimpleActivity {
     private String url;
     private String title;
     private ProgressBar mProgressBar;
+    private LinearLayout ll_web_error;
     @Override
     protected int getLayout() {
         return R.layout.act_article_detail;
@@ -29,6 +31,8 @@ public class ClassifyDetailActivity extends SimpleActivity {
     @Override
     public void onNetConnected(NetworkType networkType) {
         super.onNetConnected(networkType);
+        ll_web_error.setVisibility(View.GONE);
+        ll_article_detail.setVisibility(View.VISIBLE);
         WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
     }
 
@@ -42,13 +46,19 @@ public class ClassifyDetailActivity extends SimpleActivity {
         mProgressBar=findViewById(R.id.progressBar1);
         mWebView=new WebView(getApplicationContext());
         mWebView.setBackgroundColor(0);
+        ll_web_error = findViewById(R.id.ll_web_error);
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mWebView.setLayoutParams(params);
         ll_article_detail.addView(mWebView);
-        if (!ToolUtils.isConnected(this)){
+        if (!ToolUtils.isConnected(this)) {
             showDisConnectedView();
+            ll_web_error.setVisibility(View.VISIBLE);
+            ll_article_detail.setVisibility(View.GONE);
+        } else {
+            ll_web_error.setVisibility(View.GONE);
+            ll_article_detail.setVisibility(View.VISIBLE);
+            WebViewUtil.getInstance().initWebView(mWebView, this, url, mProgressBar);
         }
-        WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
 
     }
 

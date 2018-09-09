@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
         android:id="@+id/online_error_btn_retry"
@@ -31,10 +32,11 @@
                 android:text="数据获取失败"
                 />
             <TextView
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="请检查网络后，点击重新加载"
+                android:text="网络连接失败，请检查网络"
                 />
         </LinearLayout>
     </RelativeLayout>

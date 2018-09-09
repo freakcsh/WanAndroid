@@ -1,5 +1,6 @@
 package com.example.a74099.wanandroid.model.home.activity;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ public class BannerDetailAct extends SimpleActivity {
     private String url;
     private String title;
     private ProgressBar mProgressBar;
+    private LinearLayout ll_web_error;
     @Override
     protected int getLayout() {
         return R.layout.act_banner_detail;
@@ -33,6 +35,8 @@ public class BannerDetailAct extends SimpleActivity {
     @Override
     public void onNetConnected(NetworkType networkType) {
         super.onNetConnected(networkType);
+        ll_web_error.setVisibility(View.GONE);
+        ll_banner_detail.setVisibility(View.VISIBLE);
         WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
     }
 
@@ -44,6 +48,7 @@ public class BannerDetailAct extends SimpleActivity {
         title=getIntent().getStringExtra("title");
         setTitleTx(title);
         ll_banner_detail = findViewById(R.id.ll_banner_detail);
+        ll_web_error = findViewById(R.id.ll_web_error);
         mProgressBar=findViewById(R.id.progressBar1);
         mWebView=new WebView(getApplicationContext());
         mWebView.setBackgroundColor(0);
@@ -52,8 +57,13 @@ public class BannerDetailAct extends SimpleActivity {
         ll_banner_detail.addView(mWebView);
         if (!ToolUtils.isConnected(this)){
             showDisConnectedView();
+            ll_web_error.setVisibility(View.VISIBLE);
+            ll_banner_detail.setVisibility(View.GONE);
+        }else {
+            ll_web_error.setVisibility(View.GONE);
+            ll_banner_detail.setVisibility(View.VISIBLE);
+            WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
         }
-        WebViewUtil.getInstance().initWebView(mWebView,this,url,mProgressBar);
 
     }
 

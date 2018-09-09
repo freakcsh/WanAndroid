@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.app.App;
 import com.example.a74099.wanandroid.base.SimpleActivity;
+import com.example.a74099.wanandroid.model.MainActivity;
 import com.example.a74099.wanandroid.model.myself.fingerprint.core.FingerprintCore;
 import com.example.a74099.wanandroid.model.myself.fingerprint.util.FingerprintUtil;
 import com.example.a74099.wanandroid.model.myself.fingerprint.util.KeyguardLockScreenManager;
@@ -111,6 +112,7 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
         public void onAuthenticateSuccess() {
 //            toastTipMsg(R.string.fingerprint_recognition_success);
             resetGuideViewState();
+            MainActivity.startAction(FingerPrintCheckActivity.this);
             finish();
         }
 
@@ -138,7 +140,7 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
     private void checkLocker() {
         if (!ToolUtils.isNull(mPw)) {
             WholePatternCheckingActivity.startAction(this);
-            finish();
+//            finish();
         } else {
             ToastUtil.showShort(this, "图形密码暂未开启");
         }
@@ -149,12 +151,14 @@ public class FingerPrintCheckActivity extends SimpleActivity implements View.OnC
         switch (v.getId()) {
             case R.id.tv_cancel:
                 App.getInstance().finishAll();
+                super.onBackPressed();
                 break;
             case R.id.tv_pw:
                 checkLocker();
                 break;
             case R.id.back:
                 App.getInstance().finishAll();
+                super.onBackPressed();
                 break;
             default:
                 break;

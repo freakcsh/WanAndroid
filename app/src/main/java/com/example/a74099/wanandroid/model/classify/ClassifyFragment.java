@@ -42,7 +42,9 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     public void onNetConnected(NetworkType networkType) {
         super.onNetConnected(networkType);
-        mPresenter.getClassifyTitle();
+        if (classifyBeanList.size()==0) {
+            mPresenter.getClassifyTitle();
+        }
     }
 
     @Override
@@ -53,6 +55,7 @@ public class ClassifyFragment extends BaseFragment<ClassifyPresenter> implements
     @Override
     protected void initEventAndData(View view) {
         mList = new ArrayList<>();
+        classifyBeanList = new ArrayList<>();
         mFragmentList = new ArrayList<>();
         mPresenter.getClassifyTitle();
         class_view_pager = view.findViewById(R.id.class_view_pager);

@@ -11,6 +11,7 @@ import com.example.a74099.wanandroid.R;
 import com.example.a74099.wanandroid.base.BaseActivity;
 import com.example.a74099.wanandroid.bean.FrequentlyBean;
 import com.example.a74099.wanandroid.model.home.activity.ArticleDetailAct;
+import com.example.a74099.wanandroid.net.util.NetworkType;
 import com.example.a74099.wanandroid.util.ToastUtil;
 import com.example.a74099.wanandroid.util.ToolUtils;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -36,7 +37,15 @@ public class FrequentlyActivity extends BaseActivity<FrequentlyPresenter> implem
     public void showError(String msg) {
 
     }
-
+    /***
+     * 断网重连
+     * @param networkType
+     */
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        super.onNetConnected(networkType);
+        mPresenter.getFrequently();
+    }
     @Override
     public void getFrequentlySuccess(List<FrequentlyBean> frequentlyBeanList) {
         mFrequentlyBeanList=frequentlyBeanList;
